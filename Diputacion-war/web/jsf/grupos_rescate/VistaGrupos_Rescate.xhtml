@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>#{msg['gruposRescate']}</title>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="page-header">
+                <h1>#{msg['gruposRescate']}</h1>
+            </div>
+            <div class="row">
+                <div class="span6 offset1">
+                    <h:form>
+                        <h:dataTable value="#{ctrVistaGrupos_Rescate.gruposRescate}" var="item" styleClass="table table-condensed table-bordered table-hover">
+
+                            <h:column>
+                                <f:facet name="header">#{msg['id']}</f:facet>
+                                <h:outputText value="#{item.idgrupoRescate}"/>                    
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">#{msg['localizacion']}</f:facet>
+                                <h:outputText value="#{item.localizacion}"/>                   
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">#{msg['nUsuarios']}</f:facet>
+                                <h:outputText value="#{item.usuarioCollection.size()}"/>                   
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">#{msg['opciones']}</f:facet>
+                                <div class="btn-group">
+                                    <h:commandLink styleClass="btn" action="#{ctrVistaGrupos_Rescate.ver()}" >
+                                        <f:setPropertyActionListener value="#{item}" target="#{ctrVistaGrupos_Rescate.selectedGroup}"/>
+                                        <i class="icon-eye-open"></i>
+                                    </h:commandLink>
+                                    <h:commandLink styleClass="btn" action="#{ctrVistaGrupos_Rescate.modificar()}" >
+                                        <f:setPropertyActionListener value="#{item}" target="#{ctrVistaGrupos_Rescate.selectedGroup}"/>
+                                        <i class="icon-edit"></i>
+                                    </h:commandLink>  
+                                    <h:commandLink styleClass="btn" action="#{ctrVistaGrupos_Rescate.borrarGrupoRescate()}" >
+                                        <f:setPropertyActionListener value="#{item}" target="#{ctrVistaGrupos_Rescate.selectedGroup}"/>
+                                        <i class="icon-trash"></i>
+                                    </h:commandLink>
+                                </div>
+                            </h:column>
+
+                        </h:dataTable>
+                    </h:form>
+                </div>
+                <div class="span3" >
+                    <h4>#{msg['acciones']}</h4>
+                    <h:form>
+                    <h:commandLink styleClass="btn" value="#{msg['crear']}" action="#{ctrVistaGrupos_Rescate.crear()}" ></h:commandLink>
+                    </h:form>
+                </div>
+
+            </div>
+            <div class="row offset1">
+                <h:link class="btn btn-info"  value="#{msg['verListaUsuarios']}" outcome="#{ctrVistaGrupos_Rescate.listaUsuarios()}" ></h:link>
+
+            </div>
+        </div>
+        <h:outputScript name="http://code.jquery.com/jquery.js"/>
+        <h:outputScript name="../../bootstrap/js/bootstrap.js" />
+    </h:body>
+</html>

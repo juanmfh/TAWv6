@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="../../bootstrap/js/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        
+        <title>#{msg['gruposRescate']}</title>
+        
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="text-center">#{msg['informacionGrupoRescate']}</h1>
+            </div>
+            <div class="row">
+                <div class="span4 offset1">
+                    <br/>
+                    <h3 class="text">#{msg['id']}: ${ctrVistaGrupos_Rescate.selectedGroup.idgrupoRescate} </h3>
+
+                    <h3 class="text">#{msg['localizacion']}: ${ctrVistaGrupos_Rescate.selectedGroup.localizacion} </h3>
+                </div>
+                <div class="span3 ">
+                    <br/>
+                    <h:form>
+                        <h:dataTable value="#{ctrVistaGrupos_Rescate.selectedGroup.usuarioCollection}" var="item" styleClass="table table-condensed table-bordered table-hover">>
+                            <h:column>
+                                <f:facet name="header">#{msg['id']}</f:facet>
+                                <h:outputText value="${item.idusuario}"/>                    
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">#{msg['nick']}</f:facet>
+                                <h:outputText value="${item.nick}"/>                    
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">#{msg['informacion']}</f:facet>
+                                
+                                
+                                <div id="${item.idusuario}ver" class="modal hide fade in" style="display: none;">
+                                    <div class="modal-header">
+                                        <a data-dismiss="modal" class="close">×</a>
+                                        <h3>#{msg['informacionUsuario']}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>#{msg['id']}: <h:outputText class="text-info" value="${item.idusuario}"/></h4>
+                                        <h4>#{msg['nombre']}: <h:outputText class="text-info" value="${item.nombre}"/></h4>
+                                        <h4>#{msg['apellido1']}: <h:outputText class="text-info" value="${item.apellido1}"/> </h4>
+                                        <h4>#{msg['apellido2']}: <h:outputText class="text-info" value="${item.apellido2}"/> </h4>
+                                        <h4>#{msg['dni']}: <h:outputText class="text-info" value="${item.dni}"/></h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" data-dismiss="modal" class="btn">#{msg['cerrar']}</a>
+                                    </div>
+                                </div>
+                                <a data-toggle="modal" href="#${item.idusuario}ver" class="btn">
+                                    <i class="icon-eye-open"></i>
+                                </a>
+                                
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>    
+                </div>
+            </div>
+            <div class="row offset1">
+                <h:link class="btn btn-infobtn offset2"  value="#{msg['volver']}" outcome="VistaGrupos_Rescate"></h:link>
+            </div>
+        </div>
+        
+        
+    </h:body>
+</html>
+

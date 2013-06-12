@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>#{msg['gruposRescate']}</title>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h1>#{msg['crearGrupoRescate']}</h1>
+            <h:form id="FormularioInsertarGrupo_Rescate">
+                <fieldset>
+                    <legend>#{msg['relleneLosSiguientesCampos']}:</legend>
+                    <h:outputText value="#{msg['localizacion']}:"></h:outputText>
+                    <br/>
+                    <h:inputText value="#{ctrVistaGrupos_Rescate.localizacion}"/>
+                    <legend>#{msg['seleccioneUsuariosLista']}:</legend>
+                    <h:dataTable value="#{ctrVistaGrupos_Rescate.usuarios}" var="item" styleClass="table table-condensed table-bordered table-hover">
+                        <caption>#{msg['listaUsuarios']}</caption>
+                        <h:column>
+                            <f:facet name="header">#{msg['seleccionado']}</f:facet>
+                            <h:selectBooleanCheckbox value="#{ctrVistaGrupos_Rescate.seleccionados[item.idusuario]}"/>        
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['nombre']}</f:facet>
+                            <h:outputText value="#{item.nombre}"/>                    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['nick']}</f:facet>
+                            <h:outputText value="#{item.nick}"/>                    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['grupoAsignado']}</f:facet>
+                            <h:outputText value="#{item.grupoRescateidgrupoRescate.idgrupoRescate}"/>                    
+                        </h:column>
+                    </h:dataTable>
+                    <div class="row offset1 ">
+                        <h:commandButton  value="#{msg['crear']}" class="btn btn-primary" action="#{ctrVistaGrupos_Rescate.crearGrupoRescate()}"/>
+                        <h:link class="btn btn-infobtn offset2"  value="#{msg['volver']}" outcome="VistaGrupos_Rescate"></h:link>
+                    </div>
+                </fieldset>
+            </h:form>
+
+
+        </div>
+        <h:outputScript name="http://code.jquery.com/jquery.js"/>
+        <h:outputScript name="../../bootstrap/js/bootstrap.js" />
+    </h:body>
+</html>

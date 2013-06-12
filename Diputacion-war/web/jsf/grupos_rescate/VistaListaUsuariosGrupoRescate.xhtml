@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>#{msg['gruposRescate']}</title>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="text-center">#{msg['listaUsuarios']}</h1>
+            </div>
+            <div>
+                <br/>
+                <h:form>
+                    <h:dataTable value="#{ctrVistaGrupos_Rescate.usuarios}" var="item" styleClass="table table-condensed table-bordered table-hover">>
+                        <h:column>
+                            <f:facet name="header">#{msg['id']}</f:facet>
+                            <h:outputText value="#{item.idusuario}"/>                    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['nombre']}</f:facet>
+                            <h:outputText value="#{item.nombre}"/>                    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['apellido1']}</f:facet>
+                            <h:outputText value="#{item.apellido1}"/>                    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['apellido2']}</f:facet>
+                            <h:outputText value="#{item.apellido2}"/>                    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['dni']}</f:facet>
+                            <h:outputText value="#{item.dni}"/>                    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['nick']}</f:facet>
+                            <h:outputText value="#{item.nick}"/>                    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg['grupoRescate']}</f:facet>
+                            <h:outputText value="#{item.grupoRescateidgrupoRescate.idgrupoRescate}"/>                    
+                        </h:column>
+                    </h:dataTable>
+                </h:form>    
+            </div>
+        </div>
+        <div class="row offset2">
+            <h:link class="btn btn-infobtn offset2"  value="#{msg['volver']}" outcome="VistaGrupos_Rescate"></h:link>
+        </div>
+        <h:outputScript name="http://code.jquery.com/jquery.js"/>
+        <h:outputScript name="../../bootstrap/js/bootstrap.js" />
+    </h:body>
+</html>
+
