@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="../../bootstrap/js/jquery.js"></script>
+
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <title>Facturacion</title>
+    </h:head>
+    <h:body>
+
+
+        <div class="container">
+            <h1>Facturación</h1><br/><br/>
+            <div class="row">
+                <div class="span4"><a class="btn btn-primary" href="/Diputacion-war/jsf/facturacion/VistaCrearFactura.jsf">CrearFactura</a></div>
+                <div class="span8"><a class="btn btn-primary" href="/Diputacion-war/jsf/facturacion/VistaGestionComparativas.jsf">Gestion de comparativas</a></div>
+            </div>
+            <br/><br/>
+
+            <h:form>
+                <h:dataTable value="#{ctrFacturacion.facturas}" var="datos" class=" table-condensed table table-hover table-bordered" >
+                    <h:column>
+                        <f:facet name="header">
+                            <center><h:outputText value="ID factura"/></center>
+                        </f:facet>
+                        <center><h:outputText value="#{datos.idfacturaIn}"/></center>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <center><h:outputText value="Periodo"/></center>
+                        </f:facet>
+                        <center><h:outputText value="#{datos.periodo}"/></center>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <center><h:outputText value="Numero asociado"/></center>
+                        </f:facet>
+                        <center><h:outputText value="#{datos.lineaMovilidlineaMovil.numero}"/></center>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <center><h:outputText value="Acciones"/></center>
+                        </f:facet>
+
+                        <center>
+                    
+                            <h:commandLink class="btn" action="#{ctrFacturacion.verFacturaIn()}">
+                                    <f:setPropertyActionListener value="#{datos}" target="#{ctrFacturacion.facturaSelec}"/>
+                                    <i class="icon-eye-open"></i>
+                                </h:commandLink>
+                            
+
+
+                            <!-- Modal -->
+                            <div id="${datos.idfacturaIn}borrar" class="modal hide fade in" style="display: none;">
+                                <div class="modal-header">
+                                    <a data-dismiss="modal" class="close">×</a>
+                                    <h3>Eliminar factura</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>¿Estás seguro de eliminar la fila seleccionada?</h4>
+                                    <p>Si la eliminas, no se podrá recuperar</p>                
+                                </div>
+                                <div class="modal-footer">
+                                    <h:commandLink class="btn btn-danger" action="#{ctrFacturacion.borrarFacturaIn()}">
+                                        <f:setPropertyActionListener value="#{datos}" target="#{ctrFacturacion.facturaSelec}"/>
+                                        Borrar
+                                    </h:commandLink>
+
+                                    <a href="#" data-dismiss="modal" class="btn">Cancelar</a>
+                                </div>
+                            </div>
+
+
+                            <a data-toggle="modal" href="#${datos.idfacturaIn}borrar" class="btn"><i class="icon-trash"/> </a>
+
+
+                        </center>    
+
+                    </h:column>
+
+
+                </h:dataTable>
+            </h:form>
+
+        </div>
+    </h:body>
+</html>

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="../../bootstrap/js/jquery.js"></script>
+
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <title>Gestion de Comparativas</title>
+    </h:head>
+    <h:body>
+
+
+
+        <div class="container">
+            <h1>Gestión de Comparativas</h1><br/><br/>
+
+            <a class="btn btn-primary" href="/Diputacion-war/jsf/facturacion/VistaCompararFacturacion.jsf">Comparar una factura</a><br/><br/><br/>
+            <h:form>
+                <h:dataTable value="#{ctrGestionComparativas.comparativas}" var="datos" class=" table-condensed table table-hover table-bordered" >
+                    <h:column>
+                        <f:facet name="header">
+                            <center><h:outputText value="ID comparativa"/></center>
+                        </f:facet>
+                        <center><h:outputText value="#{datos.idcomparativa}"/></center>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <center><h:outputText value="Fecha Creación"/></center>
+                        </f:facet>
+                        <center><h:outputText value="#{datos.fechaCreacion}"/></center>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <center><h:outputText value="Acciones"/></center>
+                        </f:facet>
+
+                        <center>
+                            <!-- NUEVO -->
+
+
+                            <!-- Modal -->
+                            <div id="${datos.idcomparativa}ver" class="modal hide fade in" style="display: none;">
+                                <div class="modal-header">
+                                    <a data-dismiss="modal" class="close">×</a>
+                                    <h3>Ver comparativa</h3>
+                                </div>
+                                <div class="modal-body">
+
+                                    <h4>Id de la comparativa: <h:outputText class="text-info" value="${datos.idcomparativa}"/></h4>
+                                    <h:inputHidden rendered="#{datos.controladorUsuarioIdusuario != null}">
+                                        <h4>Creado por
+                                            controlador: <h:outputText class="text-info" value="${datos.controladorUsuarioIdusuario.usuario.nombre}"/></h4>
+                                    </h:inputHidden>
+                                    <h:inputHidden rendered="#{datos.jefeUsuarioIdusuario != null}">
+                                        <h4>Creado por
+                                            jefe: <h:outputText class="text-info" value="${datos.jefeUsuarioIdusuario.usuario.nombre}"/></h4>
+                                    </h:inputHidden>
+
+                                    <h:inputHidden rendered="#{datos.comentario != null}">
+                                        <H4>Comentario del resultado: <h:outputText class="text-info" value="#{datos.comentario}"/> </H4>
+                                    </h:inputHidden>
+                                    <H4>Compañía: <h:outputText class="text-info" value="#{datos.facturaOutidfacturaOut.compania}"/></H4>
+                                    <H4>ID factura interna: <h:outputText class="text-info" value="#{datos.facturaInidfacturaIn.idfacturaIn}"/> </H4>
+                                    <H4>ID factura externa: <h:outputText class="text-info" value="#{datos.facturaOutidfacturaOut.idfacturaOut}"/> </H4>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
+                                </div>
+                            </div>
+
+
+                            <a data-toggle="modal" href="#${datos.idcomparativa}ver" class="btn">
+                                <i class="icon-eye-open"></i>
+                            </a>
+
+
+
+
+
+
+                            <!-- NUEVO -->
+
+
+                            <!-- Modal -->
+                            <div id="${datos.idcomparativa}" class="modal hide fade in" style="display: none;">
+                                <div class="modal-header">
+                                    <a data-dismiss="modal" class="close">×</a>
+                                    <h3>Eliminar comparativa</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>¿Estás seguro de eliminar la fila seleccionada?</h4>
+                                    <p>Si la eliminas, no se podrá recuperar</p>                
+                                </div>
+                                <div class="modal-footer">
+                                    <h:commandLink class="btn btn-danger" action="#{ctrGestionComparativas.borrarComparativa()}">
+                                        <f:setPropertyActionListener value="#{datos}" target="#{ctrGestionComparativas.comparativaSelec}"/>
+                                        Borrar
+                                    </h:commandLink>
+
+                                    <a href="#" data-dismiss="modal" class="btn">Cancelar</a>
+                                </div>
+                            </div>
+
+
+                            <a data-toggle="modal" href="#${datos.idcomparativa}" class="btn"><i class="icon-trash"/> </a>
+
+
+                        </center>    
+
+                    </h:column>
+
+
+                </h:dataTable>
+            </h:form>
+            <a class="btn" href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">Volver atrás</a>
+        </div>
+
+        <!-- Button to trigger modal -->
+
+
+    </h:body>
+</html>
+
