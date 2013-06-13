@@ -13,26 +13,26 @@
     <h:body>
 
         <div class="container">
-            <h1>Crear Factura</h1><br/><br/>
+            <h1>${msg['crearfactura']}</h1><br/><br/>
 
             <br/><br/><br/>
 
             <h:form>
-                Número asociado: 
+                ${msg['numeroasoc']}:  
                 <h:selectOneMenu id="list1" required="true" value="#{ctrCrearFactura.numSeleccionado}">
                     <f:selectItems value="#{ctrCrearFactura.lineasMovil}" var="c"
                                    itemLabel="#{c.numero}" itemValue="#{c.idlineaMovil}" />
                 </h:selectOneMenu>
 
-                Periodo:
+                ${msg['periodo']}: 
                 <h:selectOneMenu id="list2" required="true"  value="#{ctrCrearFactura.fechaSeleccionado}">
                     <f:selectItems value="#{ctrCrearFactura.fechas}" />
                 </h:selectOneMenu>
                 <br/><br/>
                 <div class="row">
                     <div class="span5"></div>
-                    <div class="span2"><a class="btn btn-small" href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">Volver atrás</a></div>
-                    <div class="span3"><h:commandButton class="btn btn-primary" action="#{ctrCrearFactura.crearFactura()}" value="Crear"></h:commandButton></div>
+                    <div class="span2"><a class="btn btn-small" href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">${msg['volver']}</a></div>
+                    <div class="span3"><h:commandButton class="btn btn-primary" action="#{ctrCrearFactura.crearFactura()}" value="${msg['crear']}"></h:commandButton></div>
                 </div>
 
             </h:form>
