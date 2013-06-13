@@ -218,14 +218,14 @@ public class CtrVistaGrupos_Rescate implements Serializable {
             administrador = administradorFacade.find(usuario.getIdusuario());
             if (administrador == null) {
                 try {
-                    FacesContext.getCurrentInstance().getExternalContext().dispatch("../../index.jsf");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("../../index.jsf");
                 } catch (IOException ex) {
                     //Logger.getLogger(CtrVistaSolicitudesUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().dispatch("../../index.jsf");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../../index.jsf");
             } catch (IOException ex) {
                 //Logger.getLogger(CtrVistaSolicitudesUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
