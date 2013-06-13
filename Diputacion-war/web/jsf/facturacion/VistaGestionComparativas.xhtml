@@ -15,28 +15,28 @@
 
 
         <div class="container">
-            <h1>Gestión de Comparativas</h1><br/><br/>
+            <h1>${msg['gestioncomparativas']}</h1><br/><br/>
 
-            <a class="btn btn-primary" href="/Diputacion-war/jsf/facturacion/VistaCompararFacturacion.jsf">Comparar una factura</a><br/><br/><br/>
+            <a class="btn btn-primary" href="/Diputacion-war/jsf/facturacion/VistaCompararFacturacion.jsf">${msg['compararfactura']}</a><br/><br/><br/>
             <h:form>
                 <h:dataTable value="#{ctrGestionComparativas.comparativas}" var="datos" class=" table-condensed table table-hover table-bordered" >
                     <h:column>
                         <f:facet name="header">
-                            <center><h:outputText value="ID comparativa"/></center>
+                            <center><h:outputText value="${msg['idcomparativa']}"/></center>
                         </f:facet>
                         <center><h:outputText value="#{datos.idcomparativa}"/></center>
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">
-                            <center><h:outputText value="Fecha Creación"/></center>
+                            <center><h:outputText value="${msg['fecha']}"/></center>
                         </f:facet>
                         <center><h:outputText value="#{datos.fechaCreacion}"/></center>
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">
-                            <center><h:outputText value="Acciones"/></center>
+                            <center><h:outputText value="${msg['acciones']}"/></center>
                         </f:facet>
 
                         <center>
@@ -47,33 +47,31 @@
                             <div id="${datos.idcomparativa}ver" class="modal hide fade in" style="display: none;">
                                 <div class="modal-header">
                                     <a data-dismiss="modal" class="close">×</a>
-                                    <h3>Ver comparativa</h3>
+                                    <h3>${msg['vercomparativa']}</h3>
                                 </div>
                                 <div class="modal-body">
 
-                                    <h4>Id de la comparativa: <h:outputText class="text-info" value="${datos.idcomparativa}"/></h4>
+                                    <h4>${msg['id']}: <h:outputText class="text-info" value="${datos.idcomparativa}"/></h4>
                                     <h:inputHidden rendered="#{datos.controladorUsuarioIdusuario != null}">
-                                        <h4>Creado por
-                                            controlador: <h:outputText class="text-info" value="${datos.controladorUsuarioIdusuario.usuario.nombre}"/></h4>
+                                        <h4>${msg['creadocontrolador']}: <h:outputText class="text-info" value="${datos.controladorUsuarioIdusuario.usuario.nombre}"/></h4>
                                     </h:inputHidden>
                                     <h:inputHidden rendered="#{datos.jefeUsuarioIdusuario != null}">
-                                        <h4>Creado por
-                                            jefe: <h:outputText class="text-info" value="${datos.jefeUsuarioIdusuario.usuario.nombre}"/></h4>
+                                        <h4>${msg['creadojefe']}: <h:outputText class="text-info" value="${datos.jefeUsuarioIdusuario.usuario.nombre}"/></h4>
                                     </h:inputHidden>
 
                                     <h:inputHidden rendered="#{datos.comentario != null}">
-                                        <H4>Comentario del resultado: <h:outputText class="text-info" value="#{datos.comentario}"/> </H4>
+                                        <H4>${msg['comentario']}: <h:outputText class="text-info" value="#{datos.comentario}"/> </H4>
                                     </h:inputHidden>
-                                    <H4>Compañía: <h:outputText class="text-info" value="#{datos.facturaOutidfacturaOut.compania}"/></H4>
-                                    <H4>ID factura interna: <h:outputText class="text-info" value="#{datos.facturaInidfacturaIn.idfacturaIn}"/> </H4>
-                                    <H4>ID factura externa: <h:outputText class="text-info" value="#{datos.facturaOutidfacturaOut.idfacturaOut}"/> </H4>
+                                    <H4>${msg['compania']}: <h:outputText class="text-info" value="#{datos.facturaOutidfacturaOut.compania}"/></H4>
+                                    <H4>${msg['idfacturain']}: <h:outputText class="text-info" value="#{datos.facturaInidfacturaIn.idfacturaIn}"/> </H4>
+                                    <H4>${msg['idfacturaout']}: <h:outputText class="text-info" value="#{datos.facturaOutidfacturaOut.idfacturaOut}"/> </H4>
 
 
 
                                 </div>
                                 <div class="modal-footer">
 
-                                    <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
+                                    <a href="#" data-dismiss="modal" class="btn">${msg['cerrar']}</a>
                                 </div>
                             </div>
 
@@ -94,19 +92,19 @@
                             <div id="${datos.idcomparativa}" class="modal hide fade in" style="display: none;">
                                 <div class="modal-header">
                                     <a data-dismiss="modal" class="close">×</a>
-                                    <h3>Eliminar comparativa</h3>
+                                    <h3>${msg['eliminarcomp']}</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <h4>¿Estás seguro de eliminar la fila seleccionada?</h4>
-                                    <p>Si la eliminas, no se podrá recuperar</p>                
+                                    <h4>${msg['modalestasseguro']}</h4>
+                                    <p>${msg['modalestasseguro2']}</p>                
                                 </div>
                                 <div class="modal-footer">
                                     <h:commandLink class="btn btn-danger" action="#{ctrGestionComparativas.borrarComparativa()}">
                                         <f:setPropertyActionListener value="#{datos}" target="#{ctrGestionComparativas.comparativaSelec}"/>
-                                        Borrar
+                                        ${msg['borrar']}
                                     </h:commandLink>
 
-                                    <a href="#" data-dismiss="modal" class="btn">Cancelar</a>
+                                    <a href="#" data-dismiss="modal" class="btn">${msg['cancelar']}</a>
                                 </div>
                             </div>
 
@@ -121,7 +119,7 @@
 
                 </h:dataTable>
             </h:form>
-            <a class="btn" href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">Volver atrás</a>
+            <a class="btn" href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">${msg['volver']}</a>
         </div>
 
         <!-- Button to trigger modal -->
