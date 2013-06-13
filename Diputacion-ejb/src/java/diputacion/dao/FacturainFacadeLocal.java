@@ -28,7 +28,5 @@ public interface FacturainFacadeLocal {
     List<Facturain> findRange(int[] range);
 
     int count();
-
-    public Object maxFacturaIn();
     
 }

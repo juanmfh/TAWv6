@@ -15,7 +15,6 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class FacturainFacade extends AbstractFacade<Facturain> implements FacturainFacadeLocal {
-
     @PersistenceContext(unitName = "Diputacion-ejbPU")
     private EntityManager em;
 
@@ -27,8 +26,5 @@ public class FacturainFacade extends AbstractFacade<Facturain> implements Factur
     public FacturainFacade() {
         super(Facturain.class);
     }
-
-    public Object maxFacturaIn() {
-        return em.createNamedQuery("FacturaIn.ultimoId").getSingleResult();
-    }
+    
 }
