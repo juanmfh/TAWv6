@@ -29,14 +29,14 @@
                     <dd>
                         <c:choose>
                             <c:when test="${ctrVerSolicitud.solicitudSeleccionada.denegada == null}">
-                                <span class="label badge-warning">En Tramite</span>
+                                <span class="label badge-warning">#{msg.enTramite}</span>
                             </c:when>
 
                             <c:when test="${ctrVerSolicitud.solicitudSeleccionada.denegada}">
-                                <span class="label badge-important">Denegada</span>
+                                <span class="label badge-important">#{msg.validada}</span>
                             </c:when>
                             <c:otherwise>
-                                <span class="label badge-success">Concedida</span>
+                                <span class="label badge-success">#{msg.concedida}</span>
                             </c:otherwise>
 
                         </c:choose>
@@ -47,7 +47,7 @@
 
                 
             </div>
-            <a href="javascript:window.history.back();" class="btn btn-primary" type="button">Volver</a>
+            <a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a>
         </div>
                 <script src="http://code.jquery.com/jquery.js"></script>
         <script src="../../bootstrap/js/bootstrap.js"></script> 
