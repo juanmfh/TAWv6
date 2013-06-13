@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <title>Menu</title>
@@ -11,35 +12,77 @@
             <div class="page-header">
                 <h1>Menu Principal</h1>
             </div>
-            <div class="bs-docs-example" style="float:left">
-                <div class="well" >
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Usuario</li>
-                        <li><a href="/Diputacion-war/jsf/solicitudes/VistaSolicitudesUsuario.jsf">Solicitudes</a></li>
-                        <li><a href="/Diputacion-war/jsf/directorio_telefonico/DirectorioTelefonico.jsf">Directorio Telefonico</a></li>
-                        <li class="nav-header">Jefe</li>
-                        <li><a href="/Diputacion-war/jsf/solicitudes/VistaSolicitudesJefe.jsf">Tramitar Solicitudes</a></li>
-                        <li class="nav-header">Controlador</li>
-                        <li><a href="/Diputacion-war/jsf/solicitudes/VistaSolicitudesControlador.jsf">Validar Solicitudes</a></li>
-                        <li class="nav-header">Administrador</li>
-                        <li><a href="/Diputacion-war/jsf/solicitudes/VistaSolicitudesAdministrador.jsf">Ejecutar Solicitudes</a></li>
-                        <li><a href="/Diputacion-war/jsf/grupos_rescate/VistaGrupos_Rescate.jsf">Grupos de rescate</a></li>
-                    </ul>
-                </div>
+            
+            <div style="float:left">
+                <p:menu style="width: 290px">  
+
+                    <p:submenu label="Usuario">  
+                        <p:menuitem value="Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesUsuario" icon="ui-icon-star"/>                      
+
+                    </p:submenu>  
+
+                    <p:submenu label="Jefe">  
+                        <p:menuitem value="Tramitar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesJefe" icon="ui-icon-star"/>  
+                    </p:submenu>  
+
+                    <p:submenu label="Controlador">  
+                        <p:menuitem value="Validar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesControlador" icon="ui-icon-star"/>  
+                    </p:submenu>  
+
+                    <p:submenu label="Administrador">  
+                        <p:menuitem value="Ejecutar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesAdministrador" icon="ui-icon-star"/>  
+                    </p:submenu>  
+                </p:menu>  
             </div>
+            
             <div style="float:right">
                 <img src="bootstrap/img/diputacion.gif" height="500" width="500" />
             </div>
         </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--
+            <div class="bs-docs-example" style="float:left">
+                        <div class="well" >
+                            <ul class="nav nav-list">
+                                <li class="nav-header">Usuario</li>
+                                <li><a href="/Diputacion-war/jsf/solicitudes/VistaSolicitudesUsuario.jsf">Solicitudes</a></li>
+                                <li><a href="/Diputacion-war/jsf/directorio_telefonico/DirectorioTelefonico.jsf">Directorio Telefonico</a></li>
+                                <li class="nav-header">Jefe</li>
+                                <li><a href="/Diputacion-war/jsf/solicitudes/VistaSolicitudesJefe.jsf">Tramitar Solicitudes</a></li>
+                                <li class="nav-header">Controlador</li>
+                                <li><a href="/Diputacion-war/jsf/solicitudes/VistaSolicitudesControlador.jsf">Validar Solicitudes</a></li>
+                                <li class="nav-header">Administrador</li>
+                                <li><a href="/Diputacion-war/jsf/solicitudes/VistaSolicitudesAdministrador.jsf">Ejecutar Solicitudes</a></li>
+                                <li><a href="/Diputacion-war/jsf/grupos_rescate/VistaGrupos_Rescate.jsf">Grupos de rescate</a></li>
+                            </ul>
+                        </div>
+                    </div>
+        
+        -->
+
+
+
         <a href="/Diputacion-war/jsf/gestion_terminales/index.jsf">Menu terminales</a><br/>
         <a href="/Diputacion-war/jsf/control_gasto/IndexPerfiles.jsf">Menu control de gasto</a><br/>
-        
+
 
         <a href="/Diputacion-war/jsf/directorio_telefonico/LineasFijasMunicipios.jsf">Lineas fijas todos los municipios (Administrador/Controlador)</a><br/>
         <a href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">Facturacion</a><br/>
         <a href="/Diputacion-war/jsf/facturacion/VistaGestionComparativas.jsf">Gestion de comparativas</a><br/>
+        <a href="/Diputacion-war/jsf/directorio_telefonico/DirectorioTelefonico.jsf">Directorio Telefonico</a>
         <!-- Solicitudes -->
 
 
