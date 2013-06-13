@@ -10,10 +10,10 @@
     </h:head>
     <h:body>
         <div class="container">
-            <h1>Resultado de la comparación </h1><br/><br/>
+            <h1>${msg['resultadocomparacion']} </h1><br/><br/>
             <h:form>
                 
-                <H3>Las diferencias:</H3>
+                <H3>${msg['diferencias']}:</H3>
                 <h:outputText value="${ctrCompararFacturacion.resultado}"/>
                 <br/>
                 <br/>
@@ -26,8 +26,8 @@
                 
                 <div class="row">
                     <div class="span4"></div>
-                    <div class="span2"><a class="btn btn-small" href="/Diputacion-war/jsf/facturacion/VistaGestionComparativas.jsf">Cancelar</a></div>
-                    <div class="span3"><h:commandButton class="btn btn-primary" action="#{ctrCompararFacturacion.guardarComparacion()}" value="Crear"></h:commandButton></div>
+                    <div class="span2"><a class="btn btn-small" href="/Diputacion-war/jsf/facturacion/VistaGestionComparativas.jsf">${msg['cancelar']}</a></div>
+                    <div class="span3"><h:commandButton class="btn btn-primary" action="#{ctrCompararFacturacion.guardarComparacion()}" value="${msg['crear']}"></h:commandButton></div>
                 </div>
             </h:form>
             
