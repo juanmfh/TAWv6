@@ -28,5 +28,7 @@ public interface ComparativaFacadeLocal {
     List<Comparativa> findRange(int[] range);
 
     int count();
+
+    public Object maxComparativa();
     
 }

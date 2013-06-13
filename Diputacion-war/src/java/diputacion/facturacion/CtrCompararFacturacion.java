@@ -126,11 +126,11 @@ public class CtrCompararFacturacion implements Serializable {
         c.setComentario(comentario);
         c.setDiferencias(resultado);
         c.setFechaCreacion(calendar.getTime());
-        /*if (comparativaFacade.maxComparativa() != null) {
+        if (comparativaFacade.maxComparativa() != null) {
             c.setIdcomparativa((Integer) comparativaFacade.maxComparativa() + 1);
         } else {
             c.setIdcomparativa(1);
-        }*/
+        }
         
         c.setFacturaInidfacturaIn(facturaInFacade.find(this.factInSelec));
         c.setFacturaOutidfacturaOut(facturaOutFacade.find(factOutSelec));
