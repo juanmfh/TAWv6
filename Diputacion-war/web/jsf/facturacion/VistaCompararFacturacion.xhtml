@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>CompararFacturacion</title>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="../../bootstrap/js/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    </h:head>
+    <h:body>
+         <div class="container">
+            <h1>Selecciona una factura interna y externa</h1><br/><br/>
+            <h:form>
+                Factura Interna: 
+                <h:selectOneMenu id="list1" required="true" value="#{ctrCompararFacturacion.factInSelec}">
+                    <f:selectItems value="#{ctrCompararFacturacion.facturasIn}" var="c"
+                                   itemLabel="ID:#{c.idfacturaIn} - FECHA:#{c.periodo.toString()}" itemValue="${c.idfacturaIn}" />
+                </h:selectOneMenu>
+
+                Factura Externa:
+                <h:selectOneMenu id="list2" required="true"  value="#{ctrCompararFacturacion.factOutSelec}">
+                    <f:selectItems value="#{ctrCompararFacturacion.facturasOut}" var="c"
+                                   itemLabel="ID:#{c.idfacturaOut} - FECHA:#{c.periodo.toString()}" itemValue="${c.idfacturaOut}" />
+                </h:selectOneMenu>
+                <br/><br/>
+                <div class="row">
+                    <div class="span5"></div>
+                    <div class="span2"><a class="btn btn-small" href="/Diputacion-war/jsf/facturacion/VistaGestionComparativas.jsf">Volver atrás</a></div>
+                    <div class="span3"><h:commandButton class="btn btn-primary" action="#{ctrCompararFacturacion.comparar()}" value="Comparar"></h:commandButton></div>
+                </div>
+
+            </h:form>
+            
+         </div>
+    </h:body>
+</html>
+

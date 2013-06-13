@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ComparativaFacade extends AbstractFacade<Comparativa> implements ComparativaFacadeLocal {
+
     @PersistenceContext(unitName = "Diputacion-ejbPU")
     private EntityManager em;
 
@@ -26,5 +27,8 @@ public class ComparativaFacade extends AbstractFacade<Comparativa> implements Co
     public ComparativaFacade() {
         super(Comparativa.class);
     }
-    
+
+    public Object maxComparativa() {
+        return em.createNamedQuery("Comparativa.ultimoId").getSingleResult();
+    }
 }

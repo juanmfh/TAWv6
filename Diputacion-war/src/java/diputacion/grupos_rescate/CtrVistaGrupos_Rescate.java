@@ -4,9 +4,7 @@
  */
 package diputacion.grupos_rescate;
 
-import diputacion.dao.AdministradorFacade;
-import diputacion.dao.GruporescateFacade;
-import diputacion.dao.UsuarioFacade;
+
 import diputacion.entity.Administrador;
 import diputacion.entity.Gruporescate;
 import diputacion.entity.Usuario;
@@ -214,7 +212,7 @@ public class CtrVistaGrupos_Rescate implements Serializable {
 
     @PostConstruct
     public void inicializar() {
-        /*ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         usuario = (Usuario) externalContext.getSessionMap().get("usuario");
         if (usuario != null) {
             administrador = administradorFacade.find(usuario.getIdusuario());
@@ -231,7 +229,7 @@ public class CtrVistaGrupos_Rescate implements Serializable {
             } catch (IOException ex) {
                 //Logger.getLogger(CtrVistaSolicitudesUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }*/
+        }
 
         gruposRescate = grupoRescateFacade.findAll();
         usuarios = usuarioFacade.findAll();
