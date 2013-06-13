@@ -35,7 +35,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Solicitud.findByTipo", query = "SELECT s FROM Solicitud s WHERE s.tipo = :tipo"),
     @NamedQuery(name = "Solicitud.findByTexto", query = "SELECT s FROM Solicitud s WHERE s.texto = :texto"),
     @NamedQuery(name = "Solicitud.findByDenegada", query = "SELECT s FROM Solicitud s WHERE s.denegada = :denegada"),
-    @NamedQuery(name = "Solicitud.findByFecha", query = "SELECT s FROM Solicitud s WHERE s.fecha = :fecha")})
+    @NamedQuery(name = "Solicitud.findByFecha", query = "SELECT s FROM Solicitud s WHERE s.fecha = :fecha"),
+    @NamedQuery(name = "Solicitud.solicitudesPendientesTramitar", query = "SELECT s FROM Solicitud s WHERE (s.jefeUsuarioIdusuario = :jefe) AND (s.denegada IS NULL) AND (s.controladorUsuarioIdusuario IS NULL)"),
+    @NamedQuery(name = "Solicitud.solicitudesTramitadasDenegadas", query = "SELECT s FROM Solicitud s WHERE (s.jefeUsuarioIdusuario = :jefe) AND (s.denegada IS NOT NULL)"),
+    @NamedQuery(name = "Solicitud.solicitudesPendientesValidar", query = "SELECT s FROM Solicitud s WHERE (s.controladorUsuarioIdusuario = :controlador) AND (s.denegada IS NULL) AND (s.jefeUsuarioIdusuario IS NOT NULL) AND (s.controladorUsuarioIdusuario IS NOT NULL) AND (s.administradorUsuarioIdusuario IS NULL)"),
+    @NamedQuery(name = "Solicitud.solicitudesValidadasDenegadas", query = "SELECT s FROM Solicitud s WHERE (s.controladorUsuarioIdusuario = :controlador) AND (s.denegada IS NOT NULL)"),
+    @NamedQuery(name = "Solicitud.solicitudesPendientesEjecutar", query = "SELECT s FROM Solicitud s WHERE (s.administradorUsuarioIdusuario = :administrador) AND (s.denegada IS NULL) AND (s.jefeUsuarioIdusuario IS NOT NULL) AND (s.controladorUsuarioIdusuario IS NOT NULL) AND (s.administradorUsuarioIdusuario IS NOT NULL)"),
+    @NamedQuery(name = "Solicitud.solicitudesEjecutadas", query = "SELECT s FROM Solicitud s WHERE (s.administradorUsuarioIdusuario = :administrador) AND (s.denegada = FALSE)"),
+    @NamedQuery(name = "Solicitud.solicitudesUsuario", query = "SELECT s FROM Solicitud s WHERE (s.usuarioIdusuario = :usuario)")})    
+        
 public class Solicitud implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <style>
+            .table td {text-align: center;}
+        </style>
+        <title>Solicitudes Pendientes (Controlador)</title>
+
+    </h:head>
+    <h:body>
+        <div class="container">
+
+            <div class="page-header">
+                <h1>Solicitudes Pendientes (Controlador)</h1>
+            </div>
+
+            <h:form>
+                <table class="table table-condensed table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#{msg['fecha']}</th>
+                            <th>#{msg['nombre']}</th>
+                            <th>#{msg['dni']}</th>
+                            <th>#{msg['tipo']}</th>
+                            <th>#{msg['descripcion']}</th>
+                            <th>#{msg['menu']}</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <c:forEach items="${ctrVistaSolicitudesControlador.solicitudesPendientes}" var="solicitud">
+
+                            <c:choose>
+                                <c:when test="${solicitud.denegada == null}">
+                                    <c:set var="styletr" value="warning"/>
+                                </c:when>
+                                <c:when test="${solicitud.denegada}">
+                                    <c:set var="styletr" value="error"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="styletr" value="success"/>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <tr class="#{styletr}">
+
+                                <td><h:outputText value="${solicitud.fecha}"> <f:convertDateTime pattern="d/M/yyyy" /></h:outputText></td>
+                                <td>${solicitud.usuarioIdusuario.nombre} ${solicitud.usuarioIdusuario.apellido1} ${solicitud.usuarioIdusuario.apellido2}</td>
+                                <td>${solicitud.usuarioIdusuario.dni}</td>
+                                <td>${solicitud.tipo}</td>
+                                <td><h:outputText value="${solicitud.texto.subSequence(0, 19)}"/>... </td>
+
+                                <td><div class="btn-group">
+
+                                        <h:commandLink styleClass="btn" action="#{ctrVistaSolicitudesControlador.doVer()}" >
+                                            <f:setPropertyActionListener value="#{solicitud}" target="#{ctrVerSolicitud.solicitudSeleccionada}"/>                                                     
+                                            <i class="icon-eye-open"></i>
+                                        </h:commandLink>
+
+                                        <h:commandLink styleClass="btn" action="#{ctrVistaSolicitudesControlador.doValidar()}" >
+                                            <f:setPropertyActionListener value="#{solicitud}" target="#{ctrVistaSolicitudesControlador.solicitudSeleccionada}"/>
+                                            <i class="icon-ok"></i> 
+
+                                        </h:commandLink>
+
+                                        <h:commandLink styleClass="btn" action="#{ctrVistaSolicitudesControlador.doDenegar()}" >
+                                            <f:setPropertyActionListener value="#{solicitud}" target="#{ctrVistaSolicitudesControlador.solicitudSeleccionada}"/>
+                                            <i class="icon-remove"></i> 
+                                        </h:commandLink>
+
+
+
+                                    </div></td>
+                            </tr>
+
+                        </c:forEach>
+
+                    </tbody>
+
+                </table>
+                <h:commandLink styleClass="btn btn-primary" action="#{ctrVistaSolicitudesControlador.doVerHistorial()}" value="Historial Solicitudes Validadas/Denegadas" />
+                <a href="javascript:window.history.back();" class="btn" type="button">Volver</a>
+            </h:form>
+
+
+
+            <script src="http://code.jquery.com/jquery.js"></script>
+            <script src="../../bootstrap/js/bootstrap.js"></script> 
+        </div>
+    </h:body>
+</html>
+

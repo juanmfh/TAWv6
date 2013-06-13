@@ -4,3 +4,11 @@
 *.jar
 *.war
 *.ear
+/nbproject/private/
+/Diputacion-war/nbproject/private/
+/Diputacion-ejb/nbproject/private/
+/Diputacion-ejb/build/
+/Diputacion-ejb/dist/
+/Diputacion-war/build/
+/build/
+/Diputacion-war/dist/

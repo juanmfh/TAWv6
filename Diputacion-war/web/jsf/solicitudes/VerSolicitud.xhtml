@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <title>Solicitud</title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Solicitud</h1>
+            </div>
+            <div class="hero-unit">
+                <dl class="dl-horizontal">
+                    <dt>Nombre:</dt>
+                    <dd>${ctrVerSolicitud.solicitudSeleccionada.usuarioIdusuario.nombre} 
+                        ${ctrVerSolicitud.solicitudSeleccionada.usuarioIdusuario.apellido1} 
+                        ${ctrVerSolicitud.solicitudSeleccionada.usuarioIdusuario.apellido2} </dd>
+                    <dt>DNI:</dt>
+                    <dd>${ctrVerSolicitud.solicitudSeleccionada.usuarioIdusuario.dni}</dd>
+                    <dt>Tipo:</dt>
+                    <dd>${ctrVerSolicitud.solicitudSeleccionada.tipo}</dd>
+                    <dt>Descripcion:</dt>
+                    <dd>${ctrVerSolicitud.solicitudSeleccionada.texto}</dd>
+
+                    <dt>Estado:</dt>
+                    <dd>
+                        <c:choose>
+                            <c:when test="${ctrVerSolicitud.solicitudSeleccionada.denegada == null}">
+                                <span class="label badge-warning">En Tramite</span>
+                            </c:when>
+
+                            <c:when test="${ctrVerSolicitud.solicitudSeleccionada.denegada}">
+                                <span class="label badge-important">Denegada</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="label badge-success">Concedida</span>
+                            </c:otherwise>
+
+                        </c:choose>
+                    </dd>
+                </dl>
+
+
+
+                
+            </div>
+            <a href="javascript:window.history.back();" class="btn btn-primary" type="button">Volver</a>
+        </div>
+                <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.js"></script> 
+    </h:body>
+</html>
+
+
+
+
