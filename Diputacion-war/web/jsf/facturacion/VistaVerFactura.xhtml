@@ -15,31 +15,31 @@
 
 
 
-        <h1 class="text-center">Detalles de la factura</h1>
+        <h1 class="text-center">${msg['detallesfactura']}</h1>
         <div class="container">
-            <H4>ID de la factura: <h:outputText class="text-info" value="#{ctrFacturacion.facturaSelec.idfacturaIn}"/> </H4>
-            <h4>Periodo: <h:outputText class="text-info" value="${ctrFacturacion.facturaSelec.periodo}"/></h4>
-            <h4>Id linea movil asociada: <h:outputText class="text-info" value="${ctrFacturacion.facturaSelec.lineaMovilidlineaMovil.idlineaMovil}"/></h4>
-            <h4>Numero de movil asociado: <h:outputText class="text-info" value="${ctrFacturacion.facturaSelec.lineaMovilidlineaMovil.numero}"/></h4>
-            <h4>Lista de gastos: <br/>
+            <H4>${msg['idfactura']}: <h:outputText class="text-info" value="#{ctrFacturacion.facturaSelec.idfacturaIn}"/> </H4>
+            <h4>${msg['periodo']}: <h:outputText class="text-info" value="${ctrFacturacion.facturaSelec.periodo}"/></h4>
+            <h4>${msg['idmovilasoc']}: <h:outputText class="text-info" value="${ctrFacturacion.facturaSelec.lineaMovilidlineaMovil.idlineaMovil}"/></h4>
+            <h4>${msg['numeroasoc']}: <h:outputText class="text-info" value="${ctrFacturacion.facturaSelec.lineaMovilidlineaMovil.numero}"/></h4>
+            <h4>${msg['listagastos']}: <br/>
 
 
-                <h:dataTable value="#{ctrFacturacion.facturaSelec.lineaFacturaCollection}" var="datos" class=" table-condensed table table-hover table-bordered" >
+                <h:dataTable value="#{ctrFacturacion.facturaSelec.lineafacturaCollection}" var="datos" class=" table-condensed table table-hover table-bordered" >
                     <h:column>
                         <f:facet name="header">
-                            <center><h:outputText value="ID gasto"/></center>
+                            <center><h:outputText value="${msg['idgasto']}"/></center>
                         </f:facet>
                         <center><h:outputText value="#{datos.idlineaFactura}"/></center>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <center><h:outputText value="IVA"/></center>
+                            <center><h:outputText value="${msg['iva']}"/></center>
                         </f:facet>
                         <center><h:outputText value="#{datos.iva}%"/></center>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <center><h:outputText value="Precio"/></center>
+                            <center><h:outputText value="${msg['precio']}"/></center>
                         </f:facet>
                         <center><h:outputText value="#{datos.precio}€"/></center>
                     </h:column>
@@ -48,7 +48,7 @@
 
             </h4>
 
-            <a class="btn btn-primary" href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">Volver atrás</a>
+            <a class="btn" href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">${msg['volver']}</a>
         </div>
 
     </h:body>

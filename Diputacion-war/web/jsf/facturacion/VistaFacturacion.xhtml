@@ -65,16 +65,16 @@
                                     <h3>Eliminar factura</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <h4>¿Estás seguro de eliminar la fila seleccionada?</h4>
-                                    <p>Si la eliminas, no se podrá recuperar</p>                
+                                    <h4>${msg['modalestasseguro']}</h4>
+                                    <p>${msg['modalestasseguro2']}</p>                
                                 </div>
                                 <div class="modal-footer">
                                     <h:commandLink class="btn btn-danger" action="#{ctrFacturacion.borrarFacturaIn()}">
                                         <f:setPropertyActionListener value="#{datos}" target="#{ctrFacturacion.facturaSelec}"/>
-                                        Borrar
+                                        ${msg['borrar']}
                                     </h:commandLink>
 
-                                    <a href="#" data-dismiss="modal" class="btn">Cancelar</a>
+                                    <a href="#" data-dismiss="modal" class="btn">${msg['cancelar']}</a>
                                 </div>
                             </div>
 
