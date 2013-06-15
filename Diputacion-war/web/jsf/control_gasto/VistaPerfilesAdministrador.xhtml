@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+Document   : VistaPerfilesAdministrador
+Created on : 03-jun-2013
+Author     : Alejandro Ruiz Moyano
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Administrar perfiles</title>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div class="text-center">
+            <h1>Administrar perfiles</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <h:form>
+                    <h:dataTable value="#{ctrVistaPerfilesAdministrador.listaMoviles}" var="item" styleClass="table table-condensed table-bordered table-hover">
+                        <ui:param name="id" value="#{item.idlineaMovil}"/>
+                        <ui:param name="tarifa" value="#{item.perfilIdperfil.tarifaMovilidtarifaMovil}"/>
+                        <h:column>
+                            <f:facet name="header">Usuario</f:facet>
+                            <h:outputText value="#{item.usuarioIdusuario.dni}"/>   
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">L&iacute;nea</f:facet>
+                            <h:outputText value="#{item.numero}"/>   
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Id perfil</f:facet>
+                            <h:outputText value="#{item.perfilIdperfil.idperfil}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fecha fin</f:facet>
+                            <h:outputText value="#{item.perfilIdperfil.fechaFin}"/>                   
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">L&iacute;mite saldo</f:facet>
+                            <h:outputText value="#{item.perfilIdperfil.limite}"/>                   
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Tarifa</f:facet>
+                            <h:commandLink class="btn" action="#{ctrVistaTarifa.verTarifa}" value="Ver detalles  ">
+                                <i class='icon-eye-open'></i>
+                                <f:setPropertyActionListener value="#{tarifa}" target="#{ctrVistaTarifa.tarifa}" />
+                            </h:commandLink>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Opciones</f:facet>
+                            <div class="btn-group">        
+                                <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.add}">
+                                    <i class='icon-plus'></i>
+                                    <f:setPropertyActionListener value="#{id}" target="#{ctrVistaPerfilesAdministrador.idLinea}" />
+                                </h:commandLink>
+                                <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.delete}">
+                                    <i class='icon-trash'></i>
+                                    <f:setPropertyActionListener value="#{id}" target="#{ctrVistaPerfilesAdministrador.idLinea}" />
+                                </h:commandLink>
+                            </div>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+            <div class="row offset5">
+                <h:button class="btn btn-primary" value="Volver" outcome="/jsf/control_gasto/IndexPerfiles"/>
+            </div>
+        </div>
+        <h:outputScript name="http://code.jquery.com/jquery.js"/>
+        <h:outputScript name="../../bootstrap/js/bootstrap.js" />
+    </h:body>
+</html>

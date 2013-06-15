@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+Document   : VistaVerTarifa
+Created on : 03-jun-2013
+Author     : Alejandro Ruiz Moyano
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <title>Tarifa</title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <c:choose>
+                <c:when test="${ctrVistaTarifa.tarifa == null}">
+                    <div class="page-header">
+                        <h1>Tarifa</h1>
+                    </div>
+                    <div class="hero-unit">
+                        El perfil seleccionado no tiene una tarifa asociada.
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="page-header">
+                        <h1>Tarifa #{ctrVistaTarifa.tarifa.nombre}</h1>
+                    </div>
+                    <div class="hero-unit">
+                        Establecimiento de llamada: #{ctrVistaTarifa.tarifa.costeEstablecimiento} € <br/>
+                        Coste por minuto: #{ctrVistaTarifa.tarifa.costeMinuto} € <br/>
+                        Coste SMS: #{ctrVistaTarifa.tarifa.costeSMS} € <br/>
+                        <c:choose>
+                            <c:when test="${ctrVistaTarifa.tarifa.datos}">
+                                Tarifa de datos: S&iacute; <br/>
+                                Precio datos: #{ctrVistaTarifa.tarifa.precioDatos} € <br/>
+                            </c:when>
+                            <c:otherwise>
+                                Tarifa de datos: No <br/>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
+            <div class="row offset5">
+                <a href="javascript:window.history.back();" class="btn btn-primary" type="button">Volver</a>
+            </div>
+        </div>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.js"></script> 
+    </h:body>
+</html>
+
