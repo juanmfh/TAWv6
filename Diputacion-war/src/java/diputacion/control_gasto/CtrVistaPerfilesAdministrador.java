@@ -1,8 +1,8 @@
 package diputacion.control_gasto;
 
-import diputacion.dao.AdministradorFacade;
-import diputacion.dao.LineamovilFacade;
-import diputacion.dao.PerfilFacade;
+import diputacion.dao.AdministradorFacadeLocal;
+import diputacion.dao.LineamovilFacadeLocal;
+import diputacion.dao.PerfilFacadeLocal;
 import diputacion.entity.Administrador;
 import diputacion.entity.Lineamovil;
 import diputacion.entity.Perfil;
@@ -31,11 +31,11 @@ public class CtrVistaPerfilesAdministrador implements Serializable {
      * Creates a new instance of CtrVistaPerfilesAdministrador
      */
     @EJB
-    private AdministradorFacade adminFacade;
+    private AdministradorFacadeLocal adminFacade;
     @EJB
-    private LineamovilFacade lineaMovilFacade;
+    private LineamovilFacadeLocal lineaMovilFacade;
     @EJB
-    private PerfilFacade perfilFacade;
+    private PerfilFacadeLocal perfilFacade;
     private Administrador admin;
     private Collection<Lineamovil> coleccionMoviles;
     private LinkedList<Lineamovil> moviles;

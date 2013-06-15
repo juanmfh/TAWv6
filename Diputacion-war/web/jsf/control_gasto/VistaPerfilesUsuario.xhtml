@@ -8,8 +8,7 @@ Author     : Alejandro Ruiz Moyano
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Mis perfiles</title>
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
@@ -18,40 +17,38 @@ Author     : Alejandro Ruiz Moyano
         <div class="text-center">
             <h1>Mis perfiles</h1>
         </div>
-        <div class="container">
-            <div class="row">
-                <h:form>
-                    <h:dataTable value="#{ctrVistaPerfilesUsuario.listaMoviles}" var="item" styleClass="table table-condensed table-bordered table-hover">
-                        <ui:param name="tarifa" value="#{item.perfilIdperfil.tarifaMovilidtarifaMovil}"/>
-                        <h:column>
-                            <f:facet name="header">L&iacute;nea</f:facet>
-                            <h:outputText value="#{item.numero}"/>                    
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Id perfil</f:facet>
-                            <h:outputText value="#{item.perfilIdperfil.idperfil}"/>                   
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Fecha fin</f:facet>
-                            <h:outputText value="#{item.perfilIdperfil.fechaFin}"/>                   
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">L&iacute;mite saldo</f:facet>
-                            <h:outputText value="#{item.perfilIdperfil.limite}"/>                   
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Tarifa</f:facet>
-                            <h:commandLink class="btn" action="#{ctrVistaTarifa.verTarifa}" value="Ver detalles  ">
-                                <i class='icon-eye-open'></i>
-                                <f:setPropertyActionListener value="#{tarifa}" target="#{ctrVistaTarifa.tarifa}" />
-                            </h:commandLink>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
-            </div>
-            <div class="row offset5">
-                <a href="javascript:window.history.back();" class="btn btn-primary" type="button">Volver</a>
-            </div>
+        <div class="container-fluid">
+            <h:form>
+                <h:dataTable value="#{ctrVistaPerfilesUsuario.listaMoviles}" var="item" styleClass="table table-condensed table-bordered table-hover">
+                    <ui:param name="tarifa" value="#{item.perfilIdperfil.tarifaMovilidtarifaMovil}"/>
+                    <h:column>
+                        <f:facet name="header">L&iacute;nea</f:facet>
+                        <h:outputText value="#{item.numero}"/>                    
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Id perfil</f:facet>
+                        <h:outputText value="#{item.perfilIdperfil.idperfil}"/>                   
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Fecha fin</f:facet>
+                        <h:outputText value="#{item.perfilIdperfil.fechaFin}"/>                   
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">L&iacute;mite saldo</f:facet>
+                        <h:outputText value="#{item.perfilIdperfil.limite}"/>                   
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Tarifa</f:facet>
+                        <h:commandLink class="btn" action="#{ctrVistaTarifa.verTarifa}" value="Ver detalles  ">
+                            <i class='icon-eye-open'></i>
+                            <f:setPropertyActionListener value="#{tarifa}" target="#{ctrVistaTarifa.tarifa}" />
+                        </h:commandLink>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+        <div class="container-fluid" align="center">
+            <a href="javascript:window.history.back();" class="btn btn-primary" type="button">Volver</a>
         </div>
         <h:outputScript name="http://code.jquery.com/jquery.js"/>
         <h:outputScript name="../../bootstrap/js/bootstrap.js" />

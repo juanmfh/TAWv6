@@ -1,8 +1,6 @@
 package diputacion.control_gasto;
 
-import diputacion.dao.LineamovilFacade;
-import diputacion.dao.PerfilFacade;
-import diputacion.dao.UsuarioFacade;
+import diputacion.dao.UsuarioFacadeLocal;
 import diputacion.entity.Lineamovil;
 import diputacion.entity.Perfil;
 import diputacion.entity.Usuario;
@@ -27,16 +25,11 @@ public class CtrVistaPerfilesUsuario implements Serializable {
      * Creates a new instance of CtrVistaPerfilesUsuario
      */
     @EJB
-    private UsuarioFacade usuarioFacade;
-    @EJB
-    private LineamovilFacade lineaMovilFacade;
-    @EJB
-    private PerfilFacade perfilFacade;
+    private UsuarioFacadeLocal usuarioFacade;
     private Usuario usuario;
     private Collection<Lineamovil> coleccionMoviles;
     private LinkedList<Lineamovil> moviles;
     private LinkedList<Perfil> perfiles;
-    private Integer idTarifa;
 
     public CtrVistaPerfilesUsuario() {
     }

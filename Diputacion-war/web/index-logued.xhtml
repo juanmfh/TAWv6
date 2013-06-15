@@ -12,19 +12,18 @@
             <div class="page-header">
                 <h1>Menu Principal</h1>
             </div>
-            
+
             <div style="float:left">
                 <p:menu style="width: 290px">  
 
                     <p:submenu label="Usuario">  
                         <p:menuitem value="Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesUsuario" icon="ui-icon-star"/>                      
-
+                        <p:menuitem value="Perfiles" outcome="jsf/control_gasto/VistaPerfilesUsuario.jsf" icon="ui-icon-star"/>   
                     </p:submenu>  
 
                     <p:submenu label="Jefe">  
                         <p:menuitem value="Tramitar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesJefe" icon="ui-icon-star"/>
                         <p:menuitem value="Facturacion" outcome="jsf/facturacion/VistaFacturacion" icon="ui-icon-star"/>
-                   
                     </p:submenu>  
 
                     <p:submenu label="Controlador">  
@@ -35,10 +34,11 @@
                     <p:submenu label="Administrador">  
                         <p:menuitem value="Ejecutar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesAdministrador" icon="ui-icon-star"/>  
                         <p:menuitem value="Grupos de Rescate" outcome="jsf/grupos_rescate/VistaGrupos_Rescate" icon="ui-icon-star"/>
+                        <p:menuitem value="Modificar perfiles" outcome="jsf/control_gasto/VistaPerfilesAdministrador.jsf" icon="ui-icon-star"/>      
                     </p:submenu>
                 </p:menu>  
             </div>
-            
+
             <div style="float:right">
                 <img src="bootstrap/img/diputacion.gif" height="500" width="540" />
             </div>
@@ -80,11 +80,10 @@
 
 
         <a href="/Diputacion-war/jsf/gestion_terminales/index.jsf">Menu terminales</a><br/>
-        <a href="/Diputacion-war/jsf/control_gasto/IndexPerfiles.jsf">Menu control de gasto</a><br/>
 
 
         <a href="/Diputacion-war/jsf/directorio_telefonico/LineasFijasMunicipios.jsf">Lineas fijas todos los municipios (Administrador/Controlador)</a><br/>
-        
+
         <a href="/Diputacion-war/jsf/directorio_telefonico/DirectorioTelefonico.jsf">Directorio Telefonico</a>
         <!-- Solicitudes -->
 

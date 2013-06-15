@@ -13,7 +13,7 @@ Author     : Alejandro Ruiz Moyano
         <title>Tarifa</title>
     </h:head>
     <h:body>
-        <div class="container">
+        <div class="container-fluid">
             <c:choose>
                 <c:when test="${ctrVistaTarifa.tarifa == null}">
                     <div class="page-header">
@@ -43,10 +43,9 @@ Author     : Alejandro Ruiz Moyano
                     </div>
                 </c:otherwise>
             </c:choose>
-
-            <div class="row offset5">
-                <a href="javascript:window.history.back();" class="btn btn-primary" type="button">Volver</a>
-            </div>
+        </div>
+        <div class="container-fluid" align="center">
+            <a href="javascript:window.history.back();" class="btn btn-primary" type="button">Volver</a>
         </div>
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="../../bootstrap/js/bootstrap.js"></script> 
