@@ -131,7 +131,7 @@ public class CtrVistaPerfilesAdministrador implements Serializable {
             lineaMovilFacade.edit(lm);
             perfilFacade.edit(pf);
         }
-        this.init();
+        init();
         return "VistaPerfilesAdministrador";
     }
 
@@ -142,7 +142,7 @@ public class CtrVistaPerfilesAdministrador implements Serializable {
         pf.getLineamovilCollection().add(lm);
         lineaMovilFacade.edit(lm);
         perfilFacade.edit(pf);
-        this.init();
+        init();
         return "VistaPerfilesAdministrador";
     }
 }
