@@ -12,6 +12,8 @@ Author     : Alejandro Ruiz Moyano
     <h:head>
         <title>#{msg.modificarPerfiles}</title>
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
         <div class="text-center">
@@ -21,7 +23,6 @@ Author     : Alejandro Ruiz Moyano
             <h:form>
                 <h:dataTable value="#{ctrVistaPerfilesAdministrador.listaMoviles}" var="item" styleClass="table table-condensed table-bordered table-hover">
                     <ui:param name="id" value="#{item.idlineaMovil}"/>
-                    <ui:param name="tarifa" value="#{item.perfilIdperfil.tarifaMovilidtarifaMovil}"/>
                     <h:column>
                         <f:facet name="header">#{msg.usuario}</f:facet>
                         <h:outputText value="#{item.usuarioIdusuario.dni}"/>   
@@ -44,10 +45,25 @@ Author     : Alejandro Ruiz Moyano
                     </h:column>
                     <h:column>
                         <f:facet name="header">#{msg.tarifa}</f:facet>
-                        <h:commandLink class="btn" action="#{ctrVistaTarifa.verTarifa}" value="#{msg.verDetalles} ">
-                            <i class='icon-eye-open'></i>
-                            <f:setPropertyActionListener value="#{tarifa}" target="#{ctrVistaTarifa.tarifa}" />
-                        </h:commandLink>
+
+                        <div id="${item.idlineaMovil}ver" class="modal hide fade in" style="display: none;">
+                            <div class="modal-header">
+                                <h3>${msg.tarifa} ${item.perfilIdperfil.tarifaMovilidtarifaMovil.nombre}</h3>
+                            </div>
+                            <div class="modal-body">
+                                <h4>#{msg.establecimientoLlamada}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeEstablecimiento} "/>€</h4>
+                                <h4>#{msg.costeMinuto}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeMinuto} "/>€</h4>
+                                <h4>#{msg.costeSMS}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeSMS} "/>€</h4>
+                                <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.datos}"/></h4>
+                                <h4>#{msg.precioDatos}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.precioDatos} "/>€</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" data-dismiss="modal" class="btn">#{msg.cerrar}</a>
+                            </div>
+                        </div>
+                        <a data-toggle="modal" href="#${item.idlineaMovil}ver" class="btn"> 
+                            <i class="icon-eye-open"></i>  Ver detalles 
+                        </a>
                     </h:column>
                     <h:column>
                         <f:facet name="header">#{msg.opciones}</f:facet>
@@ -68,7 +84,5 @@ Author     : Alejandro Ruiz Moyano
         <div class="container-fluid" align="center">
             <h:button class="btn btn-primary" value="#{msg.volver}" outcome="/index-logued.jsf"/>
         </div>
-        <h:outputScript name="http://code.jquery.com/jquery.js"/>
-        <h:outputScript name="../../bootstrap/js/bootstrap.js" />
     </h:body>
 </html>
