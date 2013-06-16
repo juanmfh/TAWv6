@@ -8,10 +8,13 @@ Author     : Alejandro Ruiz Moyano
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>#{msg.misPerfiles}</title>
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="../../bootstrap/js/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
         <div class="text-center">
@@ -20,7 +23,6 @@ Author     : Alejandro Ruiz Moyano
         <div class="container-fluid">
             <h:form>
                 <h:dataTable value="#{ctrVistaPerfilesUsuario.listaMoviles}" var="item" styleClass="table table-condensed table-bordered table-hover">
-                    <ui:param name="tarifa" value="#{item.perfilIdperfil.tarifaMovilidtarifaMovil}"/>
                     <h:column>
                         <f:facet name="header">#{msg.linea}</f:facet>
                         <h:outputText value="#{item.numero}"/>                    
@@ -39,10 +41,39 @@ Author     : Alejandro Ruiz Moyano
                     </h:column>
                     <h:column>
                         <f:facet name="header">#{msg.tarifa}</f:facet>
-                        <h:commandLink class="btn" action="#{ctrVistaTarifa.verTarifa}" value="#{msg.verDetalles} ">
-                            <i class='icon-eye-open'></i>
-                            <f:setPropertyActionListener value="#{tarifa}" target="#{ctrVistaTarifa.tarifa}" />
-                        </h:commandLink>
+
+                        <div id="${item.idlineaMovil}ver" class="modal hide fade in" style="display: none;">
+                            <div class="modal-header">
+                                <h3>${msg.tarifa} ${item.perfilIdperfil.tarifaMovilidtarifaMovil.nombre}</h3>
+                            </div>
+                            <div class="modal-body">
+                                <c:choose>
+                                    <c:when test="${item.perfilIdperfil.tarifaMovilidtarifaMovil.equals(null)}">
+                                        #{msg.textoTarifaNula}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h4>#{msg.establecimientoLlamada}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeEstablecimiento} €"/></h4>
+                                        <h4>#{msg.costeMinuto}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeMinuto} €"/></h4>
+                                        <h4>#{msg.costeSMS}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeSMS} €"/></h4>
+                                        <c:choose>
+                                            <c:when test="${item.perfilIdperfil.tarifaMovilidtarifaMovil.datos}">
+                                                <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.datos}"/></h4>
+                                                <h4>#{msg.precioDatos}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.precioDatos} €"/></h4>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <h4>#{msg.precioDatos}: <h:outputText class="text-info" value="No"/></h4>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" data-dismiss="modal" class="btn">#{msg['cerrar']}</a>
+                            </div>
+                        </div>
+                        <a data-toggle="modal" href="#${item.idlineaMovil}ver" class="btn"> 
+                            <i class="icon-eye-open"></i>  Ver detalles 
+                        </a>
                     </h:column>
                 </h:dataTable>
             </h:form>
@@ -50,7 +81,5 @@ Author     : Alejandro Ruiz Moyano
         <div class="container-fluid" align="center">
             <a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a>
         </div>
-        <h:outputScript name="http://code.jquery.com/jquery.js"/>
-        <h:outputScript name="../../bootstrap/js/bootstrap.js" />
     </h:body>
 </html>

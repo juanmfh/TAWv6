@@ -49,6 +49,7 @@ public class CtrVistaPerfilesUsuario implements Serializable {
     }
 
     public LinkedList<Lineamovil> getListaMoviles() {
+        init();
         return moviles;
     }
 
@@ -57,6 +58,7 @@ public class CtrVistaPerfilesUsuario implements Serializable {
     }
 
     public LinkedList<Perfil> getListaPerfiles() {
+        init();
         return perfiles;
     }
 
