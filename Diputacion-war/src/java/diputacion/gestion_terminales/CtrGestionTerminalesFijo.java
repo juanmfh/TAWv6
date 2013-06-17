@@ -5,7 +5,6 @@
 package diputacion.gestion_terminales;
 
 import diputacion.dao.LineafijaFacadeLocal;
-import diputacion.dao.LineamovilFacadeLocal;
 import diputacion.dao.TerminalfijoFacadeLocal;
 import diputacion.dao.UsuarioFacadeLocal;
 import java.util.Collection;
@@ -20,24 +19,24 @@ import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import diputacion.entity.Lineafija;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.ejb.EJB;
+
 /**
  *
  * @author Joaquin
  */
 @ManagedBean(name = "ctrGestionTerminalesFijo")
 @SessionScoped
-public class CtrGestionTerminalesFijo implements Serializable{
-    
+public class CtrGestionTerminalesFijo implements Serializable {
+
     @EJB
     private LineafijaFacadeLocal lineafijaFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
     @EJB
     private TerminalfijoFacadeLocal terminalfijoFacade;
-    
-    
-   //VARIABLES
+    //VARIABLES
     private String marca, modelo, linea, fecha;
     private Date fechaAlta;
     private Collection<Terminalfijo> terminales;
@@ -156,7 +155,7 @@ public class CtrGestionTerminalesFijo implements Serializable{
     public void setTerminalSeleccionado(Terminalfijo tf) {
         terminalSeleccionado = tf;
     }
-    
+
     //METODOS-------------------------------------------------------------------
     @PostConstruct
     public void inicializacion() {
@@ -175,7 +174,7 @@ public class CtrGestionTerminalesFijo implements Serializable{
         usuarios = usuarioFacade.findAll();
 
     }
-    
+
     public String formularioInsertar() {
         this.inicializacion();
         return "FormularioInsertarFijo";
@@ -226,7 +225,7 @@ public class CtrGestionTerminalesFijo implements Serializable{
         this.inicializacion();
         return "ListadoTerminalFijo";
     }
-    
+
     public void borrarTerminalFijo() {
 
         terminalfijoFacade.remove(terminalSeleccionado);
@@ -234,10 +233,100 @@ public class CtrGestionTerminalesFijo implements Serializable{
 
     }
 
+    public String modificarTerminalFijo() {
+
+        marca = terminalSeleccionado.getMarca();
+        modelo = terminalSeleccionado.getModelo();
+        linea = "";
+        if (terminalSeleccionado.getLineaFijaidlineaFija() != null) {
+            linea += terminalSeleccionado.getLineaFijaidlineaFija().getNumeroLinea();
+        }
+        fecha = "";
+        if (terminalSeleccionado.getLineaFijaidlineaFija() != null && terminalSeleccionado.getLineaFijaidlineaFija().getFechaAlta() != null) {
+
+            int dia = terminalSeleccionado.getLineaFijaidlineaFija().getFechaAlta().getDate();
+            int mes = terminalSeleccionado.getLineaFijaidlineaFija().getFechaAlta().getMonth() + 1;
+            int ano = terminalSeleccionado.getLineaFijaidlineaFija().getFechaAlta().getYear() + 1900;
+            fecha += dia + "/" + mes + "/" + ano;
+        }
 
 
-    
-    
-    
-    
+        return "FormularioModificarFijo";
+
+    }
+
+    public String modificarTerminalFijoDatos() {
+        Lineafija lf;
+        terminalSeleccionado.setMarca(marca);
+        terminalSeleccionado.setModelo(modelo);
+        //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA    
+        if (!publico.isEmpty()) {
+            pub = true;
+        }
+
+        if (linea.length() > 0) {
+            lf = new Lineafija();
+
+            //PASEAMOS LA FECHA
+            if (fecha.length() > 0) {
+                StringTokenizer tokens = new StringTokenizer(fecha, "/");;
+                int[] datos = new int[3];
+                int i = 0;
+                while (tokens.hasMoreTokens()) {
+                    String str = tokens.nextToken();
+                    datos[i] = Integer.parseInt(str);
+                    System.out.println(datos[i]);
+                    i++;
+                }
+                fechaAlta = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
+                lf.setFechaAlta(fechaAlta);
+            }
+
+            lf.setNumeroLinea(Integer.parseInt(linea));
+            lf.setPublico(pub);
+            lineafijaFacade.create(lf);
+            terminalSeleccionado.setLineaFijaidlineaFija(lf);
+            pub = false;
+        }
+
+        //MODIFICAMOS EN LA BD
+        terminalfijoFacade.edit(terminalSeleccionado);
+
+        this.inicializacion();
+        return "ListadoTerminalFijo";
+
+    }
+
+    public String volver() {
+        return "index";
+    }
+
+    public String volverListado() {
+        return "ListadoTerminalFijo";
+    }
+
+    public String terminalesLibres() {
+
+        terminalesLibres = new ArrayList<Terminalfijo>();
+
+        terminales = terminalfijoFacade.findAll();
+        for (Terminalfijo t : terminales) {
+            if (t.getLineaFijaidlineaFija() != null && t.getLineaFijaidlineaFija().getUsuarioIdusuario() == null) {
+                terminalesLibres.add(t);
+            }
+        }
+
+        return "TerminalesLibres";
+    }
+
+    public void asignarTerminal() {
+
+        Terminalfijo tf = terminalfijoFacade.find(terminalSeleccionado.getIdterminalFijo());
+        Usuario user = usuarioFacade.find(usuarioSeleccionado.getIdusuario());
+        Lineafija lf = lineafijaFacade.find(tf.getLineaFijaidlineaFija().getIdlineaFija());
+        lf.setUsuarioIdusuario(usuarioSeleccionado);
+
+        lineafijaFacade.edit(lf);
+        this.terminalesLibres();
+    }
 }
