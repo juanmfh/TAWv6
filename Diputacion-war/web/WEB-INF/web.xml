@@ -21,4 +21,22 @@
     <welcome-file-list>
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
+    <ejb-local-ref>
+        <ejb-ref-name>TerminalfijoFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>diputacion.dao.TerminalfijoFacadeLocal</local>
+        <ejb-link>Diputacion-ejb.jar#TerminalfijoFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>TerminalfijoFacade1</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>diputacion.dao.TerminalfijoFacadeLocal</local>
+        <ejb-link>Diputacion-ejb.jar#TerminalfijoFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>TerminalfijoFacade2</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>diputacion.dao.TerminalfijoFacadeLocal</local>
+        <ejb-link>Diputacion-ejb.jar#TerminalfijoFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>

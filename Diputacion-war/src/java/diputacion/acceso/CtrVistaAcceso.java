@@ -4,7 +4,6 @@
  */
 package diputacion.acceso;
 
-import diputacion.dao.UsuarioFacade;
 import diputacion.dao.UsuarioFacadeLocal;
 import diputacion.entity.Usuario;
 import java.io.IOException;

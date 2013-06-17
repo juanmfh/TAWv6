@@ -5,6 +5,7 @@
 package diputacion.dao;
 
 import diputacion.entity.Terminalfijo;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -28,5 +29,12 @@ public interface TerminalfijoFacadeLocal {
     List<Terminalfijo> findRange(int[] range);
 
     int count();
-    
+
+    Collection<Terminalfijo> terminalesOrdenadas();
+
+    Collection<Terminalfijo> terminalesfiltradas(String municipio);
+
+   Collection<Terminalfijo> terminalesfiltradasNumero(int numero);
+
+    Collection<Terminalfijo> terminalesfiltradasNombre(String nombre, String apellido1);
 }
