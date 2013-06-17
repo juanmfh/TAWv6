@@ -157,7 +157,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
         return "ListadoTerminalMovil";
     }
 
-    public String modificarTerminalFijo() {
+    public String modificarTerminalMovil() {
         marca = terminalSeleccinado.getMarca();
         modelo = terminalSeleccinado.getModelo();
         sistemaOperativo = terminalSeleccinado.getSistemaOperativo();

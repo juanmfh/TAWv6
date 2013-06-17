@@ -4,11 +4,74 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Listado Terminal Movil</title> 
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div class="text-center">
+            <h3>Listado terminal movil</h3>
+        </div>
+        <br/>
+        <h:form>
+        <table class="table table-striped table-bordered table-hover">  
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Numero</th>
+                    <th>Sistema Operativo</th>
+                    <th>Opciones</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                
+                <c:forEach items="${ctrGestionTerminalesMovil.terminales}" var="terminal">
+                    <tr>
+                        <td>${terminal.idterminalMovil}</td>
+                        <td>${terminal.marca}</td>
+                        <td>${terminal.modelo}</td>
+                        <c:choose>
+                            <c:when test="${terminal.lineaidlineaMovil != null}">
+                                <td>${terminal.lineaidlineaMovil.numero}</td>
+                            </c:when>
+                            <c:when test="${terminal.lineaidlineaMovil == null}">
+                                <td>Sin numero</td>
+                            </c:when>
+                        </c:choose>
+                        <td>${terminal.sistemaOperativo}</td>
+                        <td>      
+                            <div class="btn-group">   
+                                
+                                <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.modificarTerminalMovil}" >
+                                        <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesMovil.terminalSeleccionado}" />
+                                        <i class="icon-edit"></i>
+                                    </h:commandLink>
+                                    
+                                     <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.borrarTerminalMovil}" >
+                                         <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesMovil.terminalSeleccionado}" />
+                                        <i class="icon-trash"></i>
+                                    </h:commandLink>
+                                    
+                                    <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.formularioInsertar}" >
+                                        <i class="icon-plus"></i>
+                                    </h:commandLink>
+                            </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+            
+        <div class="row">
+            <div class="span2 offset2"> <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrGestionTerminalesFijo.volver}" /></div>
+        </div>
+        </h:form>
+    </h:body>
 </html>
