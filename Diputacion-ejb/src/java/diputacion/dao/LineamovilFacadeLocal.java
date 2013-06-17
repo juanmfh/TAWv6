@@ -29,4 +29,7 @@ public interface LineamovilFacadeLocal {
 
     int count();
     
+    int maxID();
+
+    
 }

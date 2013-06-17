@@ -29,4 +29,7 @@ public interface TerminalmovilFacadeLocal {
 
     int count();
     
+    int maxID();
+
+    
 }

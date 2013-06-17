@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>AÃ±adir Movil</title> 
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div class="text-center">
+            <h3>Añadir terminal movil</h3>
+        </div>
+        <br/>
+        <h:form id="FormularioInsertarTermianlMovil" class="form-horizontal">
+            <table>
+                <tr>
+                    <td>
+                        <div class="control-group"> 
+                            <label class="control-label" for="marca">Marca:</label>
+                            <div class="controls">
+                                <h:inputText id="marca" value="#{ctrGestionTerminalesMovil.marca}"/>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control-label" for="modelo">Modelo:</label>
+                            <div class="controls">
+                                <h:inputText id="modelo" value="#{ctrGestionTerminalesMovil.modelo}"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="control-group">
+                            <label class="control-label" for="fecha">Fecha:</label>
+                            <div class="controls">
+                                <h:inputText id="fecha" value="#{ctrGestionTerminalesMovil.fecha}"/>
+                            </div>
+                        </div>
+                    </td> 
+                    <td>
+
+                        <div class="control-group">
+                            <label class="control-label" for="linea">Linea:</label>
+                            <div class="controls">
+                                <h:inputText id="linea" value="#{ctrGestionTerminalesMovil.linea}"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="control-group">
+                            <label class="control-label" for="nombrePropieratio">Nombre de propietario:</label>
+                            <div class="controls">
+                                <h:inputText id="nombrePropietario" />
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control-label" for="apellidos">Apellidos:</label>
+                            <div class="controls">
+                                <h:inputText id="apellidos" />
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td> 
+                        <div class="control-group">
+                            <label class="control-label" for="sistemaOperativo">Sistema operativo:</label>
+                            <div class="controls">
+                                <h:inputText id="sistemaOperativo" value="#{ctrGestionTerminalesMovil.sistemaOperativo}" />                           
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td >
+                        <div class="row">
+                            <div class="span2 offset2">
+                                <h:commandButton value="Enviar" action="#{ctrGestionTerminalesMovil.insertarMovil()}" class="btn"/>    
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="row">
+                            <div class="span2 offset2">
+                                <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrGestionTerminalesMovil.volverListado()}"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+
+    </h:body>
+</html>
