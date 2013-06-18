@@ -20,12 +20,9 @@ import java.text.ParseException;
 import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import diputacion.entity.Lineafija;
-import diputacion.solicitudes.CtrVistaSolicitudesUsuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -58,7 +55,7 @@ public class CtrGestionTerminalesFijo implements Serializable {
     private Usuario usuarioSeleccionado, usuario;
     private Collection<Terminalfijo> terminalesLibres;
     private Administrador administrador;
-    private boolean admin;
+    private boolean admin = true;
 
     public CtrGestionTerminalesFijo() {
     }
@@ -188,34 +185,24 @@ public class CtrGestionTerminalesFijo implements Serializable {
     @PostConstruct
     public void inicializacion() {
 
-        if (esAdministrador()) {
-            terminales = terminalfijoFacade.findAll();
-            //OBTENEMOS LA FECHO DE SISTEMA
-            int dia = new java.util.Date().getDate();
-            int mes = new java.util.Date().getMonth() + 1;
-            int ano = new java.util.Date().getYear() + 1900;
-            //PONEMOS LA FECHA EN BLANCO
-            fecha = "";
-            fecha += dia + "/" + mes + "/" + ano;
-            marca = "";
-            modelo = "";
-            linea = "";
-            //RECOGEMOS LOS USUARIOS
-            usuarios = usuarioFacade.findAll();
-        } else {
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../../ErrorAutorizacion.jsf");
-            } catch (IOException ex) {
-                Logger.getLogger(CtrVistaSolicitudesUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-
+        terminales = terminalfijoFacade.findAll();
+        //OBTENEMOS LA FECHO DE SISTEMA
+        int dia = new java.util.Date().getDate();
+        int mes = new java.util.Date().getMonth() + 1;
+        int ano = new java.util.Date().getYear() + 1900;
+        //PONEMOS LA FECHA EN BLANCO
+        fecha = "";
+        fecha += dia + "/" + mes + "/" + ano;
+        marca = "";
+        modelo = "";
+        linea = "";
+        //RECOGEMOS LOS USUARIOS
+        usuarios = usuarioFacade.findAll();
     }
 
     //METODO QUE COMPRUEBA SI SOMOS ADMINISTRADOR
     public boolean esAdministrador() {
-        boolean res = false;
+        boolean res = true;
 
         // Obtenemos el usuario logeado desde la sesion
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -225,70 +212,77 @@ public class CtrGestionTerminalesFijo implements Serializable {
             administrador = administradorFacade.find(usuario.getIdusuario());
 
             if (administrador == null) {
+                System.out.println("Soy administrador");
                 res = false;
             }
         } else {
+            System.out.println("NOOOOOO Soy administrador");
             res = true;
         }
 
         return res;
     }
 
-    public String formularioInsertar() {
-        this.inicializacion();
-        return "FormularioInsertarFijo";
+    public String formularioInsertar() throws IOException {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+
+            return "jsf/gestion_terminales/FormularioInsertarFijo.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
     }
 
-    public String insertarTerminalFijo() throws ParseException {
+    public String insertarTerminalFijo() throws ParseException, IOException {
 
-        if (esAdministrador()) {
-            //CREAMOS EL OBJETO TERMINAL FIJO
-            Terminalfijo tfnuevo;
-            Lineafija lf;
-            tfnuevo = new Terminalfijo();
-            tfnuevo.setMarca(marca);
-            tfnuevo.setModelo(modelo);
+        //CREAMOS EL OBJETO TERMINAL FIJO
+        Terminalfijo tfnuevo;
+        Lineafija lf;
+        tfnuevo = new Terminalfijo();
+        tfnuevo.setMarca(marca);
+        tfnuevo.setModelo(modelo);
 
-            //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA   
+        //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA   
 
-            //COMPROBAMOS SI EL CAMPO PUBLICO ESTA MARCADO
-            if (!publico.isEmpty()) {
-                pub = true;
-            }
-            if (linea.length() > 0) {
-                lf = new Lineafija();
-
-                //PASEAMOS LA FECHA
-                if (fecha.length() > 0) {
-                    StringTokenizer tokens = new StringTokenizer(fecha, "/");;
-                    int[] datos = new int[3];
-                    int i = 0;
-                    while (tokens.hasMoreTokens()) {
-                        String str = tokens.nextToken();
-                        datos[i] = Integer.parseInt(str);
-                        System.out.println(datos[i]);
-                        i++;
-                    }
-                    fechaAlta = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
-                    lf.setFechaAlta(fechaAlta);
-                }
-
-                lf.setNumeroLinea(Integer.parseInt(linea));
-                lf.setPublico(pub);
-                lineafijaFacade.create(lf);
-                tfnuevo.setLineaFijaidlineaFija(lf);
-                pub = false;
-            }
-
-            //INSERTAMOS EN LA BD
-            terminalfijoFacade.create(tfnuevo);
-            this.inicializacion();
-            return "ListadoTerminalFijo";
-
-        } else {
-            this.inicializacion();
-            return "../../ErrorAutorizacion.jsf";
+        //COMPROBAMOS SI EL CAMPO PUBLICO ESTA MARCADO
+        if (!publico.isEmpty()) {
+            pub = true;
         }
+        if (linea.length() > 0) {
+            lf = new Lineafija();
+
+            //PASEAMOS LA FECHA
+            if (fecha.length() > 0) {
+                StringTokenizer tokens = new StringTokenizer(fecha, "/");;
+                int[] datos = new int[3];
+                int i = 0;
+                while (tokens.hasMoreTokens()) {
+                    String str = tokens.nextToken();
+                    datos[i] = Integer.parseInt(str);
+                    System.out.println(datos[i]);
+                    i++;
+                }
+                fechaAlta = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
+                lf.setFechaAlta(fechaAlta);
+            }
+
+            lf.setNumeroLinea(Integer.parseInt(linea));
+            lf.setPublico(pub);
+            lineafijaFacade.create(lf);
+            tfnuevo.setLineaFijaidlineaFija(lf);
+            pub = false;
+        }
+
+        //INSERTAMOS EN LA BD
+        terminalfijoFacade.create(tfnuevo);
+        this.inicializacion();
+        return "ListadoTerminalFijo";
+
+
     }
 
     public void borrarTerminalFijo() {
@@ -364,11 +358,11 @@ public class CtrGestionTerminalesFijo implements Serializable {
     }
 
     public void volver() throws IOException {
-         FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
     }
 
     public void volverListado() throws IOException {
-         FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
     }
 
     public String terminalesLibres() {
