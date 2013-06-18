@@ -11,68 +11,72 @@ and open the template in the editor.
     <h:head>
         <title>Listado Terminal Movil</title> 
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="../../bootstrap/js/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
-        <div class="text-center">
-            <h3>Listado terminal movil</h3>
-        </div>
-        <br/>
-        <h:form>
-            <table class="table table-striped table-bordered table-hover">  
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Numero</th>
-                        <th>Sistema Operativo</th>
-                        <th>Opciones</th>
-                    </tr>
-
-                </thead>
-                <tbody>
-
-                    <c:forEach items="${ctrGestionTerminalesMovil.terminales}" var="terminal">
-                        <tr>
-                            <td>${terminal.idterminalMovil}</td>
-                            <td>${terminal.marca}</td>
-                            <td>${terminal.modelo}</td>
-                            <c:choose>
-                                <c:when test="${terminal.lineaidlineaMovil != null}">
-                                    <td>${terminal.lineaidlineaMovil.numero}</td>
-                                </c:when>
-                                <c:when test="${terminal.lineaidlineaMovil == null}">
-                                    <td>Sin numero</td>
-                                </c:when>
-                            </c:choose>
-                            <td>${terminal.sistemaOperativo}</td>
-                            <td>      
-                                <div class="btn-group">   
-
-                                    <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.modificarTerminalMovil}" >
-                                        <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesMovil.terminalSeleccionado}" />
-                                        <i class="icon-edit"></i>
-                                    </h:commandLink>
-
-                                    <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.borrarTerminalMovil}" >
-                                        <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesMovil.terminalSeleccionado}" />
-                                        <i class="icon-trash"></i>
-                                    </h:commandLink>
-
-                                    <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.formularioInsertar}" >
-                                        <i class="icon-plus"></i>
-                                    </h:commandLink>
-                                </div>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-
-            <div class="row">
-                <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver}" value="Volver"></h:commandButton></div>
+        <div class="container">
+            <div class="text-center">
+                <h3>Listado terminal movil</h3>
             </div>
+            <br/>
+            <h:form>
+                <table class="table table-condensed table-bordered table-hover">  
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Numero</th>
+                            <th>Sistema Operativo</th>
+                            <th>Opciones</th>
+                        </tr>
 
-        </h:form>
+                    </thead>
+                    <tbody>
+
+                        <c:forEach items="${ctrGestionTerminalesMovil.terminales}" var="terminal">
+                            <tr>
+                                <td>${terminal.idterminalMovil}</td>
+                                <td>${terminal.marca}</td>
+                                <td>${terminal.modelo}</td>
+                                <c:choose>
+                                    <c:when test="${terminal.lineaidlineaMovil != null}">
+                                        <td>${terminal.lineaidlineaMovil.numero}</td>
+                                    </c:when>
+                                    <c:when test="${terminal.lineaidlineaMovil == null}">
+                                        <td>Sin numero</td>
+                                    </c:when>
+                                </c:choose>
+                                <td>${terminal.sistemaOperativo}</td>
+                                <td>      
+                                    <div class="btn-group">   
+
+                                        <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.modificarTerminalMovil}" >
+                                            <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesMovil.terminalSeleccionado}" />
+                                            <i class="icon-edit"></i>
+                                        </h:commandLink>
+
+                                        <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.borrarTerminalMovil}" >
+                                            <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesMovil.terminalSeleccionado}" />
+                                            <i class="icon-trash"></i>
+                                        </h:commandLink>
+
+                                        <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesMovil.formularioInsertar}" >
+                                            <i class="icon-plus"></i>
+                                        </h:commandLink>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver}" value="Volver"></h:commandButton></div>
+                </div>
+
+            </h:form>
+        </div>
     </h:body>
 </html>
