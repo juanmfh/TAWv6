@@ -4,8 +4,12 @@
  */
 package diputacion.directorio_telefonico;
 
+import diputacion.dao.AdministradorFacadeLocal;
 import diputacion.dao.TerminalfijoFacadeLocal;
+import diputacion.dao.UsuarioFacadeLocal;
+import diputacion.entity.Administrador;
 import diputacion.entity.Terminalfijo;
+import diputacion.entity.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
@@ -13,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -25,10 +30,17 @@ public class CtrlDirectorioTelefonico implements Serializable {
 
     @EJB
     private TerminalfijoFacadeLocal terminalfijoFacade;
+    @EJB
+    private AdministradorFacadeLocal administradorFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     
     //VARIABLES
     private Collection<Terminalfijo> terminales;
     private String municipio, nombre, apellido1, numero;
+    private Usuario  usuario;
+    private Administrador administrador;
+    private boolean admin = true;
 
     public CtrlDirectorioTelefonico() {
     }
@@ -124,6 +136,40 @@ public class CtrlDirectorioTelefonico implements Serializable {
     public String directorioTelefonicoCompleto() {
         this.inicializacionDirectorio();
         return "DirectorioTelefonico";
+    }
+    
+    public String pagListado() {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacionDirectorio();
+            return "jsf/directorio_telefonico/LineasFijasMunicipios.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
+    }
+    
+    //METODO QUE COMPRUEBA SI SOMOS ADMINISTRADOR
+    public boolean esAdministrador() {
+        boolean res = true;
+
+        // Obtenemos el usuario logeado desde la sesion
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        usuario = (Usuario) externalContext.getSessionMap().get("usuario");
+
+        if (usuario != null) {
+            administrador = administradorFacade.find(usuario.getIdusuario());
+
+            if (administrador == null) {
+                res = false;
+            }
+        } else {
+            res = true;
+        }
+
+        return res;
     }
 
     
