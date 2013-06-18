@@ -8,6 +8,7 @@ import diputacion.dao.LineamovilFacadeLocal;
 import diputacion.dao.TerminalmovilFacadeLocal;
 import diputacion.entity.Lineamovil;
 import diputacion.entity.Terminalmovil;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -220,9 +222,9 @@ public class CtrGestionTerminalesMovil implements Serializable {
         return "ListadoTerminalMovil";
     }
 
-    public String volver() {
+    public void volver() throws IOException {
 
-        return "ListadoTerminalMovil";
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
     }
 
     public String formularioInsertar() {

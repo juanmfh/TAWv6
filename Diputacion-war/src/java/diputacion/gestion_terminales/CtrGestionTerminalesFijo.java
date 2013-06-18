@@ -4,9 +4,11 @@
  */
 package diputacion.gestion_terminales;
 
+import diputacion.dao.AdministradorFacadeLocal;
 import diputacion.dao.LineafijaFacadeLocal;
 import diputacion.dao.TerminalfijoFacadeLocal;
 import diputacion.dao.UsuarioFacadeLocal;
+import diputacion.entity.Administrador;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -18,9 +20,15 @@ import java.text.ParseException;
 import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import diputacion.entity.Lineafija;
+import diputacion.solicitudes.CtrVistaSolicitudesUsuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -36,6 +44,8 @@ public class CtrGestionTerminalesFijo implements Serializable {
     private UsuarioFacadeLocal usuarioFacade;
     @EJB
     private TerminalfijoFacadeLocal terminalfijoFacade;
+    @EJB
+    private AdministradorFacadeLocal administradorFacade;
     //VARIABLES
     private String marca, modelo, linea, fecha;
     private Date fechaAlta;
@@ -45,13 +55,31 @@ public class CtrGestionTerminalesFijo implements Serializable {
     private Terminalfijo terminalSeleccionado;
     private Integer idterminalFijo;
     private Collection<Usuario> usuarios;
-    private Usuario usuarioSeleccionado;
+    private Usuario usuarioSeleccionado, usuario;
     private Collection<Terminalfijo> terminalesLibres;
+    private Administrador administrador;
+    private boolean admin;
 
     public CtrGestionTerminalesFijo() {
     }
 
     //GETTER AND SETTER
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador a) {
+        administrador = a;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario u) {
+        usuario = u;
+    }
+
     public Collection<Terminalfijo> getTerminalesLibres() {
         return terminalesLibres;
     }
@@ -159,20 +187,51 @@ public class CtrGestionTerminalesFijo implements Serializable {
     //METODOS-------------------------------------------------------------------
     @PostConstruct
     public void inicializacion() {
-        terminales = terminalfijoFacade.findAll();
-        //OBTENEMOS LA FECHO DE SISTEMA
-        int dia = new java.util.Date().getDate();
-        int mes = new java.util.Date().getMonth() + 1;
-        int ano = new java.util.Date().getYear() + 1900;
-        //PONEMOS LA FECHA EN BLANCO
-        fecha = "";
-        fecha += dia + "/" + mes + "/" + ano;
-        marca = "";
-        modelo = "";
-        linea = "";
-        //RECOGEMOS LOS USUARIOS
-        usuarios = usuarioFacade.findAll();
 
+        if (esAdministrador()) {
+            terminales = terminalfijoFacade.findAll();
+            //OBTENEMOS LA FECHO DE SISTEMA
+            int dia = new java.util.Date().getDate();
+            int mes = new java.util.Date().getMonth() + 1;
+            int ano = new java.util.Date().getYear() + 1900;
+            //PONEMOS LA FECHA EN BLANCO
+            fecha = "";
+            fecha += dia + "/" + mes + "/" + ano;
+            marca = "";
+            modelo = "";
+            linea = "";
+            //RECOGEMOS LOS USUARIOS
+            usuarios = usuarioFacade.findAll();
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../../ErrorAutorizacion.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(CtrVistaSolicitudesUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+    }
+
+    //METODO QUE COMPRUEBA SI SOMOS ADMINISTRADOR
+    public boolean esAdministrador() {
+        boolean res = false;
+
+        // Obtenemos el usuario logeado desde la sesion
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        usuario = (Usuario) externalContext.getSessionMap().get("usuario");
+
+        if (usuario != null) {
+            administrador = administradorFacade.find(usuario.getIdusuario());
+
+            if (administrador == null) {
+                res = false;
+            }
+        } else {
+            res = true;
+        }
+
+        return res;
     }
 
     public String formularioInsertar() {
@@ -181,55 +240,62 @@ public class CtrGestionTerminalesFijo implements Serializable {
     }
 
     public String insertarTerminalFijo() throws ParseException {
-        //CREAMOS EL OBJETO TERMINAL FIJO
-        Terminalfijo tfnuevo;
-        Lineafija lf;
-        tfnuevo = new Terminalfijo();
-        tfnuevo.setMarca(marca);
-        tfnuevo.setModelo(modelo);
 
-        //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA   
+        if (esAdministrador()) {
+            //CREAMOS EL OBJETO TERMINAL FIJO
+            Terminalfijo tfnuevo;
+            Lineafija lf;
+            tfnuevo = new Terminalfijo();
+            tfnuevo.setMarca(marca);
+            tfnuevo.setModelo(modelo);
 
-        //COMPROBAMOS SI EL CAMPO PUBLICO ESTA MARCADO
-        if (!publico.isEmpty()) {
-            pub = true;
-        }
-        if (linea.length() > 0) {
-            lf = new Lineafija();
+            //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA   
 
-            //PASEAMOS LA FECHA
-            if (fecha.length() > 0) {
-                StringTokenizer tokens = new StringTokenizer(fecha, "/");;
-                int[] datos = new int[3];
-                int i = 0;
-                while (tokens.hasMoreTokens()) {
-                    String str = tokens.nextToken();
-                    datos[i] = Integer.parseInt(str);
-                    System.out.println(datos[i]);
-                    i++;
+            //COMPROBAMOS SI EL CAMPO PUBLICO ESTA MARCADO
+            if (!publico.isEmpty()) {
+                pub = true;
+            }
+            if (linea.length() > 0) {
+                lf = new Lineafija();
+
+                //PASEAMOS LA FECHA
+                if (fecha.length() > 0) {
+                    StringTokenizer tokens = new StringTokenizer(fecha, "/");;
+                    int[] datos = new int[3];
+                    int i = 0;
+                    while (tokens.hasMoreTokens()) {
+                        String str = tokens.nextToken();
+                        datos[i] = Integer.parseInt(str);
+                        System.out.println(datos[i]);
+                        i++;
+                    }
+                    fechaAlta = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
+                    lf.setFechaAlta(fechaAlta);
                 }
-                fechaAlta = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
-                lf.setFechaAlta(fechaAlta);
+
+                lf.setNumeroLinea(Integer.parseInt(linea));
+                lf.setPublico(pub);
+                lineafijaFacade.create(lf);
+                tfnuevo.setLineaFijaidlineaFija(lf);
+                pub = false;
             }
 
-            lf.setNumeroLinea(Integer.parseInt(linea));
-            lf.setPublico(pub);
-            lineafijaFacade.create(lf);
-            tfnuevo.setLineaFijaidlineaFija(lf);
-            pub = false;
+            //INSERTAMOS EN LA BD
+            terminalfijoFacade.create(tfnuevo);
+            this.inicializacion();
+            return "ListadoTerminalFijo";
+
+        } else {
+            this.inicializacion();
+            return "../../ErrorAutorizacion.jsf";
         }
-
-        //INSERTAMOS EN LA BD
-        terminalfijoFacade.create(tfnuevo);
-
-        this.inicializacion();
-        return "ListadoTerminalFijo";
     }
 
     public void borrarTerminalFijo() {
 
         terminalfijoFacade.remove(terminalSeleccionado);
         this.inicializacion();
+
 
     }
 
@@ -297,12 +363,12 @@ public class CtrGestionTerminalesFijo implements Serializable {
 
     }
 
-    public String volver() {
-        return "index";
+    public void volver() throws IOException {
+         FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
     }
 
-    public String volverListado() {
-        return "ListadoTerminalFijo";
+    public void volverListado() throws IOException {
+         FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
     }
 
     public String terminalesLibres() {
