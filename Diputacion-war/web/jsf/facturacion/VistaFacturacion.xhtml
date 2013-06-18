@@ -4,6 +4,15 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
+
+        <script type="text/javascript">
+
+            function selectId(id) {
+                document.getElementById("idFactura").value = id;
+            }
+
+        </script> 
+
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <script src="../../bootstrap/js/jquery.js"></script>
 
@@ -50,36 +59,13 @@
                         </f:facet>
 
                         <center>
-                    
+
                             <h:commandLink class="btn" action="#{ctrFacturacion.verFacturaIn()}">
-                                    <f:setPropertyActionListener value="#{datos}" target="#{ctrFacturacion.facturaSelec}"/>
-                                    <i class="icon-eye-open"></i>
-                                </h:commandLink>
-                            
+                                <f:setPropertyActionListener value="#{datos}" target="#{ctrFacturacion.facturaSelec}"/>
+                                <i class="icon-eye-open"></i>
+                            </h:commandLink>
 
-
-                            <!-- Modal -->
-                            <div id="${datos.idfacturaIn}borrar" class="modal hide fade in" style="display: none;">
-                                <div class="modal-header">
-                                    <a data-dismiss="modal" class="close">×</a>
-                                    <h3>Eliminar factura</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <h4>${msg['modalestasseguro']}</h4>
-                                    <p>${msg['modalestasseguro2']}</p>                
-                                </div>
-                                <div class="modal-footer">
-                                    <h:commandLink class="btn btn-danger" action="#{ctrFacturacion.borrarFacturaIn()}">
-                                        <f:setPropertyActionListener value="#{datos}" target="#{ctrFacturacion.facturaSelec}"/>
-                                        ${msg['borrar']}
-                                    </h:commandLink>
-
-                                    <a href="#" data-dismiss="modal" class="btn">${msg['cancelar']}</a>
-                                </div>
-                            </div>
-
-
-                            <a data-toggle="modal" href="#${datos.idfacturaIn}borrar" class="btn"><i class="icon-trash"/> </a>
+                            <a data-toggle="modal" href="#borrar" class="btn" onclick="selectId(#{datos.idfacturaIn})"><i class="icon-trash"/> </a>
 
 
                         </center>    
@@ -91,5 +77,29 @@
             </h:form>
 
         </div>
+        <h:form>
+            <!-- Modal -->
+            <div id="borrar" class="modal hide fade in" style="display: none;">
+                <div class="modal-header">
+                    <a data-dismiss="modal" class="close">×</a>
+                    <h3>${msg['eliminarfactura']}</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>${msg['modalestasseguro']}</h4>
+                    <p>${msg['modalestasseguro2']}</p>  
+                    <h:outputText id="prueba" value="#{ctrFacturacion.idSeleccionado}"/>
+                </div>
+                <div class="modal-footer">
+                    <h:inputHidden id="idFactura" value="#{ctrFacturacion.idSeleccionado}"/>
+                    <h:commandLink class="btn btn-danger" action="#{ctrFacturacion.borrarFacturaIn()}">
+                        
+                        <f:ajax execute="@form" render="prueba"/>
+                        ${msg['borrar']}
+                    </h:commandLink>
+
+                    <a href="#" data-dismiss="modal" class="btn">${msg['cancelar']}</a>
+                </div>
+            </div>
+        </h:form>
     </h:body>
 </html>
