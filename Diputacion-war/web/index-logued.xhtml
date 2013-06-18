@@ -32,18 +32,17 @@
                             <p:menuitem value="Facturacion" outcome="jsf/facturacion/VistaFacturacion" icon="ui-icon-star"/>
                         </p:submenu>  
 
-                        <p:submenu label="Administrador">  
-                            <p:menuitem value="prueba" url="#{ctrGestionTerminalesFijo.formularioInsertar()}" icon="ui-icon-star"/>  
-                             
+                        <p:submenu label="Administrador"> 
+
                             <p:menuitem value="Ejecutar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesAdministrador" icon="ui-icon-star"/>  
                             <p:menuitem value="Grupos de Rescate" outcome="jsf/grupos_rescate/VistaGrupos_Rescate" icon="ui-icon-star"/>
                             <p:menuitem value="Modificar Perfiles" outcome="jsf/control_gasto/VistaPerfilesAdministrador.jsf" icon="ui-icon-star"/>
                             <p:menuitem value="Insertar Terminal Fija" url="#{ctrGestionTerminalesFijo.formularioInsertar()}" icon="ui-icon-star"/>
-                            <p:menuitem value="Listado Terminal Fija" outcome="jsf/gestion_terminales/ListadoTerminalFijo.jsf" icon="ui-icon-star"/>
-                            <p:menuitem value="Asignar Terminal Fija a Usuario" outcome="jsf/gestion_terminales/ListadoUsuarios.jsf" icon="ui-icon-star"/>
+                            <p:menuitem value="Listado Terminal Fija" url="#{ctrGestionTerminalesFijo.pagListadoTerminalFijo()}"  icon="ui-icon-star"/>
+                            <p:menuitem value="Asignar Terminal Fija a Usuario"  url="#{ctrGestionTerminalesFijo.pagListadoUsuarios()}" icon="ui-icon-star"/>
                             <p:menuitem value="Listado Fijo Municipios" outcome="jsf/directorio_telefonico/LineasFijasMunicipios.jsf" icon="ui-icon-star"/> 
-                            <p:menuitem value="Insertar Terminal Movil" outcome="jsf/gestion_terminales/FormularioInsertarMovil.jsf" icon="ui-icon-star"/>
-                            <p:menuitem value="Listado Terminal Movil" outcome="jsf/gestion_terminales/ListadoTerminalMovil.jsf" icon="ui-icon-star"/>
+                            <p:menuitem value="Insertar Terminal Movil" url="#{ctrGestionTerminalesMovil.formularioInsertar()}"  icon="ui-icon-star"/>
+                            <p:menuitem value="Listado Terminal Movil" url="#{ctrGestionTerminalesMovil.pagListadoTerminalMovil()}"  icon="ui-icon-star"/>
                         </p:submenu>
                     </p:menu>  
                 </div>

@@ -4,10 +4,14 @@
  */
 package diputacion.gestion_terminales;
 
+import diputacion.dao.AdministradorFacadeLocal;
 import diputacion.dao.LineamovilFacadeLocal;
 import diputacion.dao.TerminalmovilFacadeLocal;
+import diputacion.dao.UsuarioFacadeLocal;
+import diputacion.entity.Administrador;
 import diputacion.entity.Lineamovil;
 import diputacion.entity.Terminalmovil;
+import diputacion.entity.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
@@ -17,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -26,16 +31,23 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "ctrGestionTerminalesMovil")
 @SessionScoped
 public class CtrGestionTerminalesMovil implements Serializable {
+
     @EJB
     private TerminalmovilFacadeLocal terminalmovilFacade;
     @EJB
     private LineamovilFacadeLocal lineamovilFacade;
-    
+    @EJB
+    private AdministradorFacadeLocal administradorFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     //VARIABLES
     private String marca, modelo, sistemaOperativo, fecha, linea;
     private Date fechaAlta;
     private Collection<Terminalmovil> terminales;
     private Terminalmovil terminalSeleccinado;
+    private Usuario usuarioSeleccionado, usuario;
+    private Administrador administrador;
+    private boolean admin = true;
 
     //CONSTRUCTOR
     public CtrGestionTerminalesMovil() {
@@ -111,7 +123,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
         marca = "";
         modelo = "";
         linea = "";
-        sistemaOperativo="";
+        sistemaOperativo = "";
 
     }
 
@@ -121,7 +133,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
         Lineamovil lm;
         int id;
 
-        id= terminalmovilFacade.maxID()+1;
+        id = terminalmovilFacade.maxID() + 1;
         tmnuevo = new Terminalmovil(id);
         tmnuevo.setMarca(marca);
         tmnuevo.setModelo(modelo);
@@ -131,7 +143,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
         //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA
         if (linea.length() > 0) {
             int idLinea;
-            idLinea = lineamovilFacade.maxID() +1;
+            idLinea = lineamovilFacade.maxID() + 1;
             lm = new Lineamovil(idLinea);
             //PASEAMOS LA FECHA
             if (fecha.length() > 0) {
@@ -155,7 +167,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
         //INSERTAMOS EN LA BD
         terminalmovilFacade.create(tmnuevo);
         this.inicializacion();
-        
+
         return "ListadoTerminalMovil";
     }
 
@@ -228,7 +240,49 @@ public class CtrGestionTerminalesMovil implements Serializable {
     }
 
     public String formularioInsertar() {
-        this.inicializacion();
-        return "FormularioInsertarMovil";
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+            return "jsf/gestion_terminales/FormularioInsertarMovil.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
+    }
+
+    //METODO QUE COMPRUEBA SI SOMOS ADMINISTRADOR
+    public boolean esAdministrador() {
+        boolean res = true;
+
+        // Obtenemos el usuario logeado desde la sesion
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        usuario = (Usuario) externalContext.getSessionMap().get("usuario");
+
+        if (usuario != null) {
+            administrador = administradorFacade.find(usuario.getIdusuario());
+
+            if (administrador == null) {
+                res = false;
+            }
+        } else {
+            res = true;
+        }
+
+        return res;
+    }
+    
+     public String pagListadoTerminalMovil() {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+            return "jsf/gestion_terminales/ListadoTerminalMovil.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
     }
 }

@@ -212,11 +212,9 @@ public class CtrGestionTerminalesFijo implements Serializable {
             administrador = administradorFacade.find(usuario.getIdusuario());
 
             if (administrador == null) {
-                System.out.println("Soy administrador");
                 res = false;
             }
         } else {
-            System.out.println("NOOOOOO Soy administrador");
             res = true;
         }
 
@@ -231,6 +229,34 @@ public class CtrGestionTerminalesFijo implements Serializable {
             this.inicializacion();
 
             return "jsf/gestion_terminales/FormularioInsertarFijo.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
+    }
+    
+    public String pagListadoTerminalFijo() {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+
+            return "jsf/gestion_terminales/ListadoTerminalFijo.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
+    }
+    
+    public String pagListadoUsuarios() {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+
+            return "jsf/gestion_terminales/ListadoUsuarios.jsf";
         } else {
 
             return "ErrorAutorizacion.jsf";
