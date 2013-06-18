@@ -12,16 +12,16 @@
     <h:body>
         <div class="container">
         <div class="text-center">
-            <h3>Listado Fijos </h3>
+            <h3>#{msg['listadoFijos']}</h3>
         </div>
         <br/>
         <h:form>
             <div class="row">
                 <div class="span4 offset2">
                     <div class="input-append">
-                        <label class="control-label" for="nombre">Municipio:</label>
+                        <label class="control-label" for="nombre">#{msg['municipio']}</label>
                         <h:inputText id="municipio" value="#{ctrlDirectorioTelefonico.municipio}"/>
-                        <h:commandButton class="btn btn-primary" value="Buscar" action="#{ctrlDirectorioTelefonico.listadoFiltrado}"/>
+                        <h:commandButton class="btn btn-primary" value="#{msg['buscar']}" action="#{ctrlDirectorioTelefonico.listadoFiltrado}"/>
                     </div>
                 </div>
             </div>
@@ -29,10 +29,10 @@
             <table class="table table-condensed table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Municipio</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>                  
-                        <th>Propietario</th>
+                        <th>#{msg['municipio']}</th>
+                        <th>#{msg['marca']}</th>
+                        <th>#{msg['modelo']}</th>                  
+                        <th>#{msg['propietario']}</th>
                     </tr>
 
                 </thead>
@@ -55,7 +55,7 @@
                 </tbody>
             </table>
             <div class="row">
-                <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrlDirectorioTelefonico.volver}" value="Volver"></h:commandButton></div>
+                <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrlDirectorioTelefonico.volver}" value="#{msg['volver']}"></h:commandButton></div>
             </div>
         </h:form>
         </div>

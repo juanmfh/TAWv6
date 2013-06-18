@@ -17,7 +17,7 @@ and open the template in the editor.
     <h:body>
         <div class="container">
             <div class="text-center">
-                <h3>Directorio telefonico de la diputacion de Malaga  </h3>
+                <h3>#{msg['directorioTelefonicoDiputacion']}  </h3>
             </div>
             <br/>
 
@@ -26,19 +26,19 @@ and open the template in the editor.
                     <tr>
                         <td>
 
-                            <h:outputText value=" Numero:" />
+                            <h:outputText value="#{msg['numero2']} " />
                             <h:inputText id="numero" value="#{ctrlDirectorioTelefonico.numero}" class="input-medium search-query"/>
-                            <h:commandButton class="btn btn-primary" value="Buscar"  action="#{ctrlDirectorioTelefonico.listadoFiltradoNumero}"/>
+                            <h:commandButton class="btn btn-primary" value="#{msg['buscar']}"  action="#{ctrlDirectorioTelefonico.listadoFiltradoNumero}"/>
                         </td>
                         <td>
 
-                            <h:outputText value="  Nombre:" />
+                            <h:outputText value="#{msg['nombre2']} " />
                             <h:inputText id="nombre" value="#{ctrlDirectorioTelefonico.nombre}" class="input-medium search-query"/>
 
 
-                            <h:outputText value="  Apellido1:   " />
+                            <h:outputText value="#{msg['apellido12']} " />
                             <h:inputText id="apellido1" value="#{ctrlDirectorioTelefonico.apellido1}" class="input-medium search-query"/>
-                            <h:commandButton class="btn btn-primary" value="Buscar" action="#{ctrlDirectorioTelefonico.listadoFiltradoNombreApellido}"/>
+                            <h:commandButton class="btn btn-primary" value="#{msg['buscar']}" action="#{ctrlDirectorioTelefonico.listadoFiltradoNombreApellido}"/>
                         </td>
                     </tr>
                 </table>
@@ -46,10 +46,10 @@ and open the template in the editor.
               <table class="table table-condensed table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Localidad</th>
-                            <th>Nick</th>
-                            <th>Numero</th>
+                            <th>#{msg['nombre']}</th>
+                            <th>#{msg['localidad']}</th>
+                            <th>#{msg['nick']}</th>
+                            <th>#{msg['numero']}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,7 +69,7 @@ and open the template in the editor.
                     </tbody>
                 </table>
                 <div class="row">
-                    <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrlDirectorioTelefonico.volver}" value="Volver"></h:commandButton></div>
+                    <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrlDirectorioTelefonico.volver}" value="#{msg['volver']}"></h:commandButton></div>
                 </div>
             </h:form>
         </div>
