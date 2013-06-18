@@ -60,12 +60,12 @@ and open the template in the editor.
                                         <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesFijo.terminalSeleccionado}" />
                                         <i class="icon-edit"></i>
                                     </h:commandLink>
-                                    
-                                     <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesFijo.borrarTerminalFijo}" >
-                                         <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesFijo.terminalSeleccionado}" />
+
+                                    <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesFijo.borrarTerminalFijo}" >
+                                        <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesFijo.terminalSeleccionado}" />
                                         <i class="icon-trash"></i>
                                     </h:commandLink>
-                                    
+
                                     <h:commandLink styleClass="btn" action="#{ctrGestionTerminalesFijo.formularioInsertar}" >
                                         <i class="icon-plus"></i>
                                     </h:commandLink>
@@ -77,7 +77,7 @@ and open the template in the editor.
             </table>
 
             <div class="row">
-                <div class="span2 offset2"> <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrGestionTerminalesFijo.volver}" /></div>
+                <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="Volver"></h:commandButton></div>
             </div>
         </h:form>
     </h:body>

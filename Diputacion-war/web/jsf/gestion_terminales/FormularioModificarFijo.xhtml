@@ -97,19 +97,14 @@ and open the template in the editor.
                     <td> </td>
                 </tr>
                 <tr>
-                    <td >
-                        <div class="row">
-                            <div class="span2 offset2">
-                                <h:commandButton value="Modificar" action="#{ctrGestionTerminalesFijo.modificarTerminalFijoDatos}" class="btn"/>    
-                            </div>
-                        </div>
-                    </td>
-
                     <td>
                         <div class="row">
-                            <div class="span2 offset2">
-                                <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrGestionTerminalesFijo.volverListado}"/>
-                            </div>
+                            <div class="offset2 span3"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesFijo.modificarTerminalFijoDatos}" value="Modificar"></h:commandButton></div>         
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="Volver"></h:commandButton></div>
                         </div>
                     </td>
                 </tr>

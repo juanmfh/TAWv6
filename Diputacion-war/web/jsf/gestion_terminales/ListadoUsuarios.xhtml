@@ -29,7 +29,7 @@
                             <td>${usuario.municipio}</td>
                             <td>
                                 <div class="btn-group">   
-                                    <h:commandButton  value="Asignar terminal" action="#{ctrGestionTerminalesFijo.terminalesLibres}"  class="btn">
+                                    <h:commandButton class="btn btn-primary"  value="Asignar terminal" action="#{ctrGestionTerminalesFijo.terminalesLibres}" >
                                         <f:setPropertyActionListener value="#{usuario}" target="#{ctrGestionTerminalesFijo.usuarioSeleccionado}" />
                                     </h:commandButton>
                                 </div>
@@ -39,7 +39,7 @@
                 </tbody>
             </table>
             <div class="row">
-                <div class="span2 offset2"> <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrGestionTerminalesFijo.volver}" /></div>
+                <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="Volver"></h:commandButton></div>
             </div>
         </h:form>
     </h:body>

@@ -220,7 +220,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
         return "ListadoTerminalMovil";
     }
 
-    public String volverListado() {
+    public String volver() {
 
         return "ListadoTerminalMovil";
     }

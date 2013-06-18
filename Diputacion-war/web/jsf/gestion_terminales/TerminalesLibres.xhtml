@@ -30,7 +30,7 @@
                             <td>${terminal.modelo}</td>
                             <td>
                                 <div class="btn-group">   
-                                    <h:commandButton  value="Asignar" action="#{ctrGestionTerminalesFijo.asignarTerminal}"  class="btn">
+                                    <h:commandButton class="btn btn-primary"  value="Asignar" action="#{ctrGestionTerminalesFijo.asignarTerminal}"  >
                                         <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesFijo.terminalSeleccionado}" />
                                     </h:commandButton>
                                 </div>
@@ -41,7 +41,7 @@
                 </tbody>
             </table>
             <div class="row">
-                <div class="span2 offset2"> <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrGestionTerminalesFijo.volver}" /></div>
+                <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="Volver"></h:commandButton></div>
             </div>
         </h:form>
 

@@ -86,19 +86,14 @@ and open the template in the editor.
                     <td> </td>
                 </tr>
                 <tr>
-                    <td >
+                     <td>
                         <div class="row">
-                            <div class="span2 offset2">
-                                <h:commandButton value="Enviar" action="#{ctrGestionTerminalesMovil.insertarMovil()}" class="btn"/>    
-                            </div>
+                            <div class="offset2 span3"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesMovil.insertarMovil()}" value="Insertar"></h:commandButton></div>         
                         </div>
                     </td>
-
                     <td>
                         <div class="row">
-                            <div class="span2 offset2">
-                                <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrGestionTerminalesMovil.volverListado()}"/>
-                            </div>
+                            <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesMovil.volver()}" value="Volver"></h:commandButton></div>
                         </div>
                     </td>
                 </tr>

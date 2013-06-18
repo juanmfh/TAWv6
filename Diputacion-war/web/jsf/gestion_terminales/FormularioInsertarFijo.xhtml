@@ -10,7 +10,7 @@ and open the template in the editor.
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     </h:head>
     <h:body>
-        
+
         <div class="text-center">
             <h3>Añadir terminal fijo</h3>
         </div>
@@ -88,24 +88,21 @@ and open the template in the editor.
                     </td>
                     <td> </td>
                 </tr>
-                <tr>
-                    <td >
-                        <div class="row">
-                            <div class="span2 offset2">
-                                <h:commandButton value="Enviar" action="#{ctrGestionTerminalesFijo.insertarTerminalFijo}" class="btn"/>    
-                            </div>
-                        </div>
-                    </td>
 
+                <tr>
                     <td>
                         <div class="row">
-                            <div class="span2 offset2">
-                                <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrGestionTerminalesFijo.volver}"/>
-                            </div>
+                            <div class="offset2 span3"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesFijo.insertarTerminalFijo()}" value="Insertar"></h:commandButton></div>         
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="Volver"></h:commandButton></div>
                         </div>
                     </td>
                 </tr>
             </table>
         </h:form>
+
     </h:body>
 </html>
