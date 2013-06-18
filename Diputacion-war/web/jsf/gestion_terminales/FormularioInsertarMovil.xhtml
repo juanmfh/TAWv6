@@ -13,7 +13,7 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <div class="text-center">
-            <h3>Añadir terminal movil</h3>
+            <h3>#{msg['añadirTMovil']}</h3>
         </div>
         <br/>
         <h:form id="FormularioInsertarTermianlMovil" class="form-horizontal">
@@ -21,7 +21,7 @@ and open the template in the editor.
                 <tr>
                     <td>
                         <div class="control-group"> 
-                            <label class="control-label" for="marca">Marca:</label>
+                            <label class="control-label" for="marca">#{msg['marca']}</label>
                             <div class="controls">
                                 <h:inputText id="marca" value="#{ctrGestionTerminalesMovil.marca}"/>
                             </div>
@@ -30,7 +30,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <div class="control-group">
-                            <label class="control-label" for="modelo">Modelo:</label>
+                            <label class="control-label" for="modelo">#{msg['modelo']}</label>
                             <div class="controls">
                                 <h:inputText id="modelo" value="#{ctrGestionTerminalesMovil.modelo}"/>
                             </div>
@@ -40,7 +40,7 @@ and open the template in the editor.
                 <tr>
                     <td>
                         <div class="control-group">
-                            <label class="control-label" for="fecha">Fecha:</label>
+                            <label class="control-label" for="fecha">#{msg['fecha']}</label>
                             <div class="controls">
                                 <h:inputText id="fecha" value="#{ctrGestionTerminalesMovil.fecha}"/>
                             </div>
@@ -49,7 +49,7 @@ and open the template in the editor.
                     <td>
 
                         <div class="control-group">
-                            <label class="control-label" for="linea">Linea:</label>
+                            <label class="control-label" for="linea">#{msg['linea']}</label>
                             <div class="controls">
                                 <h:inputText id="linea" value="#{ctrGestionTerminalesMovil.linea}"/>
                             </div>
@@ -59,7 +59,7 @@ and open the template in the editor.
                 <tr>
                     <td>
                         <div class="control-group">
-                            <label class="control-label" for="nombrePropieratio">Nombre de propietario:</label>
+                            <label class="control-label" for="nombrePropieratio">#{msg['nombrePropietario']}</label>
                             <div class="controls">
                                 <h:inputText id="nombrePropietario" />
                             </div>
@@ -67,7 +67,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <div class="control-group">
-                            <label class="control-label" for="apellidos">Apellidos:</label>
+                            <label class="control-label" for="apellidos">#{msg['apellidos']}</label>
                             <div class="controls">
                                 <h:inputText id="apellidos" />
                             </div>
@@ -78,7 +78,7 @@ and open the template in the editor.
                 <tr>
                     <td> 
                         <div class="control-group">
-                            <label class="control-label" for="sistemaOperativo">Sistema operativo:</label>
+                            <label class="control-label" for="sistemaOperativo">#{msg['sistemaOperativo']}</label>
                             <div class="controls">
                                 <h:inputText id="sistemaOperativo" value="#{ctrGestionTerminalesMovil.sistemaOperativo}" />                           
                             </div>
@@ -90,12 +90,12 @@ and open the template in the editor.
                 <tr>
                      <td>
                         <div class="row">
-                            <div class="offset2 span3"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesMovil.insertarMovil()}" value="Insertar"></h:commandButton></div>         
+                            <div class="offset2 span3"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesMovil.insertarMovil()}" value="#{msg['insertar']}"></h:commandButton></div>         
                         </div>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesMovil.volver()}" value="Volver"></h:commandButton></div>
+                            <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesMovil.volver()}" value="#{msg['volver']}"></h:commandButton></div>
                         </div>
                     </td>
                 </tr>

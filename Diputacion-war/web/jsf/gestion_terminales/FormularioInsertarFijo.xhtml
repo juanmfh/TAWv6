@@ -14,7 +14,7 @@ and open the template in the editor.
     <h:body>
 
         <div class="text-center">
-            <h3>Añadir terminal fijo</h3>
+            <h3>#{msg['añadirTFijo']}</h3>
         </div>
         <br/>
 
@@ -23,7 +23,7 @@ and open the template in the editor.
                 <tr>
                     <td>
                         <div class="control-group"> 
-                            <label class="control-label" for="marca">Marca:</label>
+                            <label class="control-label" for="marca">#{msg['marca']}</label>
                             <div class="controls">
                                 <h:inputText id="marca" value="#{ctrGestionTerminalesFijo.marca}"/>
                             </div>
@@ -32,7 +32,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <div class="control-group">
-                            <label class="control-label" for="modelo">Modelo:</label>
+                            <label class="control-label" for="modelo">#{msg['modelo']}</label>
                             <div class="controls">
                                 <h:inputText id="modelo" value="#{ctrGestionTerminalesFijo.modelo}"/>
                             </div>
@@ -42,7 +42,7 @@ and open the template in the editor.
                 <tr>
                     <td>
                         <div class="control-group">
-                            <label class="control-label" for="fecha">Fecha:</label>
+                            <label class="control-label" for="fecha">#{msg['fecha']}</label>
                             <div class="controls">
                                 <h:inputText id="fecha" value="#{ctrGestionTerminalesFijo.fecha}"/>
                             </div>
@@ -51,7 +51,7 @@ and open the template in the editor.
                     <td>
 
                         <div class="control-group">
-                            <label class="control-label" for="linea">Linea:</label>
+                            <label class="control-label" for="linea">#{msg['linea']}</label>
                             <div class="controls">
                                 <h:inputText id="linea" value="#{ctrGestionTerminalesFijo.linea}"/>
                             </div>
@@ -61,7 +61,7 @@ and open the template in the editor.
                 <tr>
                     <td>
                         <div class="control-group">
-                            <label class="control-label" for="nombrePropieratio">Nombre de propietario:</label>
+                            <label class="control-label" for="nombrePropieratio">#{msg['nombrePropietario']}</label>
                             <div class="controls">
                                 <h:inputText id="nombrePropietario" />
                             </div>
@@ -69,7 +69,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <div class="control-group">
-                            <label class="control-label" for="apellidos">Apellidos:</label>
+                            <label class="control-label" for="apellidos">#{msg['apellidos']}</label>
                             <div class="controls">
                                 <h:inputText id="apellidos" />
                             </div>
@@ -83,7 +83,7 @@ and open the template in the editor.
 
                             <div class="controls">
                                 <h:selectManyCheckbox id="publico" value="#{ctrGestionTerminalesFijo.publico}">
-                                    <f:selectItem itemValue="Publico" />
+                                    <f:selectItem itemValue="Publico:" />
                                 </h:selectManyCheckbox> 
                             </div>
                         </div>
@@ -94,12 +94,12 @@ and open the template in the editor.
                 <tr>
                     <td>
                         <div class="row">
-                            <div class="offset2 span3"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesFijo.insertarTerminalFijo()}" value="Insertar"></h:commandButton></div>         
+                            <div class="offset2 span3"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesFijo.insertarTerminalFijo()}" value="#{msg['insertar']}"></h:commandButton></div>         
                         </div>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="Volver"></h:commandButton></div>
+                            <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="#{msg['volver']}"></h:commandButton></div>
                         </div>
                     </td>
                 </tr>

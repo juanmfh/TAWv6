@@ -17,19 +17,20 @@ and open the template in the editor.
     <h:body>
         <div class="container">
             <div class="text-center">
-                <h3>Listado terminal movil</h3>
+                
+                <h3>#{msg['listadoTMovil']}</h3>
             </div>
             <br/>
             <h:form>
                 <table class="table table-condensed table-bordered table-hover">  
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Numero</th>
-                            <th>Sistema Operativo</th>
-                            <th>Opciones</th>
+                            <th>#{msg['id']}</th>
+                            <th>#{msg['marca']}</th>
+                            <th>#{msg['modelo']}</th>
+                            <th>#{msg['numero']}</th>
+                            <th>#{msg['sistemaOperativo']}</th>
+                            <th>#{msg['opciones']}</th>
                         </tr>
 
                     </thead>
@@ -73,7 +74,7 @@ and open the template in the editor.
                 </table>
 
                 <div class="row">
-                    <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver}" value="Volver"></h:commandButton></div>
+                    <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver}" value="#{msg['volver']}"></h:commandButton></div>
                 </div>
 
             </h:form>

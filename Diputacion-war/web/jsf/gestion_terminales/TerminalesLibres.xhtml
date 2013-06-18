@@ -11,17 +11,18 @@
     <h:body>
         <div class="container">
             <div class="text-center">
-                <h3>Asignar terminal ha: ${ctrGestionTerminalesFijo.usuarioSeleccionado.nombre} ${ctrGestionTerminalesFijo.usuarioSeleccionado.apellido1}</h3>
+                
+                <h3>#{msg['asignarTerminalHa']} ${ctrGestionTerminalesFijo.usuarioSeleccionado.nombre} ${ctrGestionTerminalesFijo.usuarioSeleccionado.apellido1}</h3>
             </div>
             <br/>
             <h:form>
                 <table class="table table-condensed table-bordered table-hover">  
                     <thead>
-                        <th>ID</th>
-                        <th>Numero</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Asignar</th>
+                        <th>#{msg['id']}</th>
+                        <th>#{msg['numero']}</th>
+                        <th>#{msg['marca']}</th>
+                        <th>#{msg['modelo']}</th>
+                        <th>#{msg['asignar']}</th>
                     </thead>
 
                     <tbody>
@@ -33,7 +34,7 @@
                                 <td>${terminal.modelo}</td>
                                 <td>
                                     <div class="btn-group">   
-                                        <h:commandButton class="btn btn-primary"  value="Asignar" action="#{ctrGestionTerminalesFijo.asignarTerminal}"  >
+                                        <h:commandButton class="btn btn-primary"  value="#{msg['asignar']}" action="#{ctrGestionTerminalesFijo.asignarTerminal}"  >
                                             <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesFijo.terminalSeleccionado}" />
                                         </h:commandButton>
                                     </div>
@@ -44,7 +45,7 @@
                     </tbody>
                 </table>
                 <div class="row">
-                    <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="Volver"></h:commandButton></div>
+                    <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrGestionTerminalesFijo.volver()}" value="#{msg['volver']}"></h:commandButton></div>
                 </div>
             </h:form>
         </div>
