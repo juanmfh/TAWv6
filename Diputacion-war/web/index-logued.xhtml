@@ -7,51 +7,52 @@
         <title>Menu</title>
     </h:head>
     <h:body>
+        <h:form>
+            <div class="container">
+                <div class="page-header">
+                    <h1>Menu Principal</h1>
+                </div>
 
-        <div class="container">
-            <div class="page-header">
-                <h1>Menu Principal</h1>
+                <div style="float:left">
+                    <p:menu style="width: 290px">  
+
+                        <p:submenu label="Usuario">  
+                            <p:menuitem value="Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesUsuario" icon="ui-icon-star"/>                      
+                            <p:menuitem value="Perfiles" outcome="jsf/control_gasto/VistaPerfilesUsuario.jsf" icon="ui-icon-star"/>   
+                            <p:menuitem value="Directorio telefonico" outcome="jsf/directorio_telefonico/DirectorioTelefonico.jsf" icon="ui-icon-star"/> 
+                        </p:submenu>  
+
+                        <p:submenu label="Jefe">  
+                            <p:menuitem value="Tramitar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesJefe" icon="ui-icon-star"/>
+                            <p:menuitem value="Facturacion" outcome="jsf/facturacion/VistaFacturacion" icon="ui-icon-star"/>
+                        </p:submenu>  
+
+                        <p:submenu label="Controlador">  
+                            <p:menuitem value="Validar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesControlador" icon="ui-icon-star"/>  
+                            <p:menuitem value="Facturacion" outcome="jsf/facturacion/VistaFacturacion" icon="ui-icon-star"/>
+                        </p:submenu>  
+
+                        <p:submenu label="Administrador"> 
+
+                            <p:menuitem value="Ejecutar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesAdministrador" icon="ui-icon-star"/>  
+                            <p:menuitem value="Grupos de Rescate" outcome="jsf/grupos_rescate/VistaGrupos_Rescate" icon="ui-icon-star"/>
+                            <p:menuitem value="Modificar Perfiles" outcome="jsf/control_gasto/VistaPerfilesAdministrador.jsf" icon="ui-icon-star"/>
+                            <p:menuitem value="Insertar Terminal Fija" url="#{ctrGestionTerminalesFijo.formularioInsertar()}" icon="ui-icon-star"/>
+                            <p:menuitem value="Listado Terminal Fija" url="#{ctrGestionTerminalesFijo.pagListadoTerminalFijo()}"  icon="ui-icon-star"/>
+                            <p:menuitem value="Asignar Terminal Fija a Usuario"  url="#{ctrGestionTerminalesFijo.pagListadoUsuarios()}" icon="ui-icon-star"/>
+                            <p:menuitem value="Listado Fijo Municipios" url="#{ctrlDirectorioTelefonico.pagListado()}"  icon="ui-icon-star"/> 
+                            <p:menuitem value="Insertar Terminal Movil" url="#{ctrGestionTerminalesMovil.formularioInsertar()}"  icon="ui-icon-star"/>
+                            <p:menuitem value="Listado Terminal Movil" url="#{ctrGestionTerminalesMovil.pagListadoTerminalMovil()}"  icon="ui-icon-star"/>
+                        </p:submenu>
+                    </p:menu>  
+                </div>
+
+                <div style="float:right">
+                    <img src="bootstrap/img/diputacion.gif" height="500" width="540" />
+                </div>
             </div>
 
-            <div style="float:left">
-                <p:menu style="width: 290px">  
-
-                    <p:submenu label="Usuario">  
-                        <p:menuitem value="Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesUsuario" icon="ui-icon-star"/>                      
-                        <p:menuitem value="Perfiles" outcome="jsf/control_gasto/VistaPerfilesUsuario.jsf" icon="ui-icon-star"/>   
-                        <p:menuitem value="Directorio telefonico" outcome="jsf/directorio_telefonico/DirectorioTelefonico.jsf" icon="ui-icon-star"/> 
-                    </p:submenu>  
-
-                    <p:submenu label="Jefe">  
-                        <p:menuitem value="Tramitar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesJefe" icon="ui-icon-star"/>
-                        <p:menuitem value="Facturacion" outcome="jsf/facturacion/VistaFacturacion" icon="ui-icon-star"/>
-                    </p:submenu>  
-
-                    <p:submenu label="Controlador">  
-                        <p:menuitem value="Validar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesControlador" icon="ui-icon-star"/>  
-                        <p:menuitem value="Facturacion" outcome="jsf/facturacion/VistaFacturacion" icon="ui-icon-star"/>
-                    </p:submenu>  
-
-                    <p:submenu label="Administrador">  
-                        <p:menuitem value="Ejecutar Solicitudes" outcome="jsf/solicitudes/VistaSolicitudesAdministrador" icon="ui-icon-star"/>  
-                        <p:menuitem value="Grupos de Rescate" outcome="jsf/grupos_rescate/VistaGrupos_Rescate" icon="ui-icon-star"/>
-                        <p:menuitem value="Modificar Perfiles" outcome="jsf/control_gasto/VistaPerfilesAdministrador.jsf" icon="ui-icon-star"/>
-                        <p:menuitem value="Insertar Terminal Fija" outcome="jsf/gestion_terminales/FormularioInsertarFijo.jsf" icon="ui-icon-star"/>
-                        <p:menuitem value="Listado Terminal Fija" outcome="jsf/gestion_terminales/ListadoTerminalFijo.jsf" icon="ui-icon-star"/>
-                        <p:menuitem value="Asignar Terminal Fija a Usuario" outcome="jsf/gestion_terminales/ListadoUsuarios.jsf" icon="ui-icon-star"/>
-                        <p:menuitem value="Listado Fijo Municipios" outcome="jsf/directorio_telefonico/LineasFijasMunicipios.jsf" icon="ui-icon-star"/> 
-                        <p:menuitem value="Insertar Terminal Movil" outcome="jsf/gestion_terminales/FormularioInsertarMovil.jsf" icon="ui-icon-star"/>
-                        <p:menuitem value="Listado Terminal Movil" outcome="jsf/gestion_terminales/ListadoTerminalMovil.jsf" icon="ui-icon-star"/>
-                    </p:submenu>
-                </p:menu>  
-            </div>
-
-            <div style="float:right">
-                <img src="bootstrap/img/diputacion.gif" height="500" width="540" />
-            </div>
-        </div>
-
-
+        </h:form>
 
 
 

@@ -4,9 +4,11 @@
  */
 package diputacion.gestion_terminales;
 
+import diputacion.dao.AdministradorFacadeLocal;
 import diputacion.dao.LineafijaFacadeLocal;
 import diputacion.dao.TerminalfijoFacadeLocal;
 import diputacion.dao.UsuarioFacadeLocal;
+import diputacion.entity.Administrador;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -18,9 +20,12 @@ import java.text.ParseException;
 import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import diputacion.entity.Lineafija;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -36,6 +41,8 @@ public class CtrGestionTerminalesFijo implements Serializable {
     private UsuarioFacadeLocal usuarioFacade;
     @EJB
     private TerminalfijoFacadeLocal terminalfijoFacade;
+    @EJB
+    private AdministradorFacadeLocal administradorFacade;
     //VARIABLES
     private String marca, modelo, linea, fecha;
     private Date fechaAlta;
@@ -45,13 +52,31 @@ public class CtrGestionTerminalesFijo implements Serializable {
     private Terminalfijo terminalSeleccionado;
     private Integer idterminalFijo;
     private Collection<Usuario> usuarios;
-    private Usuario usuarioSeleccionado;
+    private Usuario usuarioSeleccionado, usuario;
     private Collection<Terminalfijo> terminalesLibres;
+    private Administrador administrador;
+    private boolean admin = true;
 
     public CtrGestionTerminalesFijo() {
     }
 
     //GETTER AND SETTER
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador a) {
+        administrador = a;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario u) {
+        usuario = u;
+    }
+
     public Collection<Terminalfijo> getTerminalesLibres() {
         return terminalesLibres;
     }
@@ -159,6 +184,7 @@ public class CtrGestionTerminalesFijo implements Serializable {
     //METODOS-------------------------------------------------------------------
     @PostConstruct
     public void inicializacion() {
+
         terminales = terminalfijoFacade.findAll();
         //OBTENEMOS LA FECHO DE SISTEMA
         int dia = new java.util.Date().getDate();
@@ -172,15 +198,73 @@ public class CtrGestionTerminalesFijo implements Serializable {
         linea = "";
         //RECOGEMOS LOS USUARIOS
         usuarios = usuarioFacade.findAll();
-
     }
 
-    public String formularioInsertar() {
-        this.inicializacion();
-        return "FormularioInsertarFijo";
+    //METODO QUE COMPRUEBA SI SOMOS ADMINISTRADOR
+    public boolean esAdministrador() {
+        boolean res = true;
+
+        // Obtenemos el usuario logeado desde la sesion
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        usuario = (Usuario) externalContext.getSessionMap().get("usuario");
+
+        if (usuario != null) {
+            administrador = administradorFacade.find(usuario.getIdusuario());
+
+            if (administrador == null) {
+                res = false;
+            }
+        } else {
+            res = true;
+        }
+
+        return res;
     }
 
-    public String insertarTerminalFijo() throws ParseException {
+    public String formularioInsertar() throws IOException {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+
+            return "jsf/gestion_terminales/FormularioInsertarFijo.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
+    }
+    
+    public String pagListadoTerminalFijo() {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+
+            return "jsf/gestion_terminales/ListadoTerminalFijo.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
+    }
+    
+    public String pagListadoUsuarios() {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+
+            return "jsf/gestion_terminales/ListadoUsuarios.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
+    }
+
+    public String insertarTerminalFijo() throws ParseException, IOException {
+
         //CREAMOS EL OBJETO TERMINAL FIJO
         Terminalfijo tfnuevo;
         Lineafija lf;
@@ -221,15 +305,17 @@ public class CtrGestionTerminalesFijo implements Serializable {
 
         //INSERTAMOS EN LA BD
         terminalfijoFacade.create(tfnuevo);
-
         this.inicializacion();
         return "ListadoTerminalFijo";
+
+
     }
 
     public void borrarTerminalFijo() {
 
         terminalfijoFacade.remove(terminalSeleccionado);
         this.inicializacion();
+
 
     }
 
@@ -297,12 +383,12 @@ public class CtrGestionTerminalesFijo implements Serializable {
 
     }
 
-    public String volver() {
-        return "index";
+    public void volver() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
     }
 
-    public String volverListado() {
-        return "ListadoTerminalFijo";
+    public void volverListado() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../../index-logued.jsf");
     }
 
     public String terminalesLibres() {
