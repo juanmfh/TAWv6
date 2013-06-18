@@ -8,7 +8,11 @@
         <script type="text/javascript">
 
             function selectId(id) {
-                document.getElementById("idFactura").value = id;
+                document.getElementById("facturaSeleccionada").value = id;
+            }
+            
+            function cerrarModal(){
+                $('#borrar').modal('hide');
             }
 
         </script> 
@@ -30,7 +34,7 @@
             </div>
             <br/><br/>
 
-            <h:form>
+            <h:form id="formu">
                 <h:dataTable value="#{ctrFacturacion.facturas}" var="datos" class=" table-condensed table table-hover table-bordered" >
                     <h:column>
                         <f:facet name="header">
@@ -77,6 +81,7 @@
             </h:form>
 
         </div>
+        
         <h:form>
             <!-- Modal -->
             <div id="borrar" class="modal hide fade in" style="display: none;">
@@ -87,16 +92,17 @@
                 <div class="modal-body">
                     <h4>${msg['modalestasseguro']}</h4>
                     <p>${msg['modalestasseguro2']}</p>  
-                    <h:outputText id="prueba" value="#{ctrFacturacion.idSeleccionado}"/>
+                    <input type="hidden" id="facturaSeleccionada" name="facturaSeleccionada" value="" />
                 </div>
                 <div class="modal-footer">
-                    <h:inputHidden id="idFactura" value="#{ctrFacturacion.idSeleccionado}"/>
-                    <h:commandLink class="btn btn-danger" action="#{ctrFacturacion.borrarFacturaIn()}">
+                    
+                    
+                    <h:commandLink onclick="cerrarModal()" class="btn btn-danger" action="#{ctrFacturacion.borrarFacturaIn()}">
                         
-                        <f:ajax execute="@form" render="prueba"/>
+                        <f:ajax execute="@form"/>
                         ${msg['borrar']}
                     </h:commandLink>
-
+                    
                     <a href="#" data-dismiss="modal" class="btn">${msg['cancelar']}</a>
                 </div>
             </div>
