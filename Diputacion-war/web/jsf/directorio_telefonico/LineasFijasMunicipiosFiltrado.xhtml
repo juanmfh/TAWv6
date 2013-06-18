@@ -19,7 +19,7 @@
                     <div class="input-append">
                         <label class="control-label" for="nombre">Municipio:</label>
                         <h:inputText id="municipio" value="#{ctrlDirectorioTelefonico.municipio}"/>
-                        <h:commandButton value="Buscar" class="btn" action="#{ctrlDirectorioTelefonico.listadoFiltrado}"/>
+                        <h:commandButton class="btn btn-primary" value="Buscar"  action="#{ctrlDirectorioTelefonico.listadoFiltrado}"/>
                     </div>
                 </div>
             </div>
@@ -52,9 +52,8 @@
                     </c:forEach>
                 </tbody>
             </table>
-
             <div class="row">
-                <div class="span2 offset2"> <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrlDirectorioTelefonico.volver}" /></div>
+                <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrlDirectorioTelefonico.volver}" value="Volver"></h:commandButton></div>
             </div>
         </h:form>
     </h:body>

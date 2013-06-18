@@ -13,7 +13,7 @@ and open the template in the editor.
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     </h:head>
     <h:body>
-         <div class="text-center">
+        <div class="text-center">
             <h3>Directorio telefonico de la diputacion de Malaga  </h3>
         </div>
         <br/>
@@ -25,7 +25,7 @@ and open the template in the editor.
 
                         <h:outputText value=" Numero:" />
                         <h:inputText id="numero" value="#{ctrlDirectorioTelefonico.numero}" class="input-medium search-query"/>
-                        <h:commandButton value="Buscar" class="btn" action="#{ctrlDirectorioTelefonico.listadoFiltradoNumero}"/>
+                        <h:commandButton class="btn btn-primary" value="Buscar"  action="#{ctrlDirectorioTelefonico.listadoFiltradoNumero}"/>
                     </td>
                     <td>
 
@@ -35,7 +35,7 @@ and open the template in the editor.
 
                         <h:outputText value="  Apellido1:   " />
                         <h:inputText id="apellido1" value="#{ctrlDirectorioTelefonico.apellido1}" class="input-medium search-query"/>
-                        <h:commandButton value="Buscar" class="btn" action="#{ctrlDirectorioTelefonico.listadoFiltradoNombreApellido}"/>
+                        <h:commandButton class="btn btn-primary" value="Buscar" action="#{ctrlDirectorioTelefonico.listadoFiltradoNombreApellido}"/>
                     </td>
                 </tr>
             </table>
@@ -66,7 +66,7 @@ and open the template in the editor.
                 </tbody>
             </table>
             <div class="row">
-                <div class="span2 offset2"> <h:commandButton value="Volver" class="btn btn-primary" action="#{ctrlDirectorioTelefonico.volver}" /></div>
+                <div class="offset2 span3"><h:commandButton class="btn" action="#{ctrlDirectorioTelefonico.volver}" value="Volver"></h:commandButton></div>
             </div>
         </h:form>
     </h:body>
