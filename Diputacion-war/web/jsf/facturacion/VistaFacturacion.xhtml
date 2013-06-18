@@ -10,8 +10,8 @@
             function selectId(id) {
                 document.getElementById("facturaSeleccionada").value = id;
             }
-            
-            function cerrarModal(){
+
+            function cerrarModal() {
                 $('#borrar').modal('hide');
             }
 
@@ -71,41 +71,39 @@
 
                             <a data-toggle="modal" href="#borrar" class="btn" onclick="selectId(#{datos.idfacturaIn})"><i class="icon-trash"/> </a>
 
-
                         </center>    
 
                     </h:column>
 
 
                 </h:dataTable>
+
+                <!-- Modal -->
+                <div id="borrar" class="modal hide fade in" style="display: none;">
+                    <div class="modal-header">
+                        <a data-dismiss="modal" class="close">×</a>
+                        <h3>${msg['eliminarfactura']}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>${msg['modalestasseguro']}</h4>
+                        <p>${msg['modalestasseguro2']}</p>  
+                        <input type="hidden" id="facturaSeleccionada" name="facturaSeleccionada" value="" />
+                    </div>
+                    <div class="modal-footer">
+
+
+                        <h:commandLink onclick="cerrarModal()" class="btn btn-danger" action="#{ctrFacturacion.borrarFacturaIn()}">
+
+                            <f:ajax execute="@form" render="formu"/>
+                            ${msg['borrar']}
+                        </h:commandLink>
+
+                        <a href="#" data-dismiss="modal" class="btn">${msg['cancelar']}</a>
+                    </div>
+                </div>
             </h:form>
 
         </div>
-        
-        <h:form>
-            <!-- Modal -->
-            <div id="borrar" class="modal hide fade in" style="display: none;">
-                <div class="modal-header">
-                    <a data-dismiss="modal" class="close">×</a>
-                    <h3>${msg['eliminarfactura']}</h3>
-                </div>
-                <div class="modal-body">
-                    <h4>${msg['modalestasseguro']}</h4>
-                    <p>${msg['modalestasseguro2']}</p>  
-                    <input type="hidden" id="facturaSeleccionada" name="facturaSeleccionada" value="" />
-                </div>
-                <div class="modal-footer">
-                    
-                    
-                    <h:commandLink onclick="cerrarModal()" class="btn btn-danger" action="#{ctrFacturacion.borrarFacturaIn()}">
-                        
-                        <f:ajax execute="@form"/>
-                        ${msg['borrar']}
-                    </h:commandLink>
-                    
-                    <a href="#" data-dismiss="modal" class="btn">${msg['cancelar']}</a>
-                </div>
-            </div>
-        </h:form>
+
     </h:body>
 </html>

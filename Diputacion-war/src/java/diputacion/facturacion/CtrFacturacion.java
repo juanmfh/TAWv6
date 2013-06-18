@@ -56,14 +56,11 @@ public class CtrFacturacion implements Serializable {
 
     public void borrarFacturaIn() {
 
-        Facturain aux = new Facturain();
-        
-
         String valor = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("facturaSeleccionada");
         
         
-        //facturas.remove(facturaInFacade.find(Integer.parseInt(valor)));
+        facturas.remove(facturaInFacade.find(Integer.parseInt(valor)));
 
         facturaInFacade.remove(facturaInFacade.find(Integer.parseInt(valor)));
 

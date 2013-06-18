@@ -4,7 +4,6 @@
  */
 package diputacion.facturacion;
 
-
 import diputacion.dao.ComparativaFacadeLocal;
 import diputacion.entity.Comparativa;
 import java.io.Serializable;
@@ -13,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -44,22 +44,34 @@ public class CtrGestionComparativas implements Serializable {
     public void setComparativas(Collection<Comparativa> comparativas) {
         this.comparativas = comparativas;
     }
-    
-    public String verComparativa(){
-        return "VistaVerComparativa";
-    }
-    
-    public String borrarComparativa(){
+
+    public String borrarComparativa() {
         this.comparativaFacade.remove(comparativaSelec);
         comparativas.remove(comparativaSelec);
         return "VistaGestionComparativas";
     }
 
+    public void verComparativa() {
+
+
+        String valor = FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap().get("comparativaSeleccionada");
+        /*Comparativa c = new Comparativa();
+        c.setIdcomparativa(Integer.parseInt(valor));
+        comparativaFacade.create(c);*/
+        
+        comparativaSelec = comparativaFacade.find(Integer.parseInt(valor));
+        
+        
+
+    }
+
     @PostConstruct
     public void create() {
         comparativas = comparativaFacade.findAll();
-        
-        
-        
+        //comparativaSelec = comparativaFacade.find(2);
+
+
+
     }
 }
