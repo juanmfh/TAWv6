@@ -24,7 +24,20 @@ public class CtrFacturacion implements Serializable {
     private FacturainFacadeLocal facturaInFacade;
     private Collection<Facturain> facturas;
     private Facturain facturaSelec;
+    
+    //NUEVO
+    private Integer idSeleccionado;
 
+    public Integer getIdSeleccionado() {
+        return idSeleccionado;
+    }
+
+    public void setIdSeleccionado(Integer idSeleccionado) {
+        this.idSeleccionado = idSeleccionado;
+    }
+
+    
+    
     public CtrFacturacion() {
     }
 
@@ -48,10 +61,12 @@ public class CtrFacturacion implements Serializable {
         return "VistaVerFactura";
     }
     
-    public String borrarFacturaIn(){
-        this.facturaInFacade.remove(facturaSelec);
+    public void borrarFacturaIn(){
+        /*this.facturaInFacade.remove(facturaSelec);
         facturas.remove(facturaSelec);
-        return "VistaFacturacion";
+        return "VistaFacturacion";*/
+        
+        idSeleccionado = 5;
     }
 
     @PostConstruct
