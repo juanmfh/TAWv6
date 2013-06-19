@@ -46,6 +46,25 @@ public class LineamovilFacade extends AbstractFacade<Lineamovil> implements Line
         
         return res;
     }
+    
+
+    @Override
+    public Lineamovil buscarNumero(int numero) {
+        
+        List<Lineamovil> res = null;
+        
+        
+        javax.persistence.Query q = getEntityManager().createNamedQuery("Lineamovil.findByNumero");
+        q.setParameter("numero", numero);
+
+        res = (List<Lineamovil>) q.getResultList();
+
+        if (res != null && res.size() > 0) {
+            return res.get(0);
+        } else {
+            return null;
+        }
+    }
 
     
 }
