@@ -10,10 +10,12 @@ import diputacion.dao.TerminalmovilFacadeLocal;
 import diputacion.dao.UsuarioFacadeLocal;
 import diputacion.entity.Administrador;
 import diputacion.entity.Lineamovil;
+import diputacion.entity.Terminalfijo;
 import diputacion.entity.Terminalmovil;
 import diputacion.entity.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -48,12 +50,43 @@ public class CtrGestionTerminalesMovil implements Serializable {
     private Usuario usuarioSeleccionado, usuario;
     private Administrador administrador;
     private boolean admin = true;
+    private Collection<Usuario> usuarios;
+    private Collection<Terminalmovil> terminalesLibres;
 
     //CONSTRUCTOR
     public CtrGestionTerminalesMovil() {
     }
 
     //GETTER AND SETTER
+     public Terminalmovil getTerminalSeleccionado() {
+        return terminalSeleccinado;
+    }
+
+    public void setTerminalSeleccionado(Terminalmovil tm) {
+        terminalSeleccinado = tm;
+    }
+    public Collection<Terminalmovil> getTerminalesLibres() {
+        return terminalesLibres;
+    }
+
+    public void setTerminalesLibres(Collection<Terminalmovil> t) {
+        terminalesLibres = t;
+    }
+     public Usuario getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
+
+    public void setUsuarioSeleccionado(Usuario u) {
+        usuarioSeleccionado = u;
+    }
+    public Collection<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Collection<Usuario> u) {
+        usuarios = u;
+    }
+
     public void setMarca(String m) {
         marca = m;
     }
@@ -102,14 +135,6 @@ public class CtrGestionTerminalesMovil implements Serializable {
         terminales = t;
     }
 
-    public Terminalmovil getTerminalSeleccionado() {
-        return terminalSeleccinado;
-    }
-
-    public void setTerminalSeleccionado(Terminalmovil t) {
-        terminalSeleccinado = t;
-    }
-
     //METODOS-------------------------------------------------------------------
     @PostConstruct
     public void inicializacion() {
@@ -124,6 +149,8 @@ public class CtrGestionTerminalesMovil implements Serializable {
         modelo = "";
         linea = "";
         sistemaOperativo = "";
+        //RECOGEMOS LOS USUARIOS
+        usuarios = usuarioFacade.findAll();
 
     }
 
@@ -163,9 +190,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
             lm.setNumero(Integer.parseInt(linea));
             lineamovilFacade.create(lm);
             tmnuevo.setLineaidlineaMovil(lm);
-        }
-        else
-        {
+        } else {
             return "FormularioInsertarMovilErrorLinea";
         }
         //INSERTAMOS EN LA BD
@@ -201,29 +226,28 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
     public String modificarTerminalMovilDatos() {
         //CREAMOS EL OBJETO TERMINAL FIJO
-        Lineamovil lm=null;
+        Lineamovil lm = null;
 
         terminalSeleccinado.setMarca(marca);
         terminalSeleccinado.setModelo(modelo);
         terminalSeleccinado.setSistemaOperativo(sistemaOperativo);
-        
+
         //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA
-         //COMPROBAMOS SI LA LINEA EXISTE O ES UNA NUEVA.
+        //COMPROBAMOS SI LA LINEA EXISTE O ES UNA NUEVA.
         String aux;
         aux = linea;
-        if(aux.length()==0)
-        {
-            aux="0";
+        if (aux.length() == 0) {
+            aux = "0";
         }
-        lm=lineamovilFacade.buscarNumero(Integer.parseInt(aux));
-        
-        if (linea.length() > 0 && lm!=null) {
+        lm = lineamovilFacade.buscarNumero(Integer.parseInt(aux));
+
+        if (linea.length() > 0 && lm != null) {
             //int idLinea;
             //idLinea = lineamovilFacade.maxID() + 1;
             //lm = new Lineamovil(idLinea);
-            
+
             //PASEAMOS LA FECHA
-            if (fecha.length() > 0 ) {
+            if (fecha.length() > 0) {
                 StringTokenizer tokens = new StringTokenizer(fecha, "/");
                 int[] datos = new int[3];
                 int i = 0;
@@ -240,15 +264,13 @@ public class CtrGestionTerminalesMovil implements Serializable {
             lm.setNumero(Integer.parseInt(linea));
             lineamovilFacade.edit(lm);
             terminalSeleccinado.setLineaidlineaMovil(lm);
-        }
-        else if(linea.length() > 0 && lm==null)
-        {
+        } else if (linea.length() > 0 && lm == null) {
             int idLinea;
             idLinea = lineamovilFacade.maxID() + 1;
             lm = new Lineamovil(idLinea);
-            
+
             //PASEAMOS LA FECHA
-            if (fecha.length() > 0 ) {
+            if (fecha.length() > 0) {
                 StringTokenizer tokens = new StringTokenizer(fecha, "/");
                 int[] datos = new int[3];
                 int i = 0;
@@ -264,10 +286,8 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
             lm.setNumero(Integer.parseInt(linea));
             lineamovilFacade.create(lm);
-            terminalSeleccinado.setLineaidlineaMovil(lm);   
-        }
-        else 
-        {
+            terminalSeleccinado.setLineaidlineaMovil(lm);
+        } else {
             this.inicializacion();
             return "FormularioInsertarMovilErrorLinea";
         }
@@ -296,8 +316,6 @@ public class CtrGestionTerminalesMovil implements Serializable {
             return "ErrorAutorizacion";
         }
     }
-    
-     
 
     //METODO QUE COMPRUEBA SI SOMOS ADMINISTRADOR
     public boolean esAdministrador() {
@@ -332,7 +350,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
             return "ErrorAutorizacion.jsf";
         }
     }
-    
+
     public String formularioInsertar2() {
 
         admin = esAdministrador();
@@ -340,9 +358,41 @@ public class CtrGestionTerminalesMovil implements Serializable {
         if (admin) {
             this.inicializacion();
             return "FormularioInsertarMovil";
-        } 
-        
+        }
+
         return null;
+    }
+
+    public String pagListadoUsuarios() {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+
+            return "jsf/gestion_terminales/ListadoUsuariosMovil.jsf";
+        } else {
+
+            return "ErrorAutorizacion.jsf";
+        }
+    }
+    
+    public String terminalesLibresMovil() {
+
+        terminalesLibres = new ArrayList<Terminalmovil>();
+        terminalesLibres = terminalmovilFacade.terminaleslibres();
+        return "TerminalesLibresMovil";
+    }
+    
+    public void asignarTerminal() {
+
+        Terminalmovil tm = terminalmovilFacade.find(terminalSeleccinado.getIdterminalMovil());
+        Usuario user = usuarioFacade.find(usuarioSeleccionado.getIdusuario());
+        Lineamovil lm = lineamovilFacade.find(tm.getLineaidlineaMovil().getIdlineaMovil());
+        lm.setUsuarioIdusuario(usuarioSeleccionado);
+
+        lineamovilFacade.edit(lm);
+        this.terminalesLibresMovil();
     }
 
     //FUNCION AUXILIAR PARA SABER SI EL STRING ES UN NUMERO

@@ -44,4 +44,15 @@ public class TerminalmovilFacade extends AbstractFacade<Terminalmovil> implement
 
         return res;
     }
+
+    @Override
+    public List<Terminalmovil> terminaleslibres() {
+
+        List<Terminalmovil> res;
+        
+        //t.getLineaFijaidlineaFija() != null && t.getLineaFijaidlineaFija().getUsuarioIdusuario() == null
+        res=(List<Terminalmovil>) em.createQuery("SELECT t FROM Terminalmovil t WHERE t.lineaidlineaMovil.usuarioIdusuario IS NULL").getResultList();
+        
+        return res;
+    }
 }
