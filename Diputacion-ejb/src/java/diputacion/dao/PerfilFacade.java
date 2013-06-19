@@ -5,7 +5,6 @@
 package diputacion.dao;
 
 import diputacion.entity.Perfil;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,15 +30,6 @@ public class PerfilFacade extends AbstractFacade<Perfil> implements PerfilFacade
 
     @Override
     public int maxID() {
-        int res;
-        if (count() == 0) {
-            res = 0;
-        } else {
-            List<Perfil> listaPerfiles;
-            listaPerfiles = (List<Perfil>) em.createQuery("SELECT t FROM Perfil t").getResultList();
-            res = listaPerfiles.size();
-        }
-
-        return res;
+        return (Integer) em.createQuery("SELECT MAX(p.idperfil) FROM Perfil p").getSingleResult();
     }
 }

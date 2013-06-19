@@ -1,11 +1,93 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+Document   : VistaNuevaTarifa
+Author     : Alejandro Ruiz Moyano
+-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
-        <title>Crear tarifa</title>
+        <title>#{msg.crearTarifa}</title> 
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="../../bootstrap/js/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
-        Crear tarifa
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1>#{msg.crearTarifa}</h1>
+            </div>
+            <h:form id="FormularioInsertarTarifa" class="form-horizontal">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="nombre">#{msg.nombre}:</label>
+                                <div class="controls">
+                                    <h:inputText id="nombre" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="costeEstablecimiento">#{msg.establecimientoLlamada}:</label>
+                                <div class="controls">
+                                    <h:inputText id="costeEstablecimiento" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="costeMinuto">#{msg.costeMinuto}:</label>
+                                <div class="controls">
+                                    <h:inputText id="costeMinuto" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="costeSMS">#{msg.costeSMS}:</label>
+                                <div class="controls">
+                                    <h:inputText id="costeSMS" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="tarifaDatos">#{msg.tarifaDatos}:</label>
+                                <div class="controls">
+                                    <h:inputText id="tarifaDatos" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="costeDatos">#{msg.precioDatos}:</label>
+                                <div class="controls">
+                                    <h:inputText id="costeDatos" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="row-fluid">
+                                <div class="offset10"><h:commandButton class="btn" action="#{ctrVistaEditarPerfiles.addTarifa}" value="#{msg.guardarTarifa}"></h:commandButton></div>    
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row-fluid">
+                                <div class="offset2"><a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
     </h:body>
 </html>
+

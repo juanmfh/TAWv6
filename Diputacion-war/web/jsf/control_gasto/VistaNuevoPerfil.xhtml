@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- 
 Document   : VistaNuevoPerfil
-Created on : 19-jun-2013
 Author     : Alejandro Ruiz Moyano
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -25,7 +24,7 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="limiteSaldo">#{msg.limiteSaldo}:</label>
                                 <div class="controls">
-                                    <h:inputText id="limiteSaldo" value="#{ctrVistaNuevoPerfil.limite}"/>
+                                    <h:inputText id="limiteSaldo" value="#{ctrVistaEditarPerfiles.limite}"/>
                                 </div>
                             </div>
                         </td>
@@ -45,14 +44,14 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="fechaFin">#{msg.fechaFin}:</label>
                                 <div class="controls">
-                                    <h:inputText id="fechaFin" value="#{ctrVistaNuevoPerfil.fechaFin}"/>
+                                    <h:inputText id="fechaFin" value="#{ctrVistaEditarPerfiles.fechaFin}"/>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="control-group">
                                 <div class="controls">
-                                    <h:commandButton class="btn" action="#{ctrVistaNuevoPerfil.addTarifa()}" value="#{msg.crearNuevaTarifa}"></h:commandButton>
+                                    <h:commandButton class="btn" action="#{ctrVistaEditarPerfiles.nuevaTarifa}" value="#{msg.crearNuevaTarifa}"></h:commandButton>
                                 </div>
                             </div>
                         </td>
@@ -60,12 +59,12 @@ Author     : Alejandro Ruiz Moyano
                     <tr>
                         <td>
                             <div class="row-fluid">
-                                <div class="offset10"><h:commandButton class="btn" action="#{ctrVistaNuevoPerfil.addPerfil()}" value="#{msg.guardarPerfil}"></h:commandButton></div>    
+                                <div class="offset10"><h:commandButton class="btn" action="#{ctrVistaEditarPerfiles.addPerfil()}" value="#{msg.guardarPerfil}"></h:commandButton></div>    
                             </div>
                         </td>
                         <td>
                             <div class="row-fluid">
-                                <div class="offset2"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesMovil.volver()}" value="#{msg.volver}"></h:commandButton></div>
+                                <div class="offset2"><a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a></div>
                             </div>
                         </td>
                     </tr>

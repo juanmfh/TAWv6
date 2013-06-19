@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- 
-Document   : VistaAddPerfil
-Created on : 03-jun-2013
+Document   : VistaEditarPerfiles
 Author     : Alejandro Ruiz Moyano
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -75,8 +74,14 @@ Author     : Alejandro Ruiz Moyano
             </h:form>
         </div>
         <div class="container-fluid" align="center" >
-            
-            <h:button class="btn btn-primary" value="#{msg.volver}" outcome="/jsf/control_gasto/VistaPerfilesAdministrador.jsf"/>
+            <h:form>
+                <col>
+                    <h:commandLink class="btn" action="#{ctrVistaEditarPerfiles.nuevoPerfil}" value="#{msg.crearNuevoPerfil}"/>
+                </col>
+                <col>
+                    <h:button class="btn btn-primary" value="#{msg.volver}" outcome="/jsf/control_gasto/VistaPerfilesAdministrador.jsf"/>
+                </col>
+            </h:form>
         </div>
     </h:body>
 </html>
