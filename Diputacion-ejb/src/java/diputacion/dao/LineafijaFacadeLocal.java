@@ -29,4 +29,6 @@ public interface LineafijaFacadeLocal {
 
     int count();
     
+    Lineafija buscarNumero(int numero);
+    
 }
