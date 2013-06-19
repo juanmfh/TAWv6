@@ -16,10 +16,10 @@ Author     : Alejandro Ruiz Moyano
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
-        <div class="text-center">
-            <h1>#{msg.misPerfiles}</h1>
-        </div>
         <div class="container-fluid">
+            <div class="page-header">
+                <h1>#{msg.misPerfiles}</h1>
+            </div>
             <h:form>
                 <h:dataTable value="#{ctrVistaPerfilesUsuario.listaMoviles}" var="item" styleClass="table table-condensed table-bordered table-hover">
                     <h:column>
@@ -40,7 +40,7 @@ Author     : Alejandro Ruiz Moyano
                     </h:column>
                     <h:column>
                         <f:facet name="header">#{msg.tarifa}</f:facet>
-                        
+
                         <div id="${item.idlineaMovil}ver" class="modal hide fade in" style="display: none;">
                             <div class="modal-header">
                                 <h3>${msg.tarifa} ${item.perfilIdperfil.tarifaMovilidtarifaMovil.nombre}</h3>
