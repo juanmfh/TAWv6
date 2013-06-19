@@ -34,11 +34,10 @@ public class CtrlDirectorioTelefonico implements Serializable {
     private AdministradorFacadeLocal administradorFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
-    
     //VARIABLES
     private Collection<Terminalfijo> terminales;
     private String municipio, nombre, apellido1, numero;
-    private Usuario  usuario;
+    private Usuario usuario;
     private Administrador administrador;
     private boolean admin = true;
 
@@ -106,15 +105,19 @@ public class CtrlDirectorioTelefonico implements Serializable {
         nombre = "";
         apellido1 = "";
         numero = "";
-        terminales = terminalfijoFacade.terminalesfiltradas(municipio);
-        return "LineasFijasMunicipiosFiltrado";
+        if (municipio.length() > 0) {
+            terminales = terminalfijoFacade.terminalesfiltradas(municipio);
+            return "LineasFijasMunicipiosFiltrado";
+        } else {
+            return "LineasFijasMunicipios";
+        }
     }
 
     public String listadoFiltradoNumero() {
         municipio = "";
         nombre = "";
         apellido1 = "";
-        if (numero.length() > 0) {
+        if (numero.length() > 0 && esNumero(numero)) {
             terminales = terminalfijoFacade.terminalesfiltradasNumero(Integer.parseInt(numero));
             return "DirectorioFiltradoNumero";
         } else {
@@ -137,7 +140,7 @@ public class CtrlDirectorioTelefonico implements Serializable {
         this.inicializacionDirectorio();
         return "DirectorioTelefonico";
     }
-    
+
     public String pagListado() {
 
         admin = esAdministrador();
@@ -150,7 +153,7 @@ public class CtrlDirectorioTelefonico implements Serializable {
             return "ErrorAutorizacion.jsf";
         }
     }
-    
+
     //METODO QUE COMPRUEBA SI SOMOS ADMINISTRADOR
     public boolean esAdministrador() {
         boolean res = true;
@@ -172,5 +175,15 @@ public class CtrlDirectorioTelefonico implements Serializable {
         return res;
     }
 
-    
+    //FUNCION AUXILIAR PARA SABER SI EL STRING ES UN NUMERO
+    private boolean esNumero(String numero) {
+        boolean res = true;
+        try {
+            System.out.println("EEEEEEEEEE ENTRA");
+            Integer.parseInt(numero);
+        } catch (Exception e) {
+            res = false;
+        }
+        return res;
+    }
 }
