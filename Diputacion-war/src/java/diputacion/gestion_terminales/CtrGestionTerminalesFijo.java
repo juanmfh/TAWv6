@@ -459,6 +459,19 @@ public class CtrGestionTerminalesFijo implements Serializable {
         lineafijaFacade.edit(lf);
         this.terminalesLibres();
     }
+    
+     public String formularioInsertar2 (){
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+
+            return "FormularioInsertarFijo";
+        } 
+        
+        return null;
+    }
 
     //FUNCION AUXILIAR PARA SABER SI EL STRING ES UN NUMERO
     private boolean esNumero(String numero) {
