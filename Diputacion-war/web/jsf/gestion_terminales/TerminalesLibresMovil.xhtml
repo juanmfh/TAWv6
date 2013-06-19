@@ -34,8 +34,8 @@
                                 <td>${terminal.modelo}</td>
                                 <td>
                                     <div class="btn-group">   
-                                        <h:commandButton class="btn btn-primary"  value="#{msg['asignar']}" action="#{ctrGestionTerminalesFijo.asignarTerminal}"  >
-                                            <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesFijo.terminalSeleccionado}" />
+                                        <h:commandButton class="btn btn-primary"  value="#{msg['asignar']}" action="#{ctrGestionTerminalesMovil.asignarTerminal()}"  >
+                                            <f:setPropertyActionListener value="#{terminal}" target="#{ctrGestionTerminalesMovil.terminalSeleccionado}" />
                                         </h:commandButton>
                                     </div>
 

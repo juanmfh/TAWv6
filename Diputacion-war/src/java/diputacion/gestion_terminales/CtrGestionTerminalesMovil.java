@@ -10,6 +10,7 @@ import diputacion.dao.TerminalmovilFacadeLocal;
 import diputacion.dao.UsuarioFacadeLocal;
 import diputacion.entity.Administrador;
 import diputacion.entity.Lineamovil;
+import diputacion.entity.Terminalfijo;
 import diputacion.entity.Terminalmovil;
 import diputacion.entity.Usuario;
 import java.io.IOException;
@@ -57,6 +58,13 @@ public class CtrGestionTerminalesMovil implements Serializable {
     }
 
     //GETTER AND SETTER
+     public Terminalmovil getTerminalSeleccionado() {
+        return terminalSeleccinado;
+    }
+
+    public void setTerminalSeleccionado(Terminalmovil tm) {
+        terminalSeleccinado = tm;
+    }
     public Collection<Terminalmovil> getTerminalesLibres() {
         return terminalesLibres;
     }
@@ -125,14 +133,6 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
     public void setFecha(Collection<Terminalmovil> t) {
         terminales = t;
-    }
-
-    public Terminalmovil getTerminalSeleccionado() {
-        return terminalSeleccinado;
-    }
-
-    public void setTerminalSeleccionado(Terminalmovil t) {
-        terminalSeleccinado = t;
     }
 
     //METODOS-------------------------------------------------------------------
@@ -382,6 +382,17 @@ public class CtrGestionTerminalesMovil implements Serializable {
         terminalesLibres = new ArrayList<Terminalmovil>();
         terminalesLibres = terminalmovilFacade.terminaleslibres();
         return "TerminalesLibresMovil";
+    }
+    
+    public void asignarTerminal() {
+
+        Terminalmovil tm = terminalmovilFacade.find(terminalSeleccinado.getIdterminalMovil());
+        Usuario user = usuarioFacade.find(usuarioSeleccionado.getIdusuario());
+        Lineamovil lm = lineamovilFacade.find(tm.getLineaidlineaMovil().getIdlineaMovil());
+        lm.setUsuarioIdusuario(usuarioSeleccionado);
+
+        lineamovilFacade.edit(lm);
+        this.terminalesLibresMovil();
     }
 
     //FUNCION AUXILIAR PARA SABER SI EL STRING ES UN NUMERO
