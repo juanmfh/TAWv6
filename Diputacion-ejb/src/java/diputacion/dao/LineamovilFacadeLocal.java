@@ -30,6 +30,8 @@ public interface LineamovilFacadeLocal {
     int count();
     
     int maxID();
+    
+    Lineamovil buscarNumero(int numero);
 
     
 }

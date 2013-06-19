@@ -354,6 +354,7 @@ public class CtrGestionTerminalesFijo implements Serializable {
         Lineafija lf = null;
         terminalSeleccionado.setMarca(marca);
         terminalSeleccionado.setModelo(modelo);
+        
         //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA    
         if (!publico.isEmpty()) {
             pub = true;

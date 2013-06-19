@@ -201,18 +201,54 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
     public String modificarTerminalMovilDatos() {
         //CREAMOS EL OBJETO TERMINAL FIJO
-        Lineamovil lm;
+        Lineamovil lm=null;
 
         terminalSeleccinado.setMarca(marca);
         terminalSeleccinado.setModelo(modelo);
         terminalSeleccinado.setSistemaOperativo(sistemaOperativo);
+        
         //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA
-        if (linea.length() > 0) {
+         //COMPROBAMOS SI LA LINEA EXISTE O ES UNA NUEVA.
+        String aux;
+        aux = linea;
+        if(aux.length()==0)
+        {
+            aux="0";
+        }
+        lm=lineamovilFacade.buscarNumero(Integer.parseInt(aux));
+        
+        if (linea.length() > 0 && lm!=null) {
+            //int idLinea;
+            //idLinea = lineamovilFacade.maxID() + 1;
+            //lm = new Lineamovil(idLinea);
+            
+            //PASEAMOS LA FECHA
+            if (fecha.length() > 0 ) {
+                StringTokenizer tokens = new StringTokenizer(fecha, "/");
+                int[] datos = new int[3];
+                int i = 0;
+                while (tokens.hasMoreTokens()) {
+                    String str = tokens.nextToken();
+                    datos[i] = Integer.parseInt(str);
+                    System.out.println(datos[i]);
+                    i++;
+                }
+                fechaAlta = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
+                lm.setFechaAlta(fechaAlta);
+            }
+
+            lm.setNumero(Integer.parseInt(linea));
+            lineamovilFacade.edit(lm);
+            terminalSeleccinado.setLineaidlineaMovil(lm);
+        }
+        else if(linea.length() > 0 && lm==null)
+        {
             int idLinea;
             idLinea = lineamovilFacade.maxID() + 1;
             lm = new Lineamovil(idLinea);
+            
             //PASEAMOS LA FECHA
-            if (fecha.length() > 0) {
+            if (fecha.length() > 0 ) {
                 StringTokenizer tokens = new StringTokenizer(fecha, "/");
                 int[] datos = new int[3];
                 int i = 0;
@@ -228,7 +264,12 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
             lm.setNumero(Integer.parseInt(linea));
             lineamovilFacade.create(lm);
-            terminalSeleccinado.setLineaidlineaMovil(lm);
+            terminalSeleccinado.setLineaidlineaMovil(lm);   
+        }
+        else 
+        {
+            this.inicializacion();
+            return "FormularioInsertarMovilErrorLinea";
         }
 
         //MODIFICAMOS EN LA BD
@@ -249,10 +290,10 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
         if (admin) {
             this.inicializacion();
-            return "jsf/gestion_terminales/FormularioInsertarMovil.jsf";
+            return "jsf/gestion_terminales/FormularioInsertarMovil";
         } else {
 
-            return "ErrorAutorizacion.jsf";
+            return "ErrorAutorizacion";
         }
     }
 
@@ -294,7 +335,6 @@ public class CtrGestionTerminalesMovil implements Serializable {
     private boolean esNumero(String numero) {
         boolean res = true;
         try {
-            System.out.println("EEEEEEEEEE ENTRA");
             Integer.parseInt(numero);
         } catch (Exception e) {
             res = false;
