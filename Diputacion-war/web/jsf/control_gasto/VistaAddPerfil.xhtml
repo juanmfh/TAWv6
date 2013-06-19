@@ -76,11 +76,11 @@ Author     : Alejandro Ruiz Moyano
         </div>
         <div class="container-fluid" align="center" >
             <h:form>
-                <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.perfilSeleccionado}" value="Crear nuevo perfil">                           
+                <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.nuevoPerfil}">
+                    #{msg.crearNuevoPerfil}
                 </h:commandLink>
                 <a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a>
             </h:form> 
         </div>
     </h:body>
 </html>
-

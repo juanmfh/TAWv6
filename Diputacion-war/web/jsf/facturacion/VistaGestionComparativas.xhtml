@@ -30,7 +30,7 @@
 
             <a class="btn btn-primary" href="/Diputacion-war/jsf/facturacion/VistaCompararFacturacion.jsf">${msg['compararfactura']}</a><br/><br/><br/>
             <h:form>
-               <input type="hidden" id="comparativaSeleccionada" name="comparativaSeleccionada" value="" />
+                <input type="hidden" id="comparativaSeleccionada" name="comparativaSeleccionada" value="" />
                 <h:dataTable value="#{ctrGestionComparativas.comparativas}" var="datos" class=" table-condensed table table-hover table-bordered" >
                     <h:column>
                         <f:facet name="header">
@@ -53,18 +53,12 @@
 
                         <center>
 
+                            <!-- AJAX -->
                             <h:commandLink class="btn" onclick="abrirModal(#{datos.idcomparativa})" action="#{ctrGestionComparativas.verComparativa()}">
-
-                                
-                                <f:ajax execute="@form" render=":idVer :facturainVer"/>
+                                <f:ajax execute="@form" render=":idVer :facturaoutVer :facturainVer :companiaVer :comentarioVer
+                                        :jefeVer :controladorVer :diferenciasVer"/>
                                 <i class="icon-eye-open"></i>
-
                             </h:commandLink>
-
-
-
-
-                            <!-- NUEVO -->
 
 
                             <!-- Modal -->
@@ -87,25 +81,18 @@
                                 </div>
                             </div>
 
-
                             <a data-toggle="modal" href="#${datos.idcomparativa}" class="btn"><i class="icon-trash"/> </a>
-
 
                         </center>    
 
                     </h:column>
 
-
-
                 </h:dataTable>
-                
 
             </h:form>
 
 
-
-
-
+            <!-- AJAX -->
             <!-- Modal -->
             <div id="modalVer" class="modal hide fade in" style="display: none;">
                 <div class="modal-header">
@@ -114,20 +101,18 @@
                 </div>
                 <div class="modal-body">
 
-                        <h4>${msg['id']}: <h:outputText id="idVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.idcomparativa}"/></h4>
-                        <h:inputHidden rendered="#{ctrGestionComparativas.comparativaSelec.controladorUsuarioIdusuario != null}">
-                            <h4>${msg['creadocontrolador']}: <h:outputText id="controladorVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.controladorUsuarioIdusuario.usuario.nombre}"/></h4>
-                        </h:inputHidden>
-                        <h:inputHidden rendered="#{ctrGestionComparativas.comparativaSelec.jefeUsuarioIdusuario != null}">
-                            <h4>${msg['creadojefe']}: <h:outputText id="jefeVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.jefeUsuarioIdusuario.usuario.nombre}"/></h4>
-                        </h:inputHidden>
+                    <h4>${msg['id']}: <h:outputText id="idVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.idcomparativa}"/></h4>
 
-                        <h:inputHidden rendered="#{ctrGestionComparativas.comparativaSelec.comentario != null}">
-                            <H4>${msg['comentario']}: <h:outputText id="comentarioVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.comentario}"/> </H4>
-                        </h:inputHidden>
-                        <H4>${msg['compania']}: <h:outputText id="companiaVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.facturaOutidfacturaOut.compania}"/></H4>
-                        <H4>${msg['idfacturain']}: <h:outputText id="facturainVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.facturaInidfacturaIn.idfacturaIn}"/> </H4>
-                        <H4>${msg['idfacturaout']}: <h:outputText id="facturaoutVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.facturaOutidfacturaOut.idfacturaOut}"/> </H4>
+                    <h4>${msg['creadopor']}: <h:outputText id="controladorVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.controladorUsuarioIdusuario.usuario.nombre}"/>
+                    <h:outputText id="jefeVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.jefeUsuarioIdusuario.usuario.nombre}"/></h4>
+
+                    <H4>${msg['diferenciasver']}:</H4> <h:outputText id="diferenciasVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.diferencias}"/> 
+
+                    <H4>${msg['comentario']}: <h:outputText id="comentarioVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.comentario}"/> </H4>
+
+                    <H4>${msg['compania']}: <h:outputText id="companiaVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.facturaOutidfacturaOut.compania}"/></H4>
+                    <H4>${msg['idfacturain']}: <h:outputText id="facturainVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.facturaInidfacturaIn.idfacturaIn}"/> </H4>
+                    <H4>${msg['idfacturaout']}: <h:outputText id="facturaoutVer" class="text-info" value="#{ctrGestionComparativas.comparativaSelec.facturaOutidfacturaOut.idfacturaOut}"/> </H4>
 
 
                 </div>
@@ -138,11 +123,8 @@
             </div>
 
 
-
             <a class="btn" href="/Diputacion-war/jsf/facturacion/VistaFacturacion.jsf">${msg['volver']}</a>
         </div>
-
-
 
 
     </h:body>

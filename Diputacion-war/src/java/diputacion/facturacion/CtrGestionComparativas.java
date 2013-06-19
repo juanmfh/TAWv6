@@ -69,7 +69,7 @@ public class CtrGestionComparativas implements Serializable {
     @PostConstruct
     public void create() {
         comparativas = comparativaFacade.findAll();
-        //comparativaSelec = comparativaFacade.find(2);
+        comparativaSelec = new Comparativa();
 
 
 

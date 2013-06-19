@@ -6,10 +6,7 @@ Created on : 19-jun-2013
 Author     : Alejandro Ruiz Moyano
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>#{msg.crearPerfil}</title>
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
@@ -17,66 +14,53 @@ Author     : Alejandro Ruiz Moyano
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
-        <div class="text-center">
-            <h1>#{msg.crearPerfil}</h1>
-        </div>
         <div class="container-fluid">
-            <h:form>
-                <h:dataTable value="#{ctrVistaPerfilesAdministrador.listaPerfiles}" var="item" styleClass="table table-condensed table-bordered table-hover">
-                    <ui:param name="tarifa" value="#{item.tarifaMovilidtarifaMovil}"/>
-                    <h:column>
-                        <f:facet name="header">#{msg.idPerfil}</f:facet>
-                        <h:outputText value="#{item.idperfil}"/> 
-                        <ui:param name="id" value="#{item.idperfil}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">#{msg.fechaFin}</f:facet>
-                        <h:outputText value="#{item.fechaFin}"/>                   
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">#{msg.limiteSaldo}</f:facet>
-                        <h:outputText value="#{item.limite}"/>                   
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">#{msg.tarifa}</f:facet>
-
-                        <div id="${item.idperfil}ver" class="modal hide fade in" style="display: none;">
-                            <div class="modal-header">
-                                <h3>${msg.tarifa} ${item.tarifaMovilidtarifaMovil.nombre}</h3>
+            <div class="page-header">
+                <h1>#{msg.crearPerfil}</h1>
+            </div>
+            <h:form class="form-horizontal">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="control-group"> 
+                                <label class="control-label" for="fechaFin">#{msg.fechaFin}:</label>
+                                <div class="controls">
+                                    <h:inputText id="fechaFin" value="#{ctrVistaNuevoPerfil.fechaFin}"/>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <h4>#{msg.establecimientoLlamada}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.costeEstablecimiento} "/>€</h4>
-                                <h4>#{msg.costeMinuto}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.costeMinuto} "/>€</h4>
-                                <h4>#{msg.costeSMS}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.costeSMS} "/>€</h4>
-                                <c:if test="${item.tarifaMovilidtarifaMovil.datos}">
-                                    <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="#{msg.si}"/></h4>
-                                    <h4>#{msg.precioDatos}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.precioDatos} "/>€</h4>
-                                </c:if>
-                                <c:if test="${!item.tarifaMovilidtarifaMovil.datos}">
-                                    <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="#{msg.no}"/></h4>
-                                </c:if> 
+                        </td>
+                        <td>
+                            <div class="control-group"> 
+                                <label class="control-label" for="limite">#{msg.limiteSaldo}:</label>
+                                <div class="controls">
+                                    <h:inputText id="limite" value="#{ctrVistaNuevoPerfil.limite}"/>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <a href="#" data-dismiss="modal" class="btn">#{msg.cerrar}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="control-group"> 
+                                <label class="control-label" for="tarifa">#{msg.tarifa}:</label>
+                                <div class="controls">
+                                    <!-- AQUI VA EL SELECTONEMENU
+                                    <h:inputText id="tarifa" value=""/>
+                                    -->
+                                </div>
                             </div>
-                        </div>
-                        <a data-toggle="modal" href="#${item.idperfil}ver" class="btn"> 
-                            <i class="icon-eye-open"></i>  Ver detalles 
-                        </a>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">#{msg.asignar}</f:facet>
-                        <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.perfilSeleccionado}">
-                            <i class='icon-plus'></i>
-                            <f:setPropertyActionListener value="#{id}" target="#{ctrVistaPerfilesAdministrador.idPerfil}" />
-                        </h:commandLink>
-                    </h:column>
-                </h:dataTable>
+                        </td>
+                        <td>
+                            <h:commandLink class="btn" action="#{ctrVistaNuevoPerfil.addTarifa}"> 
+                                #{msg.crearNuevaTarifa}
+                            </h:commandLink> 
+                        </td>
+                    </tr>
+                </table>  
             </h:form>
         </div>
         <div class="container-fluid" align="center" >
             <h:form>
-                <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.perfilSeleccionado}" value="Crear nuevo perfil">                           
+                <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.perfilSeleccionado}" value="#{msg.guardarPerfil}">                           
                 </h:commandLink>
                 <a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a>
             </h:form> 

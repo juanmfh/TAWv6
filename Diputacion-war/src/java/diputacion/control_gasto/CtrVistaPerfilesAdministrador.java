@@ -145,4 +145,8 @@ public class CtrVistaPerfilesAdministrador implements Serializable {
         init();
         return "VistaPerfilesAdministrador";
     }
+
+    public String nuevoPerfil() {
+        return "VistaNuevoPerfil";
+    }
 }
