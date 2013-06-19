@@ -29,4 +29,6 @@ public interface PerfilFacadeLocal {
 
     int count();
     
+    int maxID();
+    
 }

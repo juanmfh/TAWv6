@@ -76,10 +76,14 @@ Author     : Alejandro Ruiz Moyano
         </div>
         <div class="container-fluid" align="center" >
             <h:form>
-                <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.nuevoPerfil}">
-                    #{msg.crearNuevoPerfil}
-                </h:commandLink>
-                <a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a>
+                <col>
+                    <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.nuevoPerfil}">
+                        #{msg.crearNuevoPerfil}
+                    </h:commandLink>  
+                </col>
+                <col>
+                    <h:button class="btn btn-primary" value="#{msg.volver}" outcome="/jsf/control_gasto/VistaPerfilesAdministrador.jsf"/>
+                </col>
             </h:form> 
         </div>
     </h:body>

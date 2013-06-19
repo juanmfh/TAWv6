@@ -29,4 +29,5 @@ public interface TarifamovilFacadeLocal {
 
     int count();
     
+    int maxID();
 }

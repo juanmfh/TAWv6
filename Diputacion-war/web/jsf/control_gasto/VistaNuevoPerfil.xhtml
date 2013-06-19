@@ -23,10 +23,7 @@ Author     : Alejandro Ruiz Moyano
                     <tr>
                         <td>
                             <div class="control-group"> 
-                                <label class="control-label" for="fechaFin">#{msg.fechaFin}:</label>
-                                <div class="controls">
-                                    <h:inputText id="fechaFin" value="#{ctrVistaNuevoPerfil.fechaFin}"/>
-                                </div>
+                            
                             </div>
                         </td>
                         <td>
@@ -41,28 +38,33 @@ Author     : Alejandro Ruiz Moyano
                     <tr>
                         <td>
                             <div class="control-group"> 
-                                <label class="control-label" for="tarifa">#{msg.tarifa}:</label>
-                                <div class="controls">
-                                    <!-- AQUI VA EL SELECTONEMENU
-                                    <h:inputText id="tarifa" value=""/>
-                                    -->
-                                </div>
+                      
+
                             </div>
                         </td>
-                        <td>
-                            <h:commandLink class="btn" action="#{ctrVistaNuevoPerfil.addTarifa}"> 
-                                #{msg.crearNuevaTarifa}
-                            </h:commandLink> 
-                        </td>
                     </tr>
+                    <tr>            
+                        <td>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <h:commandLink class="btn" action="#{ctrVistaNuevoPerfil.addTarifa}"> 
+                                        #{msg.crearNuevaTarifa}
+                                    </h:commandLink> 
+                                </div>
+                            </div> 
+                        </td>
+                    </tr>     
                 </table>  
             </h:form>
         </div>
-        <div class="container-fluid" align="center" >
+        <div class="container-fluid" align="center">
             <h:form>
-                <h:commandLink class="btn" action="#{ctrVistaPerfilesAdministrador.perfilSeleccionado}" value="#{msg.guardarPerfil}">                           
-                </h:commandLink>
-                <a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a>
+                <col>
+                    <h:commandButton class="btn" action="#{ctrVistaNuevoPerfil.addPerfil()}" value="#{msg.guardarPerfil}"></h:commandButton>
+                </col>
+                <col>
+                    <h:button class="btn btn-primary" value="#{msg.volver}" outcome="/jsf/control_gasto/VistaAddPerfil.jsf"/>
+                </col>
             </h:form> 
         </div>
     </h:body>
