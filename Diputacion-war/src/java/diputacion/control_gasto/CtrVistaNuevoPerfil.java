@@ -84,34 +84,7 @@ public class CtrVistaNuevoPerfil implements Serializable {
         if (limite == null) {
             return "VistaNuevoPerfil";
         } else {
-            limiteReal = Double.valueOf(limite);
-            return "/jsf/control_gasto/VistaAddPerfil.jsf";
-            /*
-             if (fechaFin.length() > 0) {
-             StringTokenizer tokens = new StringTokenizer(fechaFin, "/");
-             int[] datos = new int[3];
-             int i = 0;
-             while (tokens.hasMoreTokens()) {
-             String str = tokens.nextToken();
-             datos[i] = Integer.parseInt(str);
-             System.out.println(datos[i]);
-             i++;
-             }
-             fechaFinReal = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
-             }
-             */
-            /*
-            if (limiteReal == 0) {
-                return "VistaNuevoPerfil";
-            } else {
-                //Perfil pf = new Perfil();
-                //pf.setIdperfil(perfilFacade.maxID() + 1);
-                //pf.setLimite(limiteReal);
-                //perfilFacade.create(pf);
-
-                return "/jsf/control_gasto/VistaAddPerfil.jsf";
-            }
-            */
+            return "VistaAddPerfil";
         }
     }
 
