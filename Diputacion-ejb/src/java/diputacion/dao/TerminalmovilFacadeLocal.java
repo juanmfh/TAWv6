@@ -30,6 +30,8 @@ public interface TerminalmovilFacadeLocal {
     int count();
     
     int maxID();
+    
+    List<Terminalmovil> terminaleslibres();
 
     
 }
