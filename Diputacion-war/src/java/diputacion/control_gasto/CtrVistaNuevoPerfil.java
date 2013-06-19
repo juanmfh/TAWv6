@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -46,6 +45,8 @@ public class CtrVistaNuevoPerfil implements Serializable {
         for (int i = 0; i < listaTarifasMoviles.size(); i++) {
             listaTarifas.add(listaTarifasMoviles.get(i).getNombre());
         }
+        limite = "";
+        fechaFin = "";  
     }
 
     public String getFechaFin() {
@@ -81,9 +82,17 @@ public class CtrVistaNuevoPerfil implements Serializable {
     }
 
     public String addPerfil() {
-        if (limite == null) {
+        if ("".equals(limite)) {
             return "VistaNuevoPerfil";
         } else {
+            limiteReal = Double.valueOf(limite);
+            if (limiteReal == 0) {
+                return "VistaNuevoPerfil";
+            }
+            Perfil pf = new Perfil();
+            pf.setIdperfil(perfilFacade.maxID() + 1);
+            pf.setLimite(limiteReal);
+            perfilFacade.create(pf);
             return "VistaAddPerfil";
         }
     }

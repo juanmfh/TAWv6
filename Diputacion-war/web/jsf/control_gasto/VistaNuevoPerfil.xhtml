@@ -8,7 +8,7 @@ Author     : Alejandro Ruiz Moyano
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
-        <title>#{msg.crearPerfil}</title>
+        <title>#{msg.crearPerfil}</title> 
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <script src="../../bootstrap/js/jquery.js"></script>
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
@@ -18,41 +18,59 @@ Author     : Alejandro Ruiz Moyano
             <div class="page-header">
                 <h1>#{msg.crearPerfil}</h1>
             </div>
-            <h:form class="form-horizontal">
+            <h:form id="FormularioInsertarPerfil" class="form-horizontal">
                 <table>
                     <tr>
                         <td>
-                            <div class="control-group"> 
-                                <label class="control-label" for="limite">#{msg.limiteSaldo}:</label>
+                            <div class="control-group">
+                                <label class="control-label" for="limiteSaldo">#{msg.limiteSaldo}:</label>
                                 <div class="controls">
-                                    <h:inputText id="limite" value="#{ctrVistaNuevoPerfil.limite}"/>
+                                    <h:inputText id="limiteSaldo" value="#{ctrVistaNuevoPerfil.limite}"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="tarifa">#{msg.tarifa}:</label>
+                                <div class="controls">
+                                    <!--
+                                    <h:inputText id="tarifa" value=""/>
+                                    -->
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    <tr>            
+                    <tr>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="fechaFin">#{msg.fechaFin}:</label>
+                                <div class="controls">
+                                    <h:inputText id="fechaFin" value="#{ctrVistaNuevoPerfil.fechaFin}"/>
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <div class="control-group">
                                 <div class="controls">
-                                    <h:commandLink class="btn" action="#{ctrVistaNuevoPerfil.addTarifa}"> 
-                                        #{msg.crearNuevaTarifa}
-                                    </h:commandLink> 
+                                    <h:commandButton class="btn" action="#{ctrVistaNuevoPerfil.addTarifa()}" value="#{msg.crearNuevaTarifa}"></h:commandButton>
                                 </div>
-                            </div> 
+                            </div>
                         </td>
-                    </tr>     
-                </table>  
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="row-fluid">
+                                <div class="offset10"><h:commandButton class="btn" action="#{ctrVistaNuevoPerfil.addPerfil()}" value="#{msg.guardarPerfil}"></h:commandButton></div>    
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row-fluid">
+                                <div class="offset2"><h:commandButton class="btn btn-primary" action="#{ctrGestionTerminalesMovil.volver()}" value="#{msg.volver}"></h:commandButton></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </h:form>
-        </div>
-        <div class="container-fluid" align="center">
-            <h:form>
-                <col>
-                    <h:commandButton class="btn" action="#{ctrVistaNuevoPerfil.addPerfil()}" value="#{msg.guardarPerfil}"></h:commandButton>
-                </col>
-                <col>
-                    <h:button class="btn btn-primary" value="#{msg.volver}" outcome="/jsf/control_gasto/VistaAddPerfil.jsf"/>
-                </col>
-            </h:form> 
         </div>
     </h:body>
 </html>
