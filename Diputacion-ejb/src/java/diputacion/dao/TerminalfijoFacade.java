@@ -63,11 +63,11 @@ public class TerminalfijoFacade extends AbstractFacade<Terminalfijo> implements 
         }
         else if(nombre.length()==0)
         {
-            res = (Collection<Terminalfijo>) em.createQuery("SELECT t FROM TerminalFijo t WHERE t.lineaFijaidlineaFija.usuarioIdusuario.apellido1 LIKE :apellido1 ").setParameter("apellido1", apellido1).getResultList();
+            res = (Collection<Terminalfijo>) em.createQuery("SELECT t FROM Terminalfijo t WHERE t.lineaFijaidlineaFija.usuarioIdusuario.apellido1 LIKE :apellido1 ").setParameter("apellido1", apellido1).getResultList();
         }
         else
         {
-            res = (Collection<Terminalfijo>) em.createQuery("SELECT t FROM TerminalFijo t WHERE t.lineaFijaidlineaFija.usuarioIdusuario.nombre LIKE :nombre AND t.lineaFijaidlineaFija.usuarioIdusuario.apellido1 LIKE :apellido1").setParameter("apellido1", apellido1).setParameter("nombre", nombre).getResultList();
+            res = (Collection<Terminalfijo>) em.createQuery("SELECT t FROM Terminalfijo t WHERE t.lineaFijaidlineaFija.usuarioIdusuario.nombre LIKE :nombre AND t.lineaFijaidlineaFija.usuarioIdusuario.apellido1 LIKE :apellido1").setParameter("apellido1", apellido1).setParameter("nombre", nombre).getResultList();
         }
         return res;
     }
