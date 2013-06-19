@@ -16,11 +16,11 @@ Author     : Alejandro Ruiz Moyano
         <script src="../../bootstrap/js/jquery.js"></script>
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
     </h:head>
-    <h:body>
-        <div class="text-center">
-            <h1>#{msg.modificarPerfiles}</h1>
-        </div>
+    <h:body>  
         <div class="container-fluid">
+            <div class="page-header">
+                <h1>#{msg.modificarPerfiles}</h1>
+            </div>
             <h:form>
                 <h:dataTable value="#{ctrVistaPerfilesAdministrador.listaMoviles}" var="item" styleClass="table table-condensed table-bordered table-hover">
                     <ui:param name="id" value="#{item.idlineaMovil}"/>
