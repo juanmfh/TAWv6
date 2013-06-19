@@ -296,6 +296,8 @@ public class CtrGestionTerminalesMovil implements Serializable {
             return "ErrorAutorizacion";
         }
     }
+    
+     
 
     //METODO QUE COMPRUEBA SI SOMOS ADMINISTRADOR
     public boolean esAdministrador() {
@@ -329,6 +331,18 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
             return "ErrorAutorizacion.jsf";
         }
+    }
+    
+    public String formularioInsertar2() {
+
+        admin = esAdministrador();
+
+        if (admin) {
+            this.inicializacion();
+            return "FormularioInsertarMovil";
+        } 
+        
+        return null;
     }
 
     //FUNCION AUXILIAR PARA SABER SI EL STRING ES UN NUMERO
