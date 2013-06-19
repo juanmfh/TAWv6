@@ -141,7 +141,7 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
 
         //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA
-        if (linea.length() > 0) {
+        if (linea.length() > 0 && esNumero(linea)) {
             int idLinea;
             idLinea = lineamovilFacade.maxID() + 1;
             lm = new Lineamovil(idLinea);
@@ -163,6 +163,10 @@ public class CtrGestionTerminalesMovil implements Serializable {
             lm.setNumero(Integer.parseInt(linea));
             lineamovilFacade.create(lm);
             tmnuevo.setLineaidlineaMovil(lm);
+        }
+        else
+        {
+            return "FormularioInsertarMovilErrorLinea";
         }
         //INSERTAMOS EN LA BD
         terminalmovilFacade.create(tmnuevo);
@@ -272,8 +276,8 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
         return res;
     }
-    
-     public String pagListadoTerminalMovil() {
+
+    public String pagListadoTerminalMovil() {
 
         admin = esAdministrador();
 
@@ -284,5 +288,17 @@ public class CtrGestionTerminalesMovil implements Serializable {
 
             return "ErrorAutorizacion.jsf";
         }
+    }
+
+    //FUNCION AUXILIAR PARA SABER SI EL STRING ES UN NUMERO
+    private boolean esNumero(String numero) {
+        boolean res = true;
+        try {
+            System.out.println("EEEEEEEEEE ENTRA");
+            Integer.parseInt(numero);
+        } catch (Exception e) {
+            res = false;
+        }
+        return res;
     }
 }
