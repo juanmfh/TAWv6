@@ -234,7 +234,7 @@ public class CtrGestionTerminalesFijo implements Serializable {
             return "ErrorAutorizacion.jsf";
         }
     }
-    
+
     public String pagListadoTerminalFijo() {
 
         admin = esAdministrador();
@@ -248,7 +248,7 @@ public class CtrGestionTerminalesFijo implements Serializable {
             return "ErrorAutorizacion.jsf";
         }
     }
-    
+
     public String pagListadoUsuarios() {
 
         admin = esAdministrador();
@@ -272,36 +272,46 @@ public class CtrGestionTerminalesFijo implements Serializable {
         tfnuevo.setMarca(marca);
         tfnuevo.setModelo(modelo);
 
-        //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA   
 
         //COMPROBAMOS SI EL CAMPO PUBLICO ESTA MARCADO
         if (!publico.isEmpty()) {
             pub = true;
         }
+
+        //SI LA LINEA NO ES VACIA INSERTAMOS UNA NUEVA LINEA EN EL SISTEMA
         if (linea.length() > 0) {
             lf = new Lineafija();
+            
+            //COMPRABAMOS QUE LA LINEA RECIBIDA TIENE LOS DATOS CORRECTOS
+            if (esNumero(linea)) {
+                
+                //PASEAMOS LA FECHA
+                if (fecha.length() > 0) {
 
-            //PASEAMOS LA FECHA
-            if (fecha.length() > 0) {
-                StringTokenizer tokens = new StringTokenizer(fecha, "/");;
-                int[] datos = new int[3];
-                int i = 0;
-                while (tokens.hasMoreTokens()) {
-                    String str = tokens.nextToken();
-                    datos[i] = Integer.parseInt(str);
-                    System.out.println(datos[i]);
-                    i++;
+
+                    StringTokenizer tokens = new StringTokenizer(fecha, "/");;
+                    int[] datos = new int[3];
+                    int i = 0;
+                    while (tokens.hasMoreTokens()) {
+                        String str = tokens.nextToken();
+                        datos[i] = Integer.parseInt(str);
+                        System.out.println(datos[i]);
+                        i++;
+                    }
+                    fechaAlta = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
+                    lf.setFechaAlta(fechaAlta);
                 }
-                fechaAlta = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
-                lf.setFechaAlta(fechaAlta);
-            }
 
-            lf.setNumeroLinea(Integer.parseInt(linea));
-            lf.setPublico(pub);
-            lineafijaFacade.create(lf);
-            tfnuevo.setLineaFijaidlineaFija(lf);
-            pub = false;
+                lf.setNumeroLinea(Integer.parseInt(linea));
+                lf.setPublico(pub);
+                lineafijaFacade.create(lf);
+                tfnuevo.setLineaFijaidlineaFija(lf);
+                pub = false;
+            } else {
+                return "FormularioInsertarFijoErrorLinea";
+            }
         }
+
 
         //INSERTAMOS EN LA BD
         terminalfijoFacade.create(tfnuevo);
@@ -414,5 +424,17 @@ public class CtrGestionTerminalesFijo implements Serializable {
 
         lineafijaFacade.edit(lf);
         this.terminalesLibres();
+    }
+
+    //FUNCION AUXILIAR PARA SABER SI EL STRING ES UN NUMERO
+    private boolean esNumero(String numero) {
+        boolean res = true;
+        try {
+            System.out.println("EEEEEEEEEE ENTRA");
+            Integer.parseInt(numero);
+        } catch (Exception e) {
+            res = false;
+        }
+        return res;
     }
 }
