@@ -24,6 +24,8 @@ import javax.faces.context.FacesContext;
 import diputacion.dao.AdministradorFacadeLocal;
 import diputacion.dao.GruporescateFacadeLocal;
 import diputacion.dao.UsuarioFacadeLocal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -218,16 +220,16 @@ public class CtrVistaGrupos_Rescate implements Serializable {
             administrador = administradorFacade.find(usuario.getIdusuario());
             if (administrador == null) {
                 try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("../../index.jsf");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("../../ErrorAutorizacion.jsf");
                 } catch (IOException ex) {
-                    //Logger.getLogger(CtrVistaSolicitudesUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CtrVistaGrupos_Rescate.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../../index.jsf");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../../ErrorAutorizacion.jsf");
             } catch (IOException ex) {
-                //Logger.getLogger(CtrVistaSolicitudesUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CtrVistaGrupos_Rescate.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
