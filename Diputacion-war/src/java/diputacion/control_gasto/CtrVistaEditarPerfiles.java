@@ -210,8 +210,8 @@ public class CtrVistaEditarPerfiles implements Serializable {
             if (limiteReal == 0) {
                 return "VistaNuevoPerfil";
             }
-            int tarifa = Integer.valueOf((String) seleccionado);
-            Tarifamovil tf = tarifaFacade.find(tarifa);
+            int tarifaId = Integer.valueOf((String) seleccionado);
+            Tarifamovil tf = tarifaFacade.find(tarifaId);
             Perfil pf = new Perfil();
             pf.setIdperfil(perfilFacade.maxID() + 1);
             pf.setLimite(limiteReal);

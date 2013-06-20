@@ -47,13 +47,8 @@ Author     : Alejandro Ruiz Moyano
                                 <h4>#{msg.establecimientoLlamada}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.costeEstablecimiento} "/>€</h4>
                                 <h4>#{msg.costeMinuto}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.costeMinuto} "/>€</h4>
                                 <h4>#{msg.costeSMS}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.costeSMS} "/>€</h4>
-                                <c:if test="${item.tarifaMovilidtarifaMovil.datos}">
-                                    <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="#{msg.si}"/></h4>
-                                    <h4>#{msg.precioDatos}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.precioDatos} "/>€</h4>
-                                </c:if>
-                                <c:if test="${!item.tarifaMovilidtarifaMovil.datos}">
-                                    <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="#{msg.no}"/></h4>
-                                </c:if> 
+                                <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="#{item.tarifaMovilidtarifaMovil.datos}"/></h4>
+                                <h4>#{msg.precioDatos}: <h:outputText class="text-info" value="${item.tarifaMovilidtarifaMovil.precioDatos} "/>€</h4>
                             </div>
                             <div class="modal-footer">
                                 <a href="#" data-dismiss="modal" class="btn">#{msg.cerrar}</a>

@@ -7,8 +7,7 @@ Author     : Alejandro Ruiz Moyano
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>#{msg.modificarPerfiles}</title>
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
@@ -54,13 +53,8 @@ Author     : Alejandro Ruiz Moyano
                                 <h4>#{msg.establecimientoLlamada}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeEstablecimiento} "/>€</h4>
                                 <h4>#{msg.costeMinuto}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeMinuto} "/>€</h4>
                                 <h4>#{msg.costeSMS}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.costeSMS} "/>€</h4>
-                                <c:if test="${item.perfilIdperfil.tarifaMovilidtarifaMovil.datos}">
-                                    <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="#{msg.si}"/></h4>
-                                    <h4>#{msg.precioDatos}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.precioDatos} "/>€</h4>
-                                </c:if>
-                                <c:if test="${!item.perfilIdperfil.tarifaMovilidtarifaMovil.datos}">
-                                    <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="#{msg.no}"/></h4>
-                                </c:if> 
+                                <h4>#{msg.tarifaDatos}: <h:outputText class="text-info" value="#{item.perfilIdperfil.tarifaMovilidtarifaMovil.datos}"/></h4>
+                                <h4>#{msg.precioDatos}: <h:outputText class="text-info" value="${item.perfilIdperfil.tarifaMovilidtarifaMovil.precioDatos} "/>€</h4>
                             </div>
                             <div class="modal-footer">
                                 <a href="#" data-dismiss="modal" class="btn">#{msg.cerrar}</a>
