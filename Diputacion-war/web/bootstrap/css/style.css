@@ -10,6 +10,10 @@ body {
   background: url(../img/bg.png) repeat;
 }
 
+body.light {
+  background: url(../img/furley_bg.png) repeat;
+}
+
 /* Login styles */
 #login-panel form {
   background: url(../img/bg-black.png) repeat;
