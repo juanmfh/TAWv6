@@ -5,7 +5,8 @@ Document   : VistaNuevoPerfil
 Author     : Alejandro Ruiz Moyano
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>#{msg.crearPerfil}</title> 
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
@@ -32,9 +33,9 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="tarifa">#{msg.tarifa}:</label>
                                 <div class="controls">
-                                    <!--
-                                    <h:inputText id="tarifa" value=""/>
-                                    -->
+                                    <h:selectOneMenu id="listaTarifas" value="#{ctrVistaEditarPerfiles.seleccionado}">
+                                        <f:selectItems value="#{ctrVistaEditarPerfiles.listaTarifas}"></f:selectItems>
+                                    </h:selectOneMenu>
                                 </div>
                             </div>
                         </td>

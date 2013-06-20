@@ -5,14 +5,17 @@ import diputacion.dao.TarifamovilFacadeLocal;
 import diputacion.entity.Perfil;
 import diputacion.entity.Tarifamovil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 /**
  * @author Alejandro Ruiz Moyano
@@ -28,16 +31,14 @@ public class CtrVistaEditarPerfiles implements Serializable {
     private PerfilFacadeLocal perfilFacade;
     @EJB
     private TarifamovilFacadeLocal tarifaFacade;
-    private List<String> listaTarifas;
-    private List<Tarifamovil> listaTarifasMoviles;
+    private List<SelectItem> listaTarifas;
     private String fechaFin;
     private Date fechaFinReal;
     private String limite;
     private double limiteReal;
-    private Tarifamovil tarifa;
-    private Collection<Perfil> coleccionPerfiles;
     private LinkedList<Perfil> listaPerfiles;
     private Integer idPerfil;
+    private Object seleccionado;
 
     public CtrVistaEditarPerfiles() {
     }
@@ -45,17 +46,40 @@ public class CtrVistaEditarPerfiles implements Serializable {
     @PostConstruct
     public void init() {
         listaPerfiles = new LinkedList<Perfil>();
-        coleccionPerfiles = perfilFacade.findAll();
+        Collection<Perfil> coleccionPerfiles = perfilFacade.findAll();
         for (Perfil pf : coleccionPerfiles) {
             listaPerfiles.add(pf);
         }
-        listaTarifas = new LinkedList<String>();
-        listaTarifasMoviles = tarifaFacade.findAll();
+        listaTarifas = new ArrayList<SelectItem>();
+        List<Tarifamovil> listaTarifasMoviles = tarifaFacade.findAll();
         for (int i = 0; i < listaTarifasMoviles.size(); i++) {
-            listaTarifas.add(listaTarifasMoviles.get(i).getNombre());
+            Tarifamovil tf = listaTarifasMoviles.get(i);
+            listaTarifas.add(new SelectItem(tf.getIdtarifaMovil(), tf.getNombre()));
         }
         limite = "";
         fechaFin = "";
+        seleccionado = null;
+        int dia = new java.util.Date().getDate();
+        int mes = new java.util.Date().getMonth() + 1;
+        int anyo = new java.util.Date().getYear() + 1900;
+        fechaFin = "";
+        fechaFin += dia + "/" + mes + "/" + anyo;
+    }
+
+    public Object getSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(Object seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+
+    public List<SelectItem> getListaTarifas() {
+        return listaTarifas;
+    }
+
+    public void setListaTarifas(List<SelectItem> listaTarifas) {
+        this.listaTarifas = listaTarifas;
     }
 
     public String getFechaFin() {
@@ -108,18 +132,36 @@ public class CtrVistaEditarPerfiles implements Serializable {
     }
 
     public String addPerfil() {
-        if ("".equals(limite)) {
+        if (fechaFin.length() > 0) {
+            StringTokenizer tokens = new StringTokenizer(fechaFin, "/");
+            int[] datos = new int[3];
+            int i = 0;
+            while (tokens.hasMoreTokens()) {
+                String str = tokens.nextToken();
+                datos[i] = Integer.parseInt(str);
+                System.out.println(datos[i]);
+                i++;
+            }
+            fechaFinReal = new java.util.Date(datos[2] - 1900, datos[1] - 1, datos[0]);
+        }
+        if ("".equals(limite) || "".equals(fechaFin)) {
             return "VistaNuevoPerfil";
         } else {
             limiteReal = Double.valueOf(limite);
             if (limiteReal == 0) {
                 return "VistaNuevoPerfil";
             }
+            int tarifa = Integer.valueOf((String) seleccionado);
+            Tarifamovil tf = tarifaFacade.find(tarifa);
             Perfil pf = new Perfil();
             pf.setIdperfil(perfilFacade.maxID() + 1);
             pf.setLimite(limiteReal);
+            pf.setFechaFin(fechaFinReal);
+            pf.setTarifaMovilidtarifaMovil(tf);
             pf.setLineamovilCollection(null);
             perfilFacade.create(pf);
+            tf.getPerfilCollection().add(pf);
+            tarifaFacade.edit(tf);
             this.init();
             return "VistaEditarPerfiles";
         }
