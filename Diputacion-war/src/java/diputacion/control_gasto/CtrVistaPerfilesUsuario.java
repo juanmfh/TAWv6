@@ -37,16 +37,16 @@ public class CtrVistaPerfilesUsuario implements Serializable {
 
     @PostConstruct
     public void init() {
-         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-         sessionUser = (Usuario) externalContext.getSessionMap().get("usuario");
-         usuario = usuarioFacade.find(sessionUser.getIdusuario());
-         coleccionMoviles = usuario.getLineamovilCollection();
-         moviles = new LinkedList<Lineamovil>();
-         perfiles = new LinkedList<Perfil>();
-         for (Lineamovil l : coleccionMoviles) {
-         moviles.add(l);
-         perfiles.add(l.getPerfilIdperfil());
-         }
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        sessionUser = (Usuario) externalContext.getSessionMap().get("usuario");
+        usuario = usuarioFacade.find(sessionUser.getIdusuario());
+        coleccionMoviles = usuario.getLineamovilCollection();
+        moviles = new LinkedList<Lineamovil>();
+        perfiles = new LinkedList<Perfil>();
+        for (Lineamovil l : coleccionMoviles) {
+            moviles.add(l);
+            perfiles.add(l.getPerfilIdperfil());
+        }
     }
 
     public LinkedList<Lineamovil> getListaMoviles() {

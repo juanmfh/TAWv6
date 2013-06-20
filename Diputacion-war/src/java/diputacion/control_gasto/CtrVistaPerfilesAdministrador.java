@@ -54,14 +54,14 @@ public class CtrVistaPerfilesAdministrador implements Serializable {
         if (usuario != null) {
             admin = adminFacade.find(usuario.getIdusuario());
             if (admin == null) {
-                 try {
+                try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("../../ErrorAutorizacion.jsf");
                 } catch (IOException ex) {
                     Logger.getLogger(CtrVistaPerfilesAdministrador.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
-           try {
+            try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("../../ErrorAutorizacion.jsf");
             } catch (IOException ex) {
                 Logger.getLogger(CtrVistaPerfilesAdministrador.class.getName()).log(Level.SEVERE, null, ex);
