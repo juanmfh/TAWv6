@@ -5,7 +5,8 @@ Document   : VistaNuevaTarifa
 Author     : Alejandro Ruiz Moyano
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>#{msg.crearTarifa}</title> 
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
@@ -24,7 +25,7 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="nombre">#{msg.nombre}:</label>
                                 <div class="controls">
-                                    <h:inputText id="nombre" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                    <h:inputText id="nombre" value="#{ctrVistaEditarPerfiles.nombre}"/>
                                 </div>
                             </div>
                         </td>
@@ -32,7 +33,7 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="costeEstablecimiento">#{msg.establecimientoLlamada}:</label>
                                 <div class="controls">
-                                    <h:inputText id="costeEstablecimiento" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                    <h:inputText id="costeEstablecimiento" value="#{ctrVistaEditarPerfiles.establecimientoLlamada}"/>
                                 </div>
                             </div>
                         </td>
@@ -42,7 +43,7 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="costeMinuto">#{msg.costeMinuto}:</label>
                                 <div class="controls">
-                                    <h:inputText id="costeMinuto" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                    <h:inputText id="costeMinuto" value="#{ctrVistaEditarPerfiles.costeMinuto}"/>
                                 </div>
                             </div>
                         </td>
@@ -50,7 +51,7 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="costeSMS">#{msg.costeSMS}:</label>
                                 <div class="controls">
-                                    <h:inputText id="costeSMS" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                    <h:inputText id="costeSMS" value="#{ctrVistaEditarPerfiles.costeSMS}"/>
                                 </div>
                             </div>
                         </td>
@@ -60,7 +61,9 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="tarifaDatos">#{msg.tarifaDatos}:</label>
                                 <div class="controls">
-                                    <h:inputText id="tarifaDatos" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                    <h:selectBooleanCheckbox id="tarifaDatos" value="#{ctrVistaEditarPerfiles.tarifaDatos}" >
+                                        <p:ajax event="change" update="panelPrecioDatos" />
+                                    </h:selectBooleanCheckbox>                
                                 </div>
                             </div>
                         </td>
@@ -68,7 +71,9 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="costeDatos">#{msg.precioDatos}:</label>
                                 <div class="controls">
-                                    <h:inputText id="costeDatos" value="#{ctrVistaEditarPerfiles.limite}"/>
+                                    <h:panelGrid id="panelPrecioDatos">
+                                        <h:inputText id="precioDatos" value="#{ctrVistaEditarPerfiles.precioDatos}" rendered="#{ctrVistaEditarPerfiles.tarifaDatos}"/>
+                                    </h:panelGrid>
                                 </div>
                             </div>
                         </td>
@@ -81,7 +86,7 @@ Author     : Alejandro Ruiz Moyano
                         </td>
                         <td>
                             <div class="row-fluid">
-                                <div class="offset2"><a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a></div>
+                                <div class="offset2"><h:button class="btn btn-primary" value="#{msg.volver}" outcome="/jsf/control_gasto/VistaNuevoPerfil.jsf"/></div> 
                             </div>
                         </td>
                     </tr>

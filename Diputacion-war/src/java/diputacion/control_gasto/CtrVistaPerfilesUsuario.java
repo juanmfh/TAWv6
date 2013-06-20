@@ -4,21 +4,21 @@ import diputacion.dao.UsuarioFacadeLocal;
 import diputacion.entity.Lineamovil;
 import diputacion.entity.Perfil;
 import diputacion.entity.Usuario;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
  * @author Alejandro Ruiz Moyano
  */
-@Named(value = "ctrVistaPerfilesUsuario")
-@SessionScoped
+@ManagedBean(name = "ctrVistaPerfilesUsuario")
+@RequestScoped
 public class CtrVistaPerfilesUsuario implements Serializable {
 
     /**
@@ -27,6 +27,7 @@ public class CtrVistaPerfilesUsuario implements Serializable {
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
     private Usuario usuario;
+    private Usuario sessionUser;
     private Collection<Lineamovil> coleccionMoviles;
     private LinkedList<Lineamovil> moviles;
     private LinkedList<Perfil> perfiles;
@@ -36,16 +37,16 @@ public class CtrVistaPerfilesUsuario implements Serializable {
 
     @PostConstruct
     public void init() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Usuario sessionUser = (Usuario) externalContext.getSessionMap().get("usuario");
-        usuario = usuarioFacade.find(sessionUser.getIdusuario());
-        coleccionMoviles = usuario.getLineamovilCollection();
-        moviles = new LinkedList<Lineamovil>();
-        perfiles = new LinkedList<Perfil>();
-        for (Lineamovil l : coleccionMoviles) {
-            moviles.add(l);
-            perfiles.add(l.getPerfilIdperfil());
-        }
+         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+         sessionUser = (Usuario) externalContext.getSessionMap().get("usuario");
+         usuario = usuarioFacade.find(sessionUser.getIdusuario());
+         coleccionMoviles = usuario.getLineamovilCollection();
+         moviles = new LinkedList<Lineamovil>();
+         perfiles = new LinkedList<Perfil>();
+         for (Lineamovil l : coleccionMoviles) {
+         moviles.add(l);
+         perfiles.add(l.getPerfilIdperfil());
+         }
     }
 
     public LinkedList<Lineamovil> getListaMoviles() {

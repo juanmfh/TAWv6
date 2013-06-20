@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+Document   : VistaPerfilesUsuarioVacia
+Author     : Alejandro Ruiz Moyano
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>#{msg.misPerfiles}</title>
+        <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="../../bootstrap/js/jquery.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    </h:head>
+    <h:body>
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1>#{msg.misPerfiles}</h1>
+            </div>
+            <h:form>
+                #{msg.noPerfiles}
+            </h:form>
+        </div>
+        <div class="container-fluid" align="center">
+            <a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a>
+        </div>
+    </h:body>
+</html>

@@ -39,6 +39,11 @@ Author     : Alejandro Ruiz Moyano
                                 </div>
                             </div>
                         </td>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="tarifa"><h:commandButton class="btn" action="#{ctrVistaEditarPerfiles.borrarTarifa}" value="#{msg.borrarTarifa}"></h:commandButton></label> 
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -65,7 +70,7 @@ Author     : Alejandro Ruiz Moyano
                         </td>
                         <td>
                             <div class="row-fluid">
-                                <div class="offset2"><a href="javascript:window.history.back();" class="btn btn-primary" type="button">#{msg.volver}</a></div>
+                                <div class="offset2"><h:button class="btn btn-primary" value="#{msg.volver}" outcome="/jsf/control_gasto/VistaEditarPerfiles.jsf"/></div> 
                             </div>
                         </td>
                     </tr>

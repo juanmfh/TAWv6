@@ -13,15 +13,15 @@ import java.util.List;
 import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 /**
  * @author Alejandro Ruiz Moyano
  */
 @ManagedBean(name = "ctrVistaEditarPerfiles")
-@SessionScoped
+@RequestScoped
 public class CtrVistaEditarPerfiles implements Serializable {
 
     /**
@@ -39,6 +39,12 @@ public class CtrVistaEditarPerfiles implements Serializable {
     private LinkedList<Perfil> listaPerfiles;
     private Integer idPerfil;
     private Object seleccionado;
+    private String nombre;
+    private String establecimientoLlamada;
+    private String costeSMS;
+    private String costeMinuto;
+    private String precioDatos;
+    private boolean tarifaDatos;
 
     public CtrVistaEditarPerfiles() {
     }
@@ -64,6 +70,59 @@ public class CtrVistaEditarPerfiles implements Serializable {
         int anyo = new java.util.Date().getYear() + 1900;
         fechaFin = "";
         fechaFin += dia + "/" + mes + "/" + anyo;
+        nombre = "";
+        establecimientoLlamada = "";
+        costeMinuto = "";
+        costeSMS = "";
+        precioDatos = "0.0";
+    }
+
+    public boolean isTarifaDatos() {
+        return tarifaDatos;
+    }
+
+    public void setTarifaDatos(boolean tarifaDatos) {
+        this.tarifaDatos = tarifaDatos;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEstablecimientoLlamada() {
+        return establecimientoLlamada;
+    }
+
+    public void setEstablecimientoLlamada(String establecimientoLlamada) {
+        this.establecimientoLlamada = establecimientoLlamada;
+    }
+
+    public String getCosteSMS() {
+        return costeSMS;
+    }
+
+    public void setCosteSMS(String costeSMS) {
+        this.costeSMS = costeSMS;
+    }
+
+    public String getCosteMinuto() {
+        return costeMinuto;
+    }
+
+    public void setCosteMinuto(String costeMinuto) {
+        this.costeMinuto = costeMinuto;
+    }
+
+    public String getPrecioDatos() {
+        return precioDatos;
+    }
+
+    public void setPrecioDatos(String precioDatos) {
+        this.precioDatos = precioDatos;
     }
 
     public Object getSeleccionado() {
@@ -168,6 +227,33 @@ public class CtrVistaEditarPerfiles implements Serializable {
     }
 
     public String addTarifa() {
-        return "VistaNuevaTarifa";
+        if (nombre.equals("") || establecimientoLlamada.equals("") || costeMinuto.equals("") || costeSMS.equals("") || precioDatos.equals("")) {
+            return "VistaNuevaTarifa";
+        } else {
+            Tarifamovil tf = new Tarifamovil();
+            tf.setIdtarifaMovil(tarifaFacade.maxID() + 1);
+            tf.setNombre(nombre);
+            tf.setCosteEstablecimiento(Double.valueOf(establecimientoLlamada));
+            tf.setCosteMinuto(Double.valueOf(costeMinuto));
+            tf.setCosteSMS(Double.valueOf(costeSMS));
+            tf.setDatos(tarifaDatos);
+            tf.setPrecioDatos(Double.valueOf(precioDatos));
+            tarifaFacade.create(tf);
+            this.init();
+            return "VistaNuevoPerfil";
+        }
+    }
+
+    public String borrarTarifa() {
+        int tarifa = Integer.valueOf((String) seleccionado);
+        Tarifamovil tf = tarifaFacade.find(tarifa);
+        Collection<Perfil> coleccionPerfiles = tf.getPerfilCollection();
+        for (Perfil pf : coleccionPerfiles) {
+            pf.setTarifaMovilidtarifaMovil(null);
+            perfilFacade.edit(pf);
+        }
+        tarifaFacade.remove(tf);
+        this.init();
+        return "VistaNuevoPerfil";
     }
 }

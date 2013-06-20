@@ -15,8 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
  * @author Alejandro Ruiz Moyano
  */
 @ManagedBean(name = "ctrVistaPerfilesAdministrador")
-@SessionScoped
+@RequestScoped
 public class CtrVistaPerfilesAdministrador implements Serializable {
 
     /**
@@ -42,6 +42,7 @@ public class CtrVistaPerfilesAdministrador implements Serializable {
     private LinkedList<Perfil> perfiles;
     private Integer idLinea;
     private Integer idPerfil;
+    private Usuario usuario;
 
     public CtrVistaPerfilesAdministrador() {
     }
@@ -49,20 +50,19 @@ public class CtrVistaPerfilesAdministrador implements Serializable {
     @PostConstruct
     public void init() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Usuario sessionUser = (Usuario) externalContext.getSessionMap().get("usuario");
-        if (sessionUser != null) {
-            admin = adminFacade.find(sessionUser.getIdusuario());
+        usuario = (Usuario) externalContext.getSessionMap().get("usuario");
+        if (usuario != null) {
+            admin = adminFacade.find(usuario.getIdusuario());
             if (admin == null) {
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().dispatch("/index-logued.jsf");
+                 try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("../../ErrorAutorizacion.jsf");
                 } catch (IOException ex) {
                     Logger.getLogger(CtrVistaPerfilesAdministrador.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
-
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().dispatch("/index-logued.jsf");
+           try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../../ErrorAutorizacion.jsf");
             } catch (IOException ex) {
                 Logger.getLogger(CtrVistaPerfilesAdministrador.class.getName()).log(Level.SEVERE, null, ex);
             }
