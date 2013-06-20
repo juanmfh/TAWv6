@@ -43,6 +43,7 @@ public class CtrGestionTerminalesFijo implements Serializable {
     private TerminalfijoFacadeLocal terminalfijoFacade;
     @EJB
     private AdministradorFacadeLocal administradorFacade;
+    
     //VARIABLES
     private String marca, modelo, linea, fecha;
     private Date fechaAlta;
@@ -56,11 +57,31 @@ public class CtrGestionTerminalesFijo implements Serializable {
     private Collection<Terminalfijo> terminalesLibres;
     private Administrador administrador;
     private boolean admin = true;
+    private String nombre, apellidos;
 
     public CtrGestionTerminalesFijo() {
     }
 
     //GETTER AND SETTER
+    public String getNombre()
+    {
+        return nombre;
+    }
+    
+    public void setNombre(String n)
+    {
+        nombre=n;
+    }
+    public String getApellidos()
+    {
+        return apellidos;
+    }
+    
+    public void setApellidos(String a)
+    {
+        apellidos=a;
+    }
+    
     public Administrador getAdministrador() {
         return administrador;
     }
@@ -196,6 +217,9 @@ public class CtrGestionTerminalesFijo implements Serializable {
         marca = "";
         modelo = "";
         linea = "";
+        nombre="";
+        apellidos="";
+        terminalSeleccionado=null;
         //RECOGEMOS LOS USUARIOS
         usuarios = usuarioFacade.findAll();
     }
@@ -315,6 +339,8 @@ public class CtrGestionTerminalesFijo implements Serializable {
         //INSERTAMOS EN LA BD
         terminalfijoFacade.create(tfnuevo);
         this.inicializacion();
+        nombre="";
+        apellidos="";
         return "ListadoTerminalFijo";
 
 
@@ -324,6 +350,8 @@ public class CtrGestionTerminalesFijo implements Serializable {
 
         terminalfijoFacade.remove(terminalSeleccionado);
         this.inicializacion();
+        nombre="";
+        apellidos="";
 
 
     }
@@ -344,8 +372,28 @@ public class CtrGestionTerminalesFijo implements Serializable {
             int ano = terminalSeleccionado.getLineaFijaidlineaFija().getFechaAlta().getYear() + 1900;
             fecha += dia + "/" + mes + "/" + ano;
         }
-
-
+        
+        if(terminalSeleccionado.getLineaFijaidlineaFija()!=null && terminalSeleccionado.getLineaFijaidlineaFija().getUsuarioIdusuario()!=null && terminalSeleccionado.getLineaFijaidlineaFija().getUsuarioIdusuario().getNombre().length()>0)
+        {
+            nombre=terminalSeleccionado.getLineaFijaidlineaFija().getUsuarioIdusuario().getNombre();
+        }
+        else
+        {
+            nombre="";
+        }
+        if(terminalSeleccionado.getLineaFijaidlineaFija()!=null && terminalSeleccionado.getLineaFijaidlineaFija().getUsuarioIdusuario()!=null && terminalSeleccionado.getLineaFijaidlineaFija().getUsuarioIdusuario().getApellido1().length()>0 )
+        {
+            apellidos=terminalSeleccionado.getLineaFijaidlineaFija().getUsuarioIdusuario().getApellido1();
+            if(terminalSeleccionado.getLineaFijaidlineaFija().getUsuarioIdusuario().getApellido2().length()>0)
+            {
+                apellidos += " ";
+                apellidos+=terminalSeleccionado.getLineaFijaidlineaFija().getUsuarioIdusuario().getApellido2();
+            }
+        }
+        else
+        {
+            apellidos="";
+        }
         return "FormularioModificarFijo";
 
     }
@@ -423,6 +471,8 @@ public class CtrGestionTerminalesFijo implements Serializable {
         terminalfijoFacade.edit(terminalSeleccionado);
 
         this.inicializacion();
+        nombre="";
+        apellidos="";
         return "ListadoTerminalFijo";
 
     }
