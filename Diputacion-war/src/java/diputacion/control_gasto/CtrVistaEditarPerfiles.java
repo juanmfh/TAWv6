@@ -32,18 +32,12 @@ public class CtrVistaEditarPerfiles implements Serializable {
     @EJB
     private TarifamovilFacadeLocal tarifaFacade;
     private List<SelectItem> listaTarifas;
-    private String fechaFin;
+    private String fechaFin, limite, nombre, establecimientoLlamada, costeSMS, costeMinuto, precioDatos;
     private Date fechaFinReal;
-    private String limite;
-    private double limiteReal;
+    private double limiteReal, establecimientoLlamadaReal, costeSMSReal, costeMinutoReal, precioDatosReal;
     private LinkedList<Perfil> listaPerfiles;
     private Integer idPerfil;
     private Object seleccionado;
-    private String nombre;
-    private String establecimientoLlamada;
-    private String costeSMS;
-    private String costeMinuto;
-    private String precioDatos;
     private boolean tarifaDatos;
 
     public CtrVistaEditarPerfiles() {
@@ -205,8 +199,16 @@ public class CtrVistaEditarPerfiles implements Serializable {
         }
         if ("".equals(limite) || "".equals(fechaFin)) {
             return "VistaNuevoPerfil";
+        } else if (limite.contains("\'") || limite.contains("\\") || limite.contains(";") || limite.contains("'") || limite.contains(">") || limite.contains("<")) {
+            limite = "";
+            return "VistaNuevoPerfil";
         } else {
-            limiteReal = Double.valueOf(limite);
+            try {
+                limiteReal = Double.valueOf(limite);
+            } catch (NumberFormatException e) {
+                limite = "";
+                return "VistaNuevoPerfil";
+            }
             if (limiteReal == 0) {
                 return "VistaNuevoPerfil";
             }
@@ -229,15 +231,35 @@ public class CtrVistaEditarPerfiles implements Serializable {
     public String addTarifa() {
         if (nombre.equals("") || establecimientoLlamada.equals("") || costeMinuto.equals("") || costeSMS.equals("") || precioDatos.equals("")) {
             return "VistaNuevaTarifa";
+        } else if (nombre.contains("\'") || nombre.contains("\\") || nombre.contains(";") || nombre.contains("'") || nombre.contains(">") || nombre.contains("<")) {
+            nombre = "";
+            establecimientoLlamada = "";
+            costeMinuto = "";
+            costeSMS = "";
+            precioDatos = "0.0";
+            return "VistaNuevaTarifa";
         } else {
+            try {
+                establecimientoLlamadaReal = Double.valueOf(establecimientoLlamada);
+                costeMinutoReal = Double.valueOf(costeMinuto);
+                costeSMSReal = Double.valueOf(costeSMS);
+                precioDatosReal = Double.valueOf(precioDatos);
+            } catch (NumberFormatException e) {
+                nombre = "";
+                establecimientoLlamada = "";
+                costeMinuto = "";
+                costeSMS = "";
+                precioDatos = "0.0";
+                return "VistaNuevaTarifa";
+            }
             Tarifamovil tf = new Tarifamovil();
             tf.setIdtarifaMovil(tarifaFacade.maxID() + 1);
             tf.setNombre(nombre);
-            tf.setCosteEstablecimiento(Double.valueOf(establecimientoLlamada));
-            tf.setCosteMinuto(Double.valueOf(costeMinuto));
-            tf.setCosteSMS(Double.valueOf(costeSMS));
+            tf.setCosteEstablecimiento(establecimientoLlamadaReal);
+            tf.setCosteMinuto(costeMinutoReal);
+            tf.setCosteSMS(costeSMSReal);
             tf.setDatos(tarifaDatos);
-            tf.setPrecioDatos(Double.valueOf(precioDatos));
+            tf.setPrecioDatos(precioDatosReal);
             tarifaFacade.create(tf);
             this.init();
             return "VistaNuevoPerfil";

@@ -5,8 +5,7 @@ Document   : VistaNuevaTarifa
 Author     : Alejandro Ruiz Moyano
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>#{msg.crearTarifa}</title> 
         <link href="../../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
@@ -62,7 +61,6 @@ Author     : Alejandro Ruiz Moyano
                                 <label class="control-label" for="tarifaDatos">#{msg.tarifaDatos}:</label>
                                 <div class="controls">
                                     <h:selectBooleanCheckbox id="tarifaDatos" value="#{ctrVistaEditarPerfiles.tarifaDatos}" >
-                                        <p:ajax event="change" update="panelPrecioDatos" />
                                     </h:selectBooleanCheckbox>                
                                 </div>
                             </div>
@@ -71,9 +69,7 @@ Author     : Alejandro Ruiz Moyano
                             <div class="control-group">
                                 <label class="control-label" for="costeDatos">#{msg.precioDatos}:</label>
                                 <div class="controls">
-                                    <h:panelGrid id="panelPrecioDatos">
-                                        <h:inputText id="precioDatos" value="#{ctrVistaEditarPerfiles.precioDatos}" rendered="#{ctrVistaEditarPerfiles.tarifaDatos}"/>
-                                    </h:panelGrid>
+                                    <h:inputText id="precioDatos" value="#{ctrVistaEditarPerfiles.precioDatos}"/>
                                 </div>
                             </div>
                         </td>
