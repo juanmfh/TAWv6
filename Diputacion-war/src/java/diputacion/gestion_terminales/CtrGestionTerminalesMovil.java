@@ -10,7 +10,6 @@ import diputacion.dao.TerminalmovilFacadeLocal;
 import diputacion.dao.UsuarioFacadeLocal;
 import diputacion.entity.Administrador;
 import diputacion.entity.Lineamovil;
-import diputacion.entity.Terminalfijo;
 import diputacion.entity.Terminalmovil;
 import diputacion.entity.Usuario;
 import java.io.IOException;
@@ -52,19 +51,37 @@ public class CtrGestionTerminalesMovil implements Serializable {
     private boolean admin = true;
     private Collection<Usuario> usuarios;
     private Collection<Terminalmovil> terminalesLibres;
+    private String nombre, apellidos;
 
     //CONSTRUCTOR
     public CtrGestionTerminalesMovil() {
     }
 
     //GETTER AND SETTER
-     public Terminalmovil getTerminalSeleccionado() {
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String n) {
+        nombre = n;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String a) {
+        apellidos = a;
+    }
+
+    public Terminalmovil getTerminalSeleccionado() {
         return terminalSeleccinado;
     }
 
     public void setTerminalSeleccionado(Terminalmovil tm) {
         terminalSeleccinado = tm;
     }
+
     public Collection<Terminalmovil> getTerminalesLibres() {
         return terminalesLibres;
     }
@@ -72,13 +89,15 @@ public class CtrGestionTerminalesMovil implements Serializable {
     public void setTerminalesLibres(Collection<Terminalmovil> t) {
         terminalesLibres = t;
     }
-     public Usuario getUsuarioSeleccionado() {
+
+    public Usuario getUsuarioSeleccionado() {
         return usuarioSeleccionado;
     }
 
     public void setUsuarioSeleccionado(Usuario u) {
         usuarioSeleccionado = u;
     }
+
     public Collection<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -149,6 +168,8 @@ public class CtrGestionTerminalesMovil implements Serializable {
         modelo = "";
         linea = "";
         sistemaOperativo = "";
+        nombre = "";
+        apellidos = "";
         //RECOGEMOS LOS USUARIOS
         usuarios = usuarioFacade.findAll();
 
@@ -215,6 +236,27 @@ public class CtrGestionTerminalesMovil implements Serializable {
             int mes = terminalSeleccinado.getLineaidlineaMovil().getFechaAlta().getMonth() + 1;
             int ano = terminalSeleccinado.getLineaidlineaMovil().getFechaAlta().getYear() + 1900;
             fecha += dia + "/" + mes + "/" + ano;
+        }
+        if(terminalSeleccinado.getLineaidlineaMovil().getUsuarioIdusuario()!=null && terminalSeleccinado.getLineaidlineaMovil().getUsuarioIdusuario().getNombre().length()>0)
+        {
+            nombre=terminalSeleccinado.getLineaidlineaMovil().getUsuarioIdusuario().getNombre();
+        }
+        else
+        {
+            nombre="";
+        }
+        if(terminalSeleccinado.getLineaidlineaMovil().getUsuarioIdusuario()!=null && terminalSeleccinado.getLineaidlineaMovil().getUsuarioIdusuario().getApellido1().length()>0 )
+        {
+            apellidos=terminalSeleccinado.getLineaidlineaMovil().getUsuarioIdusuario().getApellido1();
+            if(terminalSeleccinado.getLineaidlineaMovil().getUsuarioIdusuario().getApellido2().length()>0)
+            {
+                apellidos += " ";
+                apellidos+=terminalSeleccinado.getLineaidlineaMovil().getUsuarioIdusuario().getApellido2();
+            }
+        }
+        else
+        {
+            apellidos="";
         }
         return "FormularioModificaMovil";
     }
@@ -376,14 +418,14 @@ public class CtrGestionTerminalesMovil implements Serializable {
             return "ErrorAutorizacion.jsf";
         }
     }
-    
+
     public String terminalesLibresMovil() {
 
         terminalesLibres = new ArrayList<Terminalmovil>();
         terminalesLibres = terminalmovilFacade.terminaleslibres();
         return "TerminalesLibresMovil";
     }
-    
+
     public void asignarTerminal() {
 
         Terminalmovil tm = terminalmovilFacade.find(terminalSeleccinado.getIdterminalMovil());
