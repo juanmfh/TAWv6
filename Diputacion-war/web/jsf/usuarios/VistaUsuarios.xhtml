@@ -21,29 +21,29 @@
           <fieldset>
             <legend>Nuevo usuario</legend>
             <label>${msg['nombre']}</label>
-            <h:inputText id="nombre" />
+            <h:inputText id="nombre" value="#{ctrVistaUsuarios.nombre}"/>
             
             <label>${msg['apellido1']}</label>
-            <h:inputText id="apellido1" />
+            <h:inputText id="apellido1"  value="#{ctrVistaUsuarios.apellido1}"/>
             
             <label>${msg['apellido2']}</label>
-            <h:inputText id="apellido2" />
+            <h:inputText id="apellido2"  value="#{ctrVistaUsuarios.apellido2}"/>
             
             <label>${msg['dni']}</label>
-            <h:inputText id="dni" />
+            <h:inputText id="dni"  value="#{ctrVistaUsuarios.dni}"/>
             
             <label>${msg['password']}</label>
-            <h:inputText id="password" />
+            <h:inputText id="password"  value="#{ctrVistaUsuarios.password}"/>
             
             <label>${msg['municipio']}</label>
-            <h:inputText id="municipio" />
+            <h:inputText id="municipio"  value="#{ctrVistaUsuarios.municipio}"/>
             
             <label>${msg['nick']}</label>
-            <h:inputText id="nick" />
+            <h:inputText id="nick"  value="#{ctrVistaUsuarios.nick}"/>
           </fieldset>
           
           <div class="form-actions">
-            <h:commandButton class="btn btn-primary" value="Guardar" action="${ctrVistaUsuarios.crearUsuario()}"></h:commandButton>
+            <h:commandButton class="btn btn-primary" value="Guardar" action="#{ctrVistaUsuarios.crearUsuario()}"></h:commandButton>
             <button class="btn">Borrar</button>
           </div>
         </h:form>
