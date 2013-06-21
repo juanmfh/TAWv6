@@ -43,13 +43,17 @@
           </fieldset>
           
           <div class="form-actions">
-            <h:commandButton class="btn btn-primary" value="Guardar" action="${ctrVistaUsuarios.crearUsuario()}" />
+            <h:commandButton class="btn btn-primary" value="Guardar" action="${ctrVistaUsuarios.crearUsuario()}"></h:commandButton>
             <button class="btn">Borrar</button>
           </div>
         </h:form>
       </div>
       
       <div class="span9">
+        <div class="well row-fluid">
+          <h1 class="span10">Listado de usuarios</h1>
+          <div class="span2"><h:form><h:commandButton class="btn btn-inverse btn-large" action="#{ctrVistaUsuarios.volver()}" value="#{msg['volver']}"></h:commandButton></h:form></div>
+        </div>
         <table class="table table-condensed table-bordered table-hover">
           <thead>
             <tr>
