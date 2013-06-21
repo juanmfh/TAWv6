@@ -42,4 +42,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         return (Usuario) q.getSingleResult();
     }
     
+    public List<Usuario> listaUsuarios() {
+      return (List<Usuario>) em.createQuery("SELECT u FROM Usuario u").getResultList();
+    }
+    
 }

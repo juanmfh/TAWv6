@@ -32,4 +32,6 @@ public interface UsuarioFacadeLocal {
     public List<Usuario> findNotGrupoRescate();
     
     public Usuario findByDNIPassword(String dni, String password);
+    
+    public List<Usuario> listaUsuarios();
 }
