@@ -83,7 +83,7 @@ public class CtrVistaSolicitudesAdministrador implements Serializable {
 
 
         /*
-         * Si el usuario no existe o no es jefe se le redirige al index.jsf para 
+         * Si el usuario no existe o no es administrador se le redirige al index.jsf para 
          * que se autentifique.
          */
         if (usuario != null) {
